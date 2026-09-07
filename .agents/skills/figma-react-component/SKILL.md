@@ -1,6 +1,6 @@
 ---
 name: figma-react-component
-description: Implement or revise a reusable Conloca React component from a Figma component or component set. Use for variants, props, layout, states, and visual parity; not for recreating whole pages or writing changes back to Figma.
+description: Implement or revise a reusable Conloca React component for Astro static rendering and interactive islands from a Figma component or component set. Use for variants, props, layout, states, and visual parity; not for recreating whole pages or writing changes back to Figma.
 ---
 
 # Figma React Component
@@ -16,7 +16,7 @@ Before inspecting Figma or editing code, read:
 - `Conloca Design system/README.md`
 - `Conloca Design system/design tokens/index.css` and the relevant semantic-token definitions
 
-This is a React 19, strict TypeScript, Vite/rolldown, Tailwind CSS v4 project. Every component is rendered during the client build, server-side render, and hydration, so browser APIs belong in effects or event handlers.
+This is a React 19, strict TypeScript, Astro 7 and official Vite 8, Tailwind CSS v4 project. Every component must render during Astro static generation. Interactive islands hydrate with `client:load`; static React sections ship no component JavaScript. Browser APIs belong in effects or event handlers.
 
 Reusable sources belong in `Conloca Design system/components`. Every component must use the Conloca prefix consistently: a kebab-case folder and primary file named `conloca-<name>` (for example, `components/conloca-button/conloca-button.tsx`), a PascalCase React export named `Conloca<Name>` (for example, `ConlocaButton`), and a props type named `Conloca<Name>Props`. Prefix other public component-specific exports as well, such as `conlocaButtonVariants`; do not provide an unprefixed public alias. Keep the implementation, public export, stories, tests, fixtures, and component contract together in that folder. Application code imports only from `@conloca-design-system/components/conloca-<name>` and never imports `@base-ui/react` directly.
 
@@ -77,8 +77,20 @@ For visual parity:
 3. Compare geometry first, then typography, colors/effects, icons, and interaction states.
 4. Iterate until no material mismatch remains. Browser-versus-Figma font antialiasing alone is acceptable; do not use an arbitrary pixel threshold.
 
-Before acceptance, verify the component folder contains its implementation, public export, stories, and concise `component-contract.md`; then verify keyboard behavior, focus visibility, disabled behavior, accessible naming, and server rendering. Run lint, strict type checking, the full prerender build, and the Storybook build. Confirm every component appears in Storybook with editable controls, and that no Radix, Lucide, or other icon-library dependency/import has entered the repository.
+Before acceptance, verify the component folder contains its implementation, public export, stories, and concise `component-contract.md`; then verify keyboard behavior, focus visibility, disabled behavior, accessible naming, and server rendering. Run lint, strict type checking, the Astro static build, and the Storybook build. Confirm every component appears in Storybook with editable controls, and that no Radix, Lucide, or other icon-library dependency/import has entered the repository.
 
 ## Boundaries
 
 This skill does not modify Figma or create Code Connect mappings unless the user separately asks. It does not recreate entire pages, create replacement icons, or accept a component with ambiguous design context.
+
+## Astro rendering boundary
+
+Astro owns `src/pages/index.astro` and the document layout. Reusable sections remain
+React components with typed serializable content props from `src/homepage-content.ts`.
+Use `client:load` only for interactive islands; the header, shared hero/features owner,
+and pricing are the existing boundaries. Static capabilities and footer have no
+hydration directive. Never use `client:only` or import Astro/CMS APIs into sections.
+Import global tokens/fonts before homepage styles. Preserve official Vite 8, separate
+plugin instances for Astro/Storybook/Vitest, Bun 1.3.14, and Node 22.14.0. Do not add
+Vite aliases or a second React transform to Astro. Verification includes `astro check`
+through `bun run typecheck`, unit tests, static build, and production Playwright tests.

@@ -1,0 +1,208 @@
+{
+  "date": "2026-09-07",
+  "baselineRevision": "b50990a9eaea5ec9e429c0610e1ba10c1966cca4",
+  "baselineArtifactDirectory": "/private/tmp/conloca-astro-baseline",
+  "runtime": {
+    "node": "22.14.0",
+    "bun": "1.3.14"
+  },
+  "dependencies": {
+    "astro": "7.3.1",
+    "@astrojs/react": "6.0.5",
+    "@astrojs/check": "0.9.10",
+    "vite": "8.2.2",
+    "@vitejs/plugin-react": "5.2.0",
+    "vitest": "4.1.11",
+    "@playwright/test": "1.63.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "storybook": "10.6.0"
+  },
+  "checks": {
+    "cleanFrozenInstall": "passed",
+    "fullDependencyTreeAndPeers": "passed",
+    "lint": "passed, zero warnings",
+    "astroDiagnostics": "passed, zero errors/warnings/hints",
+    "typescript": "passed",
+    "unitTests": {
+      "passed": 22,
+      "retainedBaselineScenarios": 18
+    },
+    "staticSiteBuild": "passed",
+    "staticStorybookBuild": "passed",
+    "browserTests": {
+      "passed": 24,
+      "includesVisualTests": 16
+    },
+    "storybookCatalogs": 7,
+    "astroDevelopment": "passed",
+    "storybookDevelopment": "passed after restart following clean install",
+    "staticLazyIconProbe": "two SVGs present in Astro-generated HTML, no hydration directive"
+  },
+  "visual": {
+    "screenshotsCompared": 58,
+    "changedPixels": 0,
+    "widths": [
+      375,
+      639,
+      640,
+      641,
+      768,
+      1023,
+      1024,
+      1025,
+      1279,
+      1280,
+      1281,
+      1440
+    ],
+    "states": [
+      "developers/monthly",
+      "developers/annual",
+      "editors/monthly",
+      "editors/annual",
+      "expanded navigation below 1024px",
+      "video dialog at 375/768/1024/1440px"
+    ],
+    "conditions": "same Playwright Chromium, reduced motion, disabled animations, loaded fonts and images"
+  },
+  "javascript": {
+    "measurement": "Cold browser contexts, identical Python static servers without compression; resource transferSize includes browser-reported headers. Inline island bootstrap is in HTML, not these external-JavaScript totals.",
+    "baseline": {
+      "port": 4180,
+      "scripts": [
+        {
+          "url": "/assets/index-U3So2IVd.js",
+          "encoded": 486534,
+          "transferred": 486834
+        }
+      ],
+      "count": 1,
+      "encoded": 486534,
+      "transferred": 486834,
+      "islands": []
+    },
+    "astro": {
+      "port": 4181,
+      "scripts": [
+        {
+          "url": "/_astro/index.DzkqjVT4.js",
+          "encoded": 22311,
+          "transferred": 22611
+        },
+        {
+          "url": "/_astro/client.V7dXQhPI.js",
+          "encoded": 180631,
+          "transferred": 180931
+        },
+        {
+          "url": "/_astro/audience-sections.5oVkrCRt.js",
+          "encoded": 43157,
+          "transferred": 43457
+        },
+        {
+          "url": "/_astro/pricing-section.n7aedRWf.js",
+          "encoded": 1895,
+          "transferred": 2195
+        },
+        {
+          "url": "/_astro/react.SIfiwpqq.js",
+          "encoded": 8185,
+          "transferred": 8485
+        },
+        {
+          "url": "/_astro/conloca-button.BrNPNon0.js",
+          "encoded": 53369,
+          "transferred": 53669
+        },
+        {
+          "url": "/_astro/popupTriggerMap.D-cdnbZ6.js",
+          "encoded": 19542,
+          "transferred": 19842
+        },
+        {
+          "url": "/_astro/x-01.DgWl2KaB.js",
+          "encoded": 835,
+          "transferred": 1135
+        },
+        {
+          "url": "/_astro/menu-01.M-6U9mbI.js",
+          "encoded": 583,
+          "transferred": 883
+        },
+        {
+          "url": "/_astro/conloca-logo.CwscPoiq.js",
+          "encoded": 10160,
+          "transferred": 10460
+        },
+        {
+          "url": "/_astro/check-01.B6ke2RAt.js",
+          "encoded": 682,
+          "transferred": 982
+        },
+        {
+          "url": "/_astro/section-link.DZW9m84t.js",
+          "encoded": 5282,
+          "transferred": 5582
+        },
+        {
+          "url": "/_astro/react-dom.B4WOHuN_.js",
+          "encoded": 3539,
+          "transferred": 3839
+        }
+      ],
+      "count": 13,
+      "encoded": 350171,
+      "transferred": 354071,
+      "islands": [
+        "/_astro/index.DzkqjVT4.js",
+        "/_astro/audience-sections.5oVkrCRt.js",
+        "/_astro/pricing-section.n7aedRWf.js"
+      ]
+    },
+    "bodyReductionPercent": 28.03,
+    "transferReductionPercent": 27.27,
+    "investigation": "Initial migration loaded 571026 external JavaScript bytes because Vite 8 emitted preload bookkeeping for the SVG catalog. Deferring the catalog inside icon-bearing buttons reduced the final total. Requests increase from 1 to 13 due to shared chunks; no overall load-time improvement is claimed."
+  },
+  "staticHTML": {
+    "bytes": 89596,
+    "sha256": "d241ad1cedcbc67bd2e1cbcd385eb709937e2e88e21a52195342625a7957bbff",
+    "hydratedIslands": 3,
+    "staticSections": [
+      "capabilities",
+      "footer"
+    ],
+    "runtimeServerRequired": false
+  },
+  "accessibility": {
+    "existingJsdomAxeChecks": "passed",
+    "browserFindingsUnchangedFromBaseline": [
+      {
+        "id": "color-contrast",
+        "targets": [
+          ".astro-badge > span",
+          "#capabilities-heading > span"
+        ]
+      }
+    ]
+  },
+  "browserErrors": {
+    "uncaughtPageErrors": 0,
+    "hydrationWarnings": 0,
+    "firstPartyAssetFailures": 0
+  },
+  "limitations": [
+    "External YouTube document stubbed for deterministic browser tests; playback delivery by YouTube not tested.",
+    "Visual snapshots use Chromium on macOS; GitHub workflow added but not executed remotely in this session.",
+    "Temporary rollback artifacts should be archived before OS cleanup."
+  ],
+  "futureCms": {
+    "installed": false,
+    "packageChecked": "@conloca/astro-cms@0.1.16",
+    "astroPeer": "^7.1.3",
+    "reactPluginPeer": "^4.0.0",
+    "requiresServerRuntime": true,
+    "forcedOverridesAdded": false
+  },
+  "deployment": "Not performed; static hosting still consumes dist/"
+}

@@ -1,6 +1,6 @@
 ---
 name: figma-react-page
-description: Implement or revise a complete Conloca React landing page from Figma frames through the Figma Console MCP, preserving responsive Auto Layout, grids, variables, component reuse, and visual parity. Use for whole pages, screens, and multi-section compositions; not for isolated reusable components or writing changes back to Figma.
+description: Implement or revise a complete Conloca Astro landing page composed from typed React sections from Figma frames through the Figma Console MCP, preserving responsive Auto Layout, grids, variables, component reuse, and visual parity. Use for whole pages, screens, and multi-section compositions; not for isolated reusable components or writing changes back to Figma.
 ---
 
 # Figma React Page
@@ -13,12 +13,12 @@ Figma is the visual and responsive source of truth. Accessible web semantics tak
 
 Before inspecting Figma or editing code, read:
 
-- `AGENTS.md`, `package.json`, `components.json`, `src/App.tsx`, and `src/index.css`.
+- `AGENTS.md`, `package.json`, `components.json`, `src/pages/index.astro`, `src/layouts/site-layout.astro`, `src/sections`, and `src/index.css`.
 - `Conloca Design system/README.md` and the relevant files under `Conloca Design system/design tokens`.
 - Every relevant `component-contract.md`, public export, and Storybook story under `Conloca Design system/components`.
 - [Figma Auto Layout to responsive CSS](references/figma-layout-to-css.md). This reference is required for every page implementation.
 
-This is a React 19, strict TypeScript, Tailwind CSS v4, Vite/rolldown project that prerenders and hydrates. Defer browser APIs to effects or event handlers and prefer CSS—not JavaScript—for responsive layout.
+This is a React 19, strict TypeScript, Tailwind CSS v4, Astro 7 and official Vite 8 project that prerenders and hydrates. Defer browser APIs to effects or event handlers and prefer CSS—not JavaScript—for responsive layout.
 
 ## Resolve the Figma source of truth
 
@@ -95,3 +95,15 @@ In the final handoff, list the Figma frames and responsive range verified, compo
 ## Boundaries
 
 This skill does not edit Figma, create Code Connect mappings, invent missing assets, redesign content, or accept fixed-position screenshot tracing as responsive implementation. Use `figma-react-component` instead when the request concerns only one reusable component or component set.
+
+## Astro rendering boundary
+
+Astro owns `src/pages/index.astro` and the document layout. Reusable sections remain
+React components with typed serializable content props from `src/homepage-content.ts`.
+Use `client:load` only for interactive islands; the header, shared hero/features owner,
+and pricing are the existing boundaries. Static capabilities and footer have no
+hydration directive. Never use `client:only` or import Astro/CMS APIs into sections.
+Import global tokens/fonts before homepage styles. Preserve official Vite 8, separate
+plugin instances for Astro/Storybook/Vitest, Bun 1.3.14, and Node 22.14.0. Do not add
+Vite aliases or a second React transform to Astro. Verification includes `astro check`
+through `bun run typecheck`, unit tests, static build, and production Playwright tests.

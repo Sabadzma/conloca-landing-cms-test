@@ -1,0 +1,22 @@
+---
+import type { HomepageMetadata } from "@/homepage-content"
+import "@/index.css"
+import "@/homepage.css"
+interface Props { metadata: HomepageMetadata }
+const { metadata } = Astro.props
+---
+<!doctype html>
+<html lang={metadata.language}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{metadata.title}</title>
+    <meta name="description" content={metadata.description} />
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <a href="#main-content" class="skip-link">{metadata.skipLabel}</a>
+      <slot />
+    </div>
+  </body>
+</html>

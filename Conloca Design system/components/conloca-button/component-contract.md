@@ -14,3 +14,5 @@ Import `ConlocaButton` and `ConlocaButtonProps` from `@conloca-design-system/com
 
 <ConlocaButton aria-label="Add item" icon="plus-02" variant="iconOnly" />
 ```
+
+Icon-bearing buttons load the existing icon catalog lazily through Suspense. The fallback reserves the icon dimensions; Astro static rendering waits for the exact SVG. Text-only buttons and links do not request the catalog. Public props, refs, and data slots are unchanged.

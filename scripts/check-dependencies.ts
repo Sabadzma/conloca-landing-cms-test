@@ -35,6 +35,6 @@ for (const name of [
   const manifest = require(`${name}/package.json`) as { version: string }
   assert.equal(manifest.version, "10.6.0")
 }
-console.log(
-  "Dependency tree valid; official Vite, React, and Storybook resolutions aligned.",
+process.stdout.write(
+  "Dependency tree valid; official Vite, React, and Storybook resolutions aligned.\n",
 )

@@ -170,7 +170,19 @@ test("keeps the complete Blog content and links without JavaScript", async ({
   const page = await context.newPage()
   await page.goto(`${baseURL ?? "http://127.0.0.1:4173"}/blog`)
   await expect(page.locator(".blog-card")).toHaveCount(4)
-  await expect(page.getByRole("link", { name: "Blog" }).first()).toHaveAttribute(
+  const header = page.getByRole("banner")
+  await expect(
+    header.getByRole("link", { name: "How it works" }),
+  ).toHaveAttribute("href", "/")
+  await expect(header.getByRole("link", { name: "Docs" })).toHaveAttribute(
+    "href",
+    "https://conloca.com/getting-started/",
+  )
+  await expect(header.getByRole("link", { name: "Pricing" })).toHaveAttribute(
+    "href",
+    "/pricing",
+  )
+  await expect(header.getByRole("link", { name: "Blog" })).toHaveAttribute(
     "href",
     "/blog",
   )

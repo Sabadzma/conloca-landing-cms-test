@@ -20,6 +20,9 @@ describe("Conloca pricing page", () => {
       "href",
       "https://chatgpt.com/",
     )
+    expect(
+      screen.getAllByRole("link", { name: "Choose business" }),
+    ).not.toHaveLength(0)
   })
 
   it("keeps hero, cards, and comparison prices on the same billing interval", () => {

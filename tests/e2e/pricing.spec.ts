@@ -43,10 +43,19 @@ test("renders the pricing route without asset or hydration errors", async ({
   const header = page.getByRole("banner")
   await expect(
     header.getByRole("link", { name: "How it works" }),
-  ).toBeVisible()
-  await expect(header.getByRole("link", { name: "Docs" })).toBeVisible()
-  await expect(header.getByRole("link", { name: "Pricing" })).toBeVisible()
-  await expect(header.getByRole("link", { name: "Blog" })).toBeVisible()
+  ).toHaveAttribute("href", "/")
+  await expect(header.getByRole("link", { name: "Docs" })).toHaveAttribute(
+    "href",
+    "https://conloca.com/getting-started/",
+  )
+  await expect(header.getByRole("link", { name: "Pricing" })).toHaveAttribute(
+    "href",
+    "/pricing",
+  )
+  await expect(header.getByRole("link", { name: "Blog" })).toHaveAttribute(
+    "href",
+    "/blog",
+  )
   await page.evaluate(async () => {
     await document.fonts.ready
     await Promise.all([...document.images].map((image) => image.decode()))

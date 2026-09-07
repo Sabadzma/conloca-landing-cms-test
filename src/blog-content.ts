@@ -1,4 +1,4 @@
-import type { HomepageMetadata } from "@/homepage-content"
+import { type HomepageMetadata, navigation } from "@/homepage-content"
 
 export interface BlogDescription {
   emphasis: string
@@ -36,13 +36,6 @@ export interface BlogListingContent {
   navigationLabel: string
 }
 
-export const blogNavigation = [
-  { label: "How it works", url: "/#how-it-works" },
-  { label: "Docs", url: "/" },
-  { label: "Pricing", url: "/pricing" },
-  { label: "Blog", url: "/blog" },
-] as const
-
 export const blogMetadata: HomepageMetadata = {
   language: "en",
   title: "Conloca Blog — Notes on content, code, and the space between",
@@ -52,7 +45,7 @@ export const blogMetadata: HomepageMetadata = {
 }
 
 export const blogHeaderContent = {
-  menuItems: blogNavigation,
+  menuItems: navigation,
   primaryButton: { label: "Get started", url: "/" },
   secondaryButton: { label: "Try editor", url: "/" },
   logoUrl: "/",
@@ -63,7 +56,7 @@ export const blogHeaderContent = {
 }
 
 export const blogFooterContent = {
-  navigationItems: blogNavigation,
+  navigationItems: navigation,
   action: { label: "Get started", url: "/" },
   logoUrl: "/",
   logoLabel: "Conloca home",

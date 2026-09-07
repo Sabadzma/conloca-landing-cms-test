@@ -100,7 +100,7 @@ export const audienceOptions = [
 
 export const navigation = [
   { label: "How it works", url: "/" },
-  { label: "Docs", url: "/" },
+  { label: "Docs", url: "https://conloca.com/getting-started/" },
   { label: "Pricing", url: "/pricing" },
   { label: "Blog", url: "/blog" },
 ] as const
@@ -190,7 +190,7 @@ export const features = [
 export const capabilities = [
   {
     name: "publishing",
-    title: "Sceduled Publishing",
+    title: "Scheduled Publishing",
     description: "Set a date and time for content to go live automatically",
   },
   {
@@ -217,12 +217,12 @@ export const capabilities = [
     name: "markdown",
     title: "Type content in Markdown",
     description:
-      "Just type the page contents in Makrdown. Conloca will render it",
+      "Just type the page contents in Markdown. Conloca will render it",
   },
   {
     name: "history",
     title: "Full version history",
-    description: "Build a block once, reuse it across every page",
+    description: "Review changes and restore any previous version",
   },
 ] as const
 
@@ -309,7 +309,7 @@ export const audienceContent: AudienceContent = {
     audienceLabel: "Choose your role",
     badge: "Built for Astro",
     primaryAction: { label: "Get started", url: "/" },
-    secondaryAction: { label: "Try Demo", url: "/" },
+    secondaryAction: { label: "Try editor", url: "/" },
     carousel: {
       label: "How Conloca works",
       chooseLabel: "Choose a message",

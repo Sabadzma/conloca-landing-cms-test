@@ -14,16 +14,18 @@ export function PricingSection({ content }: PricingSectionProps) {
   }, [])
   return (
     <section className="pricing" id="pricing" aria-labelledby="pricing-heading">
-      <div className="pricing-intro">
-        <h2 id="pricing-heading">{content.heading}</h2>
-      </div>
-      <ConlocaSegmentedControl
-        className="pricing-billing"
-        aria-label={content.billingLabel}
-        options={content.billingOptions}
-        value={billing}
-        onValueChange={selectBilling}
-      />
+      <header className="pricing-sticky">
+        <div className="pricing-intro">
+          <h2 id="pricing-heading">{content.heading}</h2>
+        </div>
+        <ConlocaSegmentedControl
+          className="pricing-billing"
+          aria-label={content.billingLabel}
+          options={content.billingOptions}
+          value={billing}
+          onValueChange={selectBilling}
+        />
+      </header>
       <div className="pricing-cards">
         {content.plans.map((plan) => (
           <article

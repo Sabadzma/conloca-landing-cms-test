@@ -122,14 +122,14 @@ describe("Conloca homepage", () => {
 
   it("provides homepage links and no automated accessibility violations", async () => {
     const { container } = render(<HomepageSections />)
-    expect(screen.getByRole("link", { name: "Try Demo" })).toHaveAttribute(
-      "href",
-      "/",
-    )
-    expect(screen.getByRole("link", { name: "Try editor" })).toHaveAttribute(
-      "href",
-      "/",
-    )
+    const editorLinks = screen.getAllByRole("link", { name: "Try editor" })
+    expect(editorLinks).toHaveLength(2)
+    for (const link of editorLinks) {
+      expect(link).toHaveAttribute("href", "/")
+    }
+    expect(
+      screen.queryByRole("link", { name: "Try Demo" }),
+    ).not.toBeInTheDocument()
     expect(
       screen.queryByRole("button", { name: "Try Demo" }),
     ).not.toBeInTheDocument()

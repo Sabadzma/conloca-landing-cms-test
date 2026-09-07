@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test"
 
 const articlePath = "/blog/one-change-across-three-systems"
+const visualEditingArticlePath = "/blog/edit-what-you-see"
 
 const referenceViewports = [
   { width: 393, header: 66, hero: 442 },
@@ -180,6 +181,67 @@ test("keeps the table of contents 72px from the viewport top while scrolling", a
   ).toBeLessThan(72)
 })
 
+test("renders the visual editing article without page, asset, or hydration errors", async ({
+  page,
+}) => {
+  const errors: string[] = []
+  page.on("pageerror", (error) => errors.push(error.message))
+  page.on("console", (message) => {
+    if (
+      message.type() === "error" ||
+      /hydration|did not match/i.test(message.text())
+    )
+      errors.push(message.text())
+  })
+  page.on("response", (response) => {
+    if (
+      response.url().startsWith("http://127.0.0.1:") &&
+      response.status() >= 400
+    )
+      errors.push(`${response.status()} ${response.url()}`)
+  })
+  page.on("requestfailed", (request) => {
+    if (request.url().startsWith("http://127.0.0.1:"))
+      errors.push(request.url())
+  })
+
+  await page.goto(visualEditingArticlePath)
+  await expect(page.locator("astro-island[ssr]")).toHaveCount(0)
+  await expect(page.locator('astro-island[client="load"]')).toHaveCount(1)
+  await expect(
+    page.getByRole("heading", {
+      level: 1,
+      name: "Edit what you see, without losing control of your code",
+    }),
+  ).toBeVisible()
+  const header = page.getByRole("banner")
+  await expect(
+    header.getByRole("link", { name: "How it works" }),
+  ).toHaveAttribute("href", "/")
+  await expect(header.getByRole("link", { name: "Docs" })).toHaveAttribute(
+    "href",
+    "https://conloca.com/getting-started/",
+  )
+  await expect(header.getByRole("link", { name: "Pricing" })).toHaveAttribute(
+    "href",
+    "/pricing",
+  )
+  await expect(header.getByRole("link", { name: "Blog" })).toHaveAttribute(
+    "href",
+    "/blog",
+  )
+  await expect(
+    page.getByRole("link", {
+      name: /One change shouldn't get lost across three systems/,
+    }),
+  ).toHaveAttribute("href", articlePath)
+  await page.evaluate(async () => {
+    await document.fonts.ready
+    await Promise.all([...document.images].map((image) => image.decode()))
+  })
+  expect(errors).toEqual([])
+})
+
 test("keeps the complete article content and links without JavaScript", async ({
   browser,
   baseURL,
@@ -193,7 +255,19 @@ test("keeps the complete article content and links without JavaScript", async ({
       name: "One change shouldn’t get lost across three systems",
     }),
   ).toBeVisible()
-  await expect(page.getByRole("link", { name: "Blog" }).first()).toHaveAttribute(
+  const header = page.getByRole("banner")
+  await expect(
+    header.getByRole("link", { name: "How it works" }),
+  ).toHaveAttribute("href", "/")
+  await expect(header.getByRole("link", { name: "Docs" })).toHaveAttribute(
+    "href",
+    "https://conloca.com/getting-started/",
+  )
+  await expect(header.getByRole("link", { name: "Pricing" })).toHaveAttribute(
+    "href",
+    "/pricing",
+  )
+  await expect(header.getByRole("link", { name: "Blog" })).toHaveAttribute(
     "href",
     "/blog",
   )

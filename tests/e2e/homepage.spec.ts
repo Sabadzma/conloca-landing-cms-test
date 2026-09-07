@@ -134,6 +134,53 @@ test("switches monthly and annual prices using keyboard controls", async ({
   ])
 })
 
+test("keeps the pricing heading and billing control sticky only from 1024px to 1280px", async ({
+  page,
+}) => {
+  const sticky = page.locator(".pricing-sticky")
+  const heading = page.getByRole("heading", {
+    name: "Choose a plan that fits you the best",
+  })
+  const billing = page.locator(".pricing-billing")
+
+  async function pinPricingHeader() {
+    await page.evaluate(() => {
+      const pinned = document.querySelector(".pricing-sticky")
+      if (!(pinned instanceof HTMLElement)) return
+      const stickyDocTop = pinned.getBoundingClientRect().top + window.scrollY
+      window.scrollTo(0, stickyDocTop - 72 + 200)
+    })
+  }
+
+  await page.setViewportSize({ width: 1440, height: 960 })
+  await page.goto("/")
+  await expect(page.locator("astro-island[ssr]")).toHaveCount(0)
+  await expect(sticky).toHaveCSS("position", "static")
+
+  await page.setViewportSize({ width: 1280, height: 960 })
+  await expect(sticky).toHaveCSS("position", "sticky")
+  await expect(sticky).toHaveCSS("top", "72px")
+  await pinPricingHeader()
+
+  const headingBox = await heading.boundingBox()
+  const billingBox = await billing.boundingBox()
+  const stickyBox = await sticky.boundingBox()
+  expect(stickyBox?.y).toBeCloseTo(72, 0)
+  expect(headingBox?.y).toBeCloseTo(72, 0)
+  expect(billingBox?.y).toBeGreaterThan((headingBox?.y ?? 0) + (headingBox?.height ?? 0))
+
+  await billing.getByRole("button", { name: "Annual" }).click()
+  await expect(page.locator(".plan-price strong")).toHaveText([
+    "$96",
+    "$180",
+    "$2400",
+  ])
+
+  await page.setViewportSize({ width: 1023, height: 960 })
+  await page.evaluate(() => window.scrollTo(0, 0))
+  await expect(sticky).toHaveCSS("position", "static")
+})
+
 test("traps video focus, dismisses with Escape, removes iframe, and restores focus", async ({
   page,
 }) => {
@@ -192,7 +239,7 @@ test("supports skip navigation and mobile navigation with preserved destinations
   ).toHaveAttribute("href", "/")
   await expect(nav.getByRole("link", { name: "Docs" })).toHaveAttribute(
     "href",
-    "/",
+    "https://conloca.com/getting-started/",
   )
   await expect(nav.getByRole("link", { name: "Pricing" })).toHaveAttribute(
     "href",
@@ -252,10 +299,12 @@ test("retains complete default content and ordinary links with JavaScript disabl
     "$200",
   ])
   await expect(page.getByAltText("Conloca dashboard preview")).toBeVisible()
-  await expect(page.getByRole("link", { name: "Try Demo" })).toHaveAttribute(
-    "href",
-    "/",
-  )
+  await expect(
+    page.locator(".hero-actions").getByRole("link", { name: "Try editor" }),
+  ).toHaveAttribute("href", "/")
+  await expect(
+    page.getByRole("banner").getByRole("link", { name: "Try editor" }),
+  ).toHaveAttribute("href", "/")
   await expect(
     page
       .getByRole("navigation", { name: "Footer navigation" })

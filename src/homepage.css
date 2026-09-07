@@ -588,16 +588,20 @@ p {
 }
 .pricing {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-areas: "intro billing" "cards cards" "compare compare";
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "sticky" "cards" "compare";
   align-items: end;
   gap: 48px;
   max-width: 1440px;
   margin-inline: auto;
   padding: 196px 32px 96px;
 }
-.pricing-intro {
-  grid-area: intro;
+.pricing-sticky {
+  grid-area: sticky;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  column-gap: 48px;
 }
 .pricing h2 {
   max-width: 572px;
@@ -607,7 +611,6 @@ p {
   line-height: 48px;
 }
 .pricing-billing {
-  grid-area: billing;
   justify-self: end;
 }
 .pricing-cards {
@@ -819,12 +822,30 @@ p {
   }
   .pricing {
     grid-template-columns: 440px minmax(0, 1fr);
-    grid-template-rows: auto auto 1fr auto;
-    grid-template-areas: "intro cards" "billing cards" ". cards" "compare cards";
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: "sticky cards" ". cards" "compare cards";
     align-items: start;
     column-gap: 48px;
     row-gap: 32px;
     padding-top: 148px;
+  }
+  .pricing-sticky {
+    position: sticky;
+    top: 72px;
+    z-index: 8;
+    align-self: start;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: start;
+    row-gap: 32px;
+    align-items: start;
+    background: var(--color-bg-surface-initial);
+    box-shadow:
+      0 -72px 0 var(--color-bg-surface-initial),
+      0 24px 0 var(--color-bg-surface-initial);
+  }
+  .pricing-cards,
+  .pricing-compare {
+    z-index: 0;
   }
   .pricing-billing {
     justify-self: start;
@@ -1078,9 +1099,14 @@ p {
   }
   .pricing {
     padding: 132px 24px 42px;
-    grid-template-columns: 1fr auto;
-    grid-template-areas: "intro intro" "compare billing" "cards cards";
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "sticky" "compare" "cards";
     gap: 32px;
+  }
+  .pricing-sticky {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    column-gap: 32px;
   }
   .pricing-cards {
     flex-direction: column;

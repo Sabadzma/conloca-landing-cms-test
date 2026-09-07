@@ -1,10 +1,11 @@
-import type {
-  BillingInterval,
-  ContentLink,
-  HomepageMetadata,
-  PricingContent,
+import {
+  type BillingInterval,
+  type ContentLink,
+  type HomepageMetadata,
+  type PricingContent,
+  navigation,
+  pricingContent,
 } from "@/homepage-content"
-import { pricingContent } from "@/homepage-content"
 
 export interface PricingComparisonRow {
   label: string
@@ -44,13 +45,6 @@ export interface PricingPageContent {
   }
 }
 
-const pricingPageNavigation = [
-  { label: "How it works", url: "/#how-it-works" },
-  { label: "Docs", url: "/" },
-  { label: "Pricing", url: "/pricing" },
-  { label: "Blog", url: "/blog" },
-] as const
-
 export const pricingPageMetadata: HomepageMetadata = {
   language: "en",
   title: "Conloca Pricing — Plans for every team",
@@ -60,7 +54,7 @@ export const pricingPageMetadata: HomepageMetadata = {
 }
 
 export const pricingPageHeaderContent = {
-  menuItems: pricingPageNavigation,
+  menuItems: navigation,
   primaryButton: { label: "Get started", url: "/" },
   secondaryButton: { label: "Try editor", url: "/" },
   logoUrl: "/",
@@ -71,7 +65,7 @@ export const pricingPageHeaderContent = {
 }
 
 export const pricingPageFooterContent = {
-  navigationItems: pricingPageNavigation,
+  navigationItems: navigation,
   action: { label: "Get started", url: "/" },
   logoUrl: "/",
   logoLabel: "Conloca home",
@@ -83,11 +77,11 @@ export const pricingPageContent: PricingPageContent = {
     breadcrumbs: ["Pricing", "Plans"],
     heading: "Choose a plan that fits you the best",
     description:
-      "Field notes, practical guides, and honest conversations about building visual editing into modern developer workflows.",
+      "Compare Conloca plans, team limits, storage, governance, and support.",
   },
   pricing: pricingContent,
   comparison: {
-    actionLabels: ["Choose simple", "Choose pro", "Choose simple"],
+    actionLabels: ["Choose simple", "Choose pro", "Choose business"],
     billingLabel: "Comparison billing interval",
     eyebrow: "Detailed comparison",
     heading: "Compare every limit and capability",

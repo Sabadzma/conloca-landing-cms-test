@@ -1,13 +1,50 @@
 import { expect, test } from "@playwright/test"
 
 const referenceViewports = [
-  { width: 393, header: 66, hero: 330, card: 448 },
-  { width: 640, header: 74, hero: 406, card: 718 },
-  { width: 1024, header: 80, hero: 398, card: 460 },
-  { width: 1440, header: 80, hero: 398, card: 572 },
+  { width: 393, header: 66, hero: 330, page: 1189.511 },
+  { width: 640, header: 74, hero: 406, page: 1677.207 },
+  { width: 1024, header: 80, hero: 398, page: 2450 },
+  { width: 1281, header: 80, hero: 398, page: 2642.528 },
+  { width: 1360, header: 80, hero: 398, page: 2769.461 },
+  { width: 1440, header: 80, hero: 398, page: 2898 },
 ] as const
 
-const boundaryWidths = [639, 640, 641, 1023, 1024, 1025, 1279, 1280, 1281]
+const responsiveWidths = [
+  639,
+  640,
+  641,
+  800,
+  1023,
+  1024,
+  1025,
+  1152,
+  1279,
+  1280,
+  1281,
+  1360,
+  1439,
+  1440,
+  1441,
+]
+
+function expectedCardHeight(width: number) {
+  if (width < 640) return 448
+
+  const cardWidth = Math.min(width, 1440) - 16
+
+  if (width < 1024) return (cardWidth * 718) / 624
+  if (width < 1280) return (cardWidth * 460) / 1008
+
+  return (cardWidth * 572) / 1424
+}
+
+function expectedCardAspectRatio(width: number) {
+  if (width < 640) return null
+  if (width < 1024) return 624 / 718
+  if (width < 1280) return 1008 / 460
+
+  return 1424 / 572
+}
 
 test("renders the Blog route without page, asset, or hydration errors", async ({
   page,
@@ -81,30 +118,44 @@ for (const viewport of referenceViewports) {
           document.querySelector(".blog-hero")?.getBoundingClientRect().height ??
           0,
         overflow: document.documentElement.scrollWidth - innerWidth,
+        page: document.documentElement.scrollHeight,
       }
     })
 
     expect(Math.abs(geometry.header - viewport.header)).toBeLessThan(1)
     expect(Math.abs(geometry.hero - viewport.hero)).toBeLessThan(1.5)
-    expect(Math.abs(geometry.card - viewport.card)).toBeLessThan(1)
+    expect(
+      Math.abs(geometry.card - expectedCardHeight(viewport.width)),
+    ).toBeLessThan(1)
+    expect(Math.abs(geometry.page - viewport.page)).toBeLessThan(1)
     expect(geometry.overflow).toBeLessThanOrEqual(0)
   })
 }
 
-for (const width of boundaryWidths) {
-  test(`switches composition at the ${width}px Figma boundary`, async ({
+for (const width of responsiveWidths) {
+  test(`preserves proportional card sizing at ${width}px`, async ({
     page,
   }) => {
     await page.setViewportSize({ width, height: 900 })
     await page.goto("/blog")
-    const cardHeight = await page
-      .locator(".blog-card")
-      .first()
-      .evaluate((card) => card.getBoundingClientRect().height)
-    const expectedHeight =
-      width < 640 ? 448 : width < 1024 ? 718 : width < 1280 ? 460 : 572
+    const cardRects = await page.locator(".blog-card").evaluateAll((cards) =>
+      cards.map((card) => {
+        const { height, width: cardWidth } = card.getBoundingClientRect()
+        return { height, width: cardWidth }
+      }),
+    )
+    const aspectRatio = expectedCardAspectRatio(width)
 
-    expect(Math.abs(cardHeight - expectedHeight)).toBeLessThan(1)
+    expect(
+      Math.abs(cardRects[0].height - expectedCardHeight(width)),
+    ).toBeLessThan(1)
+    if (aspectRatio !== null) {
+      for (const card of cardRects) {
+        expect(Math.abs(card.width / card.height - aspectRatio)).toBeLessThan(
+          0.001,
+        )
+      }
+    }
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth),
     ).toBeLessThanOrEqual(width)

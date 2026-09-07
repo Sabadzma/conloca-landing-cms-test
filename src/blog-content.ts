@@ -39,7 +39,7 @@ export interface BlogListingContent {
 export const blogNavigation = [
   { label: "How it works", url: "/#how-it-works" },
   { label: "Docs", url: "/" },
-  { label: "Pricing", url: "/#pricing" },
+  { label: "Pricing", url: "/pricing" },
   { label: "Blog", url: "/blog" },
 ] as const
 

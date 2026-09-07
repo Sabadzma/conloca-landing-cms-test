@@ -13,12 +13,12 @@ Figma is the visual and responsive source of truth. Accessible web semantics tak
 
 Before inspecting Figma or editing code, read:
 
-- `AGENTS.md`, `package.json`, `components.json`, `src/pages/index.astro`, `src/layouts/site-layout.astro`, `src/sections`, and `src/index.css`.
+- `AGENTS.md`, `package.json`, `components.json`, `src/pages/index.astro`, `src/layouts/site-layout.astro`, `src/homepage-content.ts`, the relevant files in `src/sections`, and `src/index.css`.
 - `Conloca Design system/README.md` and the relevant files under `Conloca Design system/design tokens`.
 - Every relevant `component-contract.md`, public export, and Storybook story under `Conloca Design system/components`.
 - [Figma Auto Layout to responsive CSS](references/figma-layout-to-css.md). This reference is required for every page implementation.
 
-This is a React 19, strict TypeScript, Tailwind CSS v4, Astro 7 and official Vite 8 project that prerenders and hydrates. Defer browser APIs to effects or event handlers and prefer CSS—not JavaScript—for responsive layout.
+This is a React 19, strict TypeScript, Tailwind CSS v4, Astro 7 and official Vite 8 project that statically generates pages and hydrates only interactive React islands. Defer browser APIs to effects or event handlers and prefer CSS—not JavaScript—for responsive layout.
 
 ## Resolve the Figma source of truth
 
@@ -71,7 +71,9 @@ Keep one-off page sections in application source. Move only genuinely reusable F
 
 ## Implement responsive page behavior
 
-Translate the ledger into semantic React and intrinsic CSS. Tailwind arbitrary values are appropriate for exact untokenized measurements; use authored CSS when it expresses a relationship more clearly. Preserve the original nesting only where it carries a sizing, clipping, stacking, grid, or accessibility responsibility.
+Translate the ledger into semantic Astro composition, typed React sections, and intrinsic CSS. Tailwind arbitrary values are appropriate for exact untokenized measurements; use authored CSS when it expresses a relationship more clearly. Preserve the original nesting only where it carries a sizing, clipping, stacking, grid, or accessibility responsibility.
+
+Keep the document, route, page wrapper, and static composition in Astro. Keep reusable visual sections in React with typed, serializable content props, and pass each section only the content it needs. Components and sections must not import Astro or CMS APIs. Put related interactive state in the smallest coherent React owner and hydrate that owner once; descendants do not need their own directives. Choose the Astro client directive from the interaction's timing requirements. The current homepage uses `client:load` for the header, shared hero/features owner, and pricing, while capabilities and footer remain static. Do not use `client:only`; initial content must exist in generated HTML.
 
 The finished page must reproduce continuous Figma-canvas resizing across the supported range—not merely snap between desktop and mobile screenshots. It must retain the source behavior for fill, hug, fixed sizing, wrapping, growth, min/max stops, aspect ratios, clipping, grid alignment, visibility, reordering, and scaling. Use flex, grid, `min()`, `max()`, `clamp()`, `minmax()`, percentages, aspect ratios, and media or container queries as appropriate. Do not use JavaScript resize listeners for visual layout or apply a transform to scale the entire page.
 
@@ -85,25 +87,13 @@ Match exact copy, links, component states, and evidenced interactions. Use seman
 2. Render the browser at the identical viewport dimensions and compare geometry first: outer bounds, grid lines, section positions, sizing, gaps, padding, alignment, wrapping, and overflow.
 3. Then compare typography and wrapping, component variants, imagery and crop, colors, strokes, radii, effects, opacity, and interaction states.
 4. Resize continuously through the supported range. Test each supplied width plus intermediate widths and one pixel below, at, and above every derived breakpoint, wrap threshold, and min/max boundary. Test height-dependent behavior where Figma defines it.
-5. Exercise content growth, text reflow, image fitting, clipping, stacking, focus order, keyboard operation, reduced motion, server rendering, hydration, and browser-console errors.
+5. Exercise content growth, text reflow, image fitting, clipping, stacking, focus order, keyboard operation, reduced motion, Astro static generation, hydration, and browser-console errors. Verify headings, default content, images, prices, and ordinary links with JavaScript disabled.
 6. Iterate until no material mismatch remains. Browser-versus-Figma font antialiasing alone is acceptable; do not choose an arbitrary pixel-difference threshold.
 
-Run `bun run lint`, `bun run typecheck`, `bun run test`, and `bun run build`. If a reusable component changed, also run `bun run build-storybook` and verify its stories and controls.
+Run `bun run lint`, `bun run typecheck`, `bun run test`, `bun run build`, and `bun run test:e2e`. If a reusable component changed, also run `bun run build-storybook` and verify its stories and controls.
 
 In the final handoff, list the Figma frames and responsive range verified, components reused or created, token mappings, exact local-value exceptions, and any unresolved ambiguity. Never describe a single-viewport match as a responsive completion.
 
 ## Boundaries
 
 This skill does not edit Figma, create Code Connect mappings, invent missing assets, redesign content, or accept fixed-position screenshot tracing as responsive implementation. Use `figma-react-component` instead when the request concerns only one reusable component or component set.
-
-## Astro rendering boundary
-
-Astro owns `src/pages/index.astro` and the document layout. Reusable sections remain
-React components with typed serializable content props from `src/homepage-content.ts`.
-Use `client:load` only for interactive islands; the header, shared hero/features owner,
-and pricing are the existing boundaries. Static capabilities and footer have no
-hydration directive. Never use `client:only` or import Astro/CMS APIs into sections.
-Import global tokens/fonts before homepage styles. Preserve official Vite 8, separate
-plugin instances for Astro/Storybook/Vitest, Bun 1.3.14, and Node 22.14.0. Do not add
-Vite aliases or a second React transform to Astro. Verification includes `astro check`
-through `bun run typecheck`, unit tests, static build, and production Playwright tests.

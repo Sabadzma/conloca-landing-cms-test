@@ -6,6 +6,7 @@ Import `ConlocaFooter`, `ConlocaFooterProps`, and the supporting footer types fr
 - Responsive behavior: at 1024 pixels and above, the logo and navigation row share one line. From 640 to 1023 pixels, the navigation row sits below the logo and its links wrap when needed. Below 640 pixels, the action moves below the wrapping 14-pixel navigation links. The inner footer fills its parent up to 1424 pixels.
 - Outputs: forwards footer attributes and a ref to the `<footer>`. Navigation and logo links use their supplied URLs; the action forwards its click handler.
 - Accessibility: the root uses the native footer landmark, navigation has a configurable accessible label, the logo link has a configurable label, and all links and the action have visible keyboard focus styles.
+- Astro usage: URL-based navigation and actions work as static HTML and need no hydration. An `onClick` callback requires the footer to be inside a hydrated React island.
 
 ```tsx
 <ConlocaFooter

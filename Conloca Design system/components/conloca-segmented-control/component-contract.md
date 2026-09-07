@@ -9,6 +9,7 @@ Import `ConlocaSegmentedControl`, `ConlocaSegmentedControlProps`, `ConlocaSegmen
 - Motion: the active background and shadow slide to the selected option over 110 milliseconds with `cubic-bezier(0.56, 0, 0, 0.99)`. Motion is disabled when the user prefers reduced motion.
 - Accessibility: provide an accessible group name with `aria-label` or `aria-labelledby`. The options are buttons with `aria-pressed`; Tab enters the control, arrow keys move focus, and Enter or Space selects. Use the transparent variant only on a dark surface that preserves text contrast.
 - Composition: labels accept React nodes, and the component renders every supplied option horizontally.
+- Astro usage: the initial selection renders to static HTML. Selection changes, callbacks, keyboard state, and indicator measurement require the control to be inside a hydrated React island.
 
 ```tsx
 <ConlocaSegmentedControl

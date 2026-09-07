@@ -10,6 +10,7 @@ Import `ConlocaHeader`, `ConlocaHeaderProps`, and the supporting header types fr
 - Outputs: forwards header attributes and a ref to the `<header>`. Links use their supplied URLs; actions forward their click handlers.
 - Accessibility: the trigger supplies `aria-expanded` and `aria-controls`, changes its accessible label between the open and close labels, and removes closed panel content from keyboard navigation. Customize `navigationLabel`, `mobileNavigationLabel`, `menuButtonLabel`, and `menuCloseButtonLabel` when needed.
 - Composition: `ConlocaHeaderNavigationItem` is public for matching links inside a Base UI navigation-menu list. It accepts `label`, `url`, and `transparent` plus Base UI link props.
+- Astro usage: navigation links and the CSS entrance animation render in static HTML. The responsive menu, controlled state, and callbacks require the header to be an island root or a descendant of a hydrated React island.
 
 ```tsx
 <ConlocaHeader

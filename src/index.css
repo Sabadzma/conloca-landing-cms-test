@@ -1,4 +1,5 @@
 @import "@fontsource-variable/inter";
+@import "@fontsource-variable/roboto-mono";
 @import "tailwindcss";
 @source "../Conloca Design system";
 @import "../Conloca Design system/design tokens/index.css";

@@ -226,9 +226,9 @@ const ConlocaSegmentedControl = React.forwardRef<
         <TogglePrimitive
           key={option.value}
           className={cn(
-            "relative z-10 inline-flex h-[39px] shrink-0 items-center justify-center whitespace-nowrap rounded-[12px] px-[16px] py-[6px]",
+            "relative z-10 inline-flex h-[39px] shrink-0 appearance-none items-center justify-center whitespace-nowrap rounded-[12px] border-0 px-[16px] py-[6px]",
             "font-[family-name:Inter_Variable] text-[16px] leading-[27.2px] font-medium select-none",
-            "bg-transparent",
+            "bg-transparent shadow-none",
             transparent
               ? "text-[var(--color-fg-strong-inverted-initial)]"
               : "text-[var(--color-fg-softer-default-hovered)]",

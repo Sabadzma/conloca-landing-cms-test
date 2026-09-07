@@ -15,6 +15,19 @@ it("resolves the lazy catalog and exact SVG in an icon-bearing button", async ()
   )
 })
 
+it("uses Roboto Mono Variable uppercase metrics for the link variant", () => {
+  render(
+    <ConlocaButton size="small" variant="link">
+      Button
+    </ConlocaButton>,
+  )
+  const button = screen.getByRole("button", { name: "Button" })
+  expect(button.className).toContain("font-[family-name:Roboto_Mono_Variable]")
+  expect(button.className).toContain("uppercase")
+  expect(button.className).toContain("text-[12px]")
+  expect(button.className).toContain("leading-[16px]")
+})
+
 it("includes a lazy SVG in static React output without needing hydration", async () => {
   const { prelude } = await prerender(
     <ConlocaButton icon="plus-02">Add</ConlocaButton>,

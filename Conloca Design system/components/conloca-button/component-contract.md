@@ -7,7 +7,7 @@ Import `ConlocaButton` and `ConlocaButtonProps` from `@conloca-design-system/com
 - Variants: `primary`, `secondary`, `iconWithBackground`, `iconOnly`, and `link`. Sizes: `default` and `small`.
 - Outputs: forwards button events and a ref to the rendered element. It emits no custom events.
 - Accessibility: give icon-only variants an `aria-label`; native `disabled`, focus, and keyboard behavior are preserved.
-- Composition: `primary` and `secondary` render the selected icon before `children`; icon-only variants render only the selected icon; `link` renders `children` without an icon. At `size="default"`, icon-only variants use an 18 pixel icon with 8 pixels of padding on every side.
+- Composition: `primary` and `secondary` render the selected icon before `children`; icon-only variants render only the selected icon; `link` renders `children` without an icon. The `link` variant uses Roboto Mono Variable, 16px line height, and uppercase text at 12px (`small`) or 14px (`default`). At `size="default"`, icon-only variants use an 18 pixel icon with 8 pixels of padding on every side.
 - Astro usage: static HTML is supported. React event handlers require the button to be inside a hydrated React island; an ancestor island is sufficient.
 
 ```tsx

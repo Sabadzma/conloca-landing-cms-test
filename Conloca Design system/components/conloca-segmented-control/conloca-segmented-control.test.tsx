@@ -33,6 +33,7 @@ describe("ConlocaSegmentedControl", () => {
 
     expect(screen.getAllByRole("button")).toHaveLength(3)
     expect(indicator).toHaveAttribute("aria-hidden", "true")
+    expect(monthly.className).toContain("appearance-none")
     expect(monthly).toHaveAttribute("aria-pressed", "true")
     await user.click(lifetime)
     expect(lifetime).toHaveAttribute("aria-pressed", "true")

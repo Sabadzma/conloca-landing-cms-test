@@ -13,7 +13,7 @@ const LazyConlocaIcon = React.lazy(async () => {
 import { cn } from "@/lib/utils"
 
 const conlocaButtonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-[8px] outline outline-1 outline-offset-0 select-none transition-[background-color,color,outline-color,text-decoration-color] duration-[110ms] ease-linear focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-stroke-accent)] disabled:pointer-events-none disabled:cursor-not-allowed",
+  "group/button inline-flex shrink-0 appearance-none items-center justify-center whitespace-nowrap rounded-[8px] outline outline-1 outline-offset-0 select-none transition-[background-color,color,outline-color,text-decoration-color] duration-[110ms] ease-linear focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-stroke-accent)] disabled:pointer-events-none disabled:cursor-not-allowed",
   {
     variants: {
       variant: {
@@ -25,7 +25,7 @@ const conlocaButtonVariants = cva(
           "bg-[var(--color-bg-surface-initial)] text-[var(--color-fg-strong-default-initial)] outline-transparent hover:bg-[var(--color-bg-surface-hovered)] hover:outline-[var(--color-stroke-soft)] active:bg-[var(--color-bg-surface-pressed)] active:outline-[var(--color-stroke-soft)] disabled:text-[var(--color-fg-disabled-default)]",
         iconOnly:
           "bg-transparent text-[var(--color-fg-strong-default-initial)] outline-transparent hover:bg-[var(--color-bg-surface-hovered)] hover:outline-[var(--color-stroke-soft)] active:bg-[var(--color-bg-surface-pressed)] active:outline-[var(--color-stroke-soft)] disabled:text-[var(--color-fg-disabled-default)]",
-        link: "rounded-none bg-transparent p-0 font-['Roboto_Mono'] font-normal leading-[16px] uppercase text-[var(--color-fg-softer-default-initial)] outline-none hover:text-[var(--color-fg-softer-default-hovered)] hover:underline active:text-[var(--color-fg-softer-default-pressed)] active:underline disabled:text-[var(--color-fg-disabled-default)] disabled:no-underline",
+        link: "rounded-none bg-transparent p-0 font-[family-name:Roboto_Mono_Variable] font-normal tracking-[0] uppercase text-[var(--color-fg-softer-default-initial)] outline-none hover:text-[var(--color-fg-softer-default-hovered)] hover:underline hover:underline-offset-auto active:text-[var(--color-fg-softer-default-pressed)] active:underline disabled:text-[var(--color-fg-disabled-default)] disabled:no-underline",
       },
       size: {
         default: "",
@@ -58,12 +58,12 @@ const conlocaButtonVariants = cva(
       {
         variant: "link",
         size: "default",
-        className: "text-[14px]",
+        className: "text-[14px] leading-[16px]",
       },
       {
         variant: "link",
         size: "small",
-        className: "text-[12px]",
+        className: "text-[12px] leading-[16px]",
       },
     ],
     defaultVariants: {

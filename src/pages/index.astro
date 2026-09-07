@@ -1,0 +1,18 @@
+---
+import SiteLayout from "@/layouts/site-layout.astro"
+import { ConlocaHeader } from "@conloca-design-system/components/conloca-header"
+import { ConlocaFooter } from "@conloca-design-system/components/conloca-footer"
+import { AudienceSections } from "@/sections/audience-sections"
+import { CapabilitiesSection } from "@/sections/capabilities-section"
+import { PricingSection } from "@/sections/pricing-section"
+import { metadata, headerContent, footerContent, audienceContent, capabilitiesContent, pricingContent } from "@/homepage-content"
+---
+<SiteLayout metadata={metadata}>
+  <ConlocaHeader {...headerContent} client:load />
+  <main id="main-content">
+    <AudienceSections content={audienceContent} client:load />
+    <CapabilitiesSection content={capabilitiesContent} />
+    <PricingSection content={pricingContent} client:load />
+  </main>
+  <ConlocaFooter {...footerContent} />
+</SiteLayout>

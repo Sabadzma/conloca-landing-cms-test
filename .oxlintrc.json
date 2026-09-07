@@ -11,7 +11,13 @@
     "browser": true,
     "es2024": true
   },
-  "ignorePatterns": ["src/__canvas_preview__.tsx"],
+  "ignorePatterns": [
+    ".astro/**",
+    "dist/**",
+    "storybook-static/**",
+    "playwright-report/**",
+    "test-results/**"
+  ],
   "categories": {
     "correctness": "error",
     "suspicious": "error",
@@ -36,7 +42,10 @@
     {
       "files": [
         "scripts/**",
-        "vite.config.ts"
+        "tooling/**",
+        "*.config.ts",
+        ".storybook/**",
+        "tests/**"
       ],
       "env": {
         "node": true

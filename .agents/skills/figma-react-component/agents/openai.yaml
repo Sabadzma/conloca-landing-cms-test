@@ -1,6 +1,6 @@
 interface:
   display_name: "Figma React Component"
-  short_description: "Build Conloca React components from Figma"
-  default_prompt: "Use $figma-react-component to implement the selected Figma component in Conloca."
+  short_description: "Build Conloca React components for Astro"
+  default_prompt: "Use $figma-react-component to implement the selected Figma component in Conloca with static rendering and island hydration support."
 policy:
   allow_implicit_invocation: true

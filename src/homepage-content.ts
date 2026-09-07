@@ -1,3 +1,96 @@
+// Serializable editorial data. Runtime callbacks and layout belong in sections.
+export interface ContentLink {
+  label: string
+  url: string
+}
+export type BillingInterval = "monthly" | "annual"
+export type HeroMessages = readonly [
+  readonly [string, string],
+  ...(readonly [string, string])[],
+]
+export interface AudienceOption {
+  label: string
+  value: Audience
+}
+export interface HeroContent {
+  headings: Record<Audience, string>
+  messages: Record<Audience, HeroMessages>
+  audienceLabel: string
+  badge: string
+  primaryAction: ContentLink
+  secondaryAction: ContentLink
+  carousel: {
+    label: string
+    chooseLabel: string
+    showLabel: string
+    playLabel: string
+    pauseLabel: string
+  }
+  video: {
+    title: string
+    playLabel: string
+    closeLabel: string
+    url: string
+    poster: { src: string; alt: string; width: number; height: number }
+  }
+}
+export interface FeatureContent {
+  name: "source" | "localization" | "history"
+  artwork: string
+  developers: { title: string; description: string }
+  editors: { title: string; description: string }
+}
+export interface FeatureControls {
+  audienceLabelPrefix: string
+  primaryAction: ContentLink
+  secondaryAction: ContentLink
+}
+export interface AudienceContent {
+  options: readonly AudienceOption[]
+  hero: HeroContent
+  features: readonly FeatureContent[]
+  featureControls: FeatureControls
+}
+export interface CapabilitiesContent {
+  heading: string
+  subheading: string
+  items: readonly {
+    name:
+      | "publishing"
+      | "git"
+      | "data"
+      | "fragments"
+      | "media"
+      | "markdown"
+      | "history"
+    title: string
+    description: string
+  }[]
+}
+export interface PricingContent {
+  heading: string
+  billingLabel: string
+  billingOptions: readonly { label: string; value: BillingInterval }[]
+  currency: string
+  intervals: Record<BillingInterval, string>
+  bestValueLabel: string
+  compareAction: ContentLink
+  plans: readonly {
+    name: string
+    featured: boolean
+    action: ContentLink
+    price: number
+    description: string
+    features: readonly string[]
+  }[]
+}
+export interface HomepageMetadata {
+  language: string
+  title: string
+  description: string
+  skipLabel: string
+}
+
 export type Audience = "developers" | "editors"
 
 export const audienceOptions = [
@@ -9,7 +102,7 @@ export const navigation = [
   { label: "How it works", url: "/" },
   { label: "Docs", url: "/" },
   { label: "Pricing", url: "/" },
-  { label: "Blog", url: "/" },
+  { label: "Blog", url: "/blog" },
 ] as const
 
 export const heroHeadings = {
@@ -47,7 +140,7 @@ export const heroMessages = {
       " Update a shared block and it stays consistent everywhere.",
     ],
   ],
-} satisfies Record<Audience, readonly (readonly [string, string])[]>
+} satisfies Record<Audience, HeroMessages>
 
 export const features = [
   {
@@ -136,6 +229,8 @@ export const capabilities = [
 export const plans = [
   {
     name: "Simple",
+    featured: false,
+    action: { label: "Choose simple", url: "/" },
     price: 8,
     description: "For small teams getting their site off the ground",
     features: [
@@ -148,6 +243,8 @@ export const plans = [
   },
   {
     name: "Pro",
+    featured: true,
+    action: { label: "Choose pro", url: "/" },
     price: 15,
     description: "For growing teams shipping content more often",
     features: [
@@ -163,6 +260,8 @@ export const plans = [
   },
   {
     name: "Business",
+    featured: false,
+    action: { label: "Choose business", url: "/" },
     price: 200,
     description: "For larger teams managing sites, brands & markets",
     features: [
@@ -177,3 +276,82 @@ export const plans = [
     ],
   },
 ] as const
+
+export const metadata: HomepageMetadata = {
+  language: "en",
+  title: "Conloca — Git-native content, visual editing",
+  description:
+    "Keep content in your repo. Give editors a visual editing interface. Conloca brings Git-native content management to Astro.",
+  skipLabel: "Skip to content",
+}
+export const headerContent = {
+  menuItems: navigation,
+  primaryButton: { label: "Get started", url: "/" },
+  secondaryButton: { label: "Try editor", url: "/" },
+  logoUrl: "/",
+  navigationLabel: "Primary navigation",
+  mobileNavigationLabel: "Mobile navigation",
+  menuButtonLabel: "Open navigation menu",
+  menuCloseButtonLabel: "Close navigation menu",
+}
+export const footerContent = {
+  navigationItems: navigation,
+  action: { label: "Get started", url: "/" },
+  logoUrl: "/",
+  logoLabel: "Conloca home",
+  navigationLabel: "Footer navigation",
+}
+export const audienceContent: AudienceContent = {
+  options: audienceOptions,
+  hero: {
+    headings: heroHeadings,
+    messages: heroMessages,
+    audienceLabel: "Choose your role",
+    badge: "Built for Astro",
+    primaryAction: { label: "Get started", url: "/" },
+    secondaryAction: { label: "Try Demo", url: "/" },
+    carousel: {
+      label: "How Conloca works",
+      chooseLabel: "Choose a message",
+      showLabel: "Show message ",
+      playLabel: "Play messages",
+      pauseLabel: "Pause messages",
+    },
+    video: {
+      title: "Conloca demo video",
+      playLabel: "Play Conloca demo video",
+      closeLabel: "Close demo video",
+      url: "https://www.youtube.com/embed/zNGWdTLWktY?start=48&autoplay=1&rel=0",
+      poster: {
+        src: "/assets/demo-poster.png",
+        alt: "Conloca dashboard preview",
+        width: 4096,
+        height: 2731,
+      },
+    },
+  },
+  features,
+  featureControls: {
+    audienceLabelPrefix: "Choose your role for ",
+    primaryAction: { label: "Get started", url: "/" },
+    secondaryAction: { label: "Read docs", url: "/" },
+  },
+}
+export const capabilitiesContent: CapabilitiesContent = {
+  heading: "Everything you need",
+  subheading: "nothing you don't",
+  items: capabilities,
+}
+export const pricingContent: PricingContent = {
+  heading: "Choose a plan that fits you the best",
+  billingLabel: "Billing interval",
+  billingOptions: [
+    { label: "Monthly", value: "monthly" },
+    { label: "Annual", value: "annual" },
+  ],
+  currency: "$",
+  intervals: { monthly: "/ Month", annual: "/ Year" },
+  bestValueLabel: "Best value",
+  compareAction: { label: "Compare plans", url: "/" },
+  plans,
+}

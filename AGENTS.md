@@ -14,44 +14,55 @@ server at runtime — `bun run build` emits a `dist/` directory of static files.
 | Concern        | Choice                                                            |
 | -------------- | ----------------------------------------------------------------- |
 | Package manager| bun                                                               |
-| Bundler        | Vite 7, aliased to `rolldown-vite` (Rust bundler, Oxc-based)       |
-| React plugin   | `@vitejs/plugin-react` (uses Oxc, not Babel, under rolldown-vite)  |
+| Framework      | Astro 7, static output, official Vite 8                         |
+| React plugin   | `@astrojs/react` owns the site transform; plugin-react 5 for tools |
 | Linter         | `oxlint` (Oxc). There is no ESLint.                                |
 | UI framework   | React 19                                                          |
 | Styling        | Tailwind CSS v4, CSS-first config inside `src/index.css`           |
 | Components     | shadcn `base-nova` scaffolds customized on Base UI                  |
 | Types          | TypeScript, `strict` plus `exactOptionalPropertyTypes`             |
 
-`vite` in `package.json` is an alias: `"vite": "npm:rolldown-vite@^7.3.1"`. Keep the
-`overrides` and `resolutions` entries in sync with it, or transitive dependencies
-will pull in stock Vite alongside it.
+Use official Vite with normal caret ranges and commit exact resolutions in `bun.lock`.
+Do not add Vite aliases or forced overrides. React and React DOM resolve together
+at 19.2.8; Storybook packages stay aligned at 10.6.0. Bun 1.3.14 runs scripts and
+installs dependencies; use Node 22.14.0 from `.nvmrc` (minimum 22.12.0).
+Astro owns its React transform. Storybook and Vitest use separate plugin instances
+from `tooling/vite.ts`; this project does not promise an exclusively Oxc transform.
 
 ## Commands
 
 ```bash
-bun install
+bun install --frozen-lockfile
 bun run dev        # dev server
-bun run build      # client build -> SSR build -> prerender into dist/index.html
+bun run build      # Astro generates the complete static site in dist/
 bun run preview    # serve dist/
 bun run lint       # oxlint
-bun run typecheck  # tsc --noEmit
+bun run typecheck  # astro check && tsc --noEmit
+bun run test       # Vitest section, component, and carousel tests
+bun run test:e2e   # Playwright against the production build
+bun run build-storybook # static design-system catalog
 ```
 
 ## How static generation works
 
-Three steps, wired together by the `build` script:
+Astro owns the document, routes, static generation, and hydration. `src/pages/index.astro`
+composes the homepage through `src/layouts/site-layout.astro`. Import `src/index.css`
+before global `src/homepage.css` so tokens and fonts precede page rules.
 
-1. `vite build` — client bundle into `dist/`, with `index.html` still holding the
-   `<!--app-html-->` marker.
-2. `vite build --ssr src/entry-server.tsx` — server bundle into `dist-ssr/`. The
-   entry is passed on the command line, not via `build.ssr`: rolldown-vite resolves
-   the HTML input first and rejects the build otherwise.
-3. `scripts/prerender.ts` — imports the server bundle, renders through React 19's
-   `prerender()` from `react-dom/static`, and splices the markup into
-   `dist/index.html`. Missing marker or empty markup is a hard build failure.
+The header, `AudienceSections`, and `PricingSection` use `client:load`; their initial
+HTML is generated at build time. Capabilities and footer are static React components
+with no hydration directive. Do not use `client:only`. Browser APIs belong in
+effects or event handlers because every section must render without a DOM.
 
-Every component therefore runs twice: once with no DOM on the build machine, once
-during `hydrateRoot`. Browser APIs must be deferred to an effect.
+Keep hero and feature audience state in `AudienceSections`, with ordinary props and
+callbacks to reusable children. Its wrapper owns audience CSS variables. Keep
+editable text, links, metadata, poster details, and prices in `src/homepage-content.ts`;
+section props are typed and content is serializable. Keep tokens, layout, icons, and
+runtime callbacks in component code. Sections must not depend on Astro or a CMS.
+
+Conloca CMS is intentionally not installed. Future integration must register the
+React blocks, map typed content to its storage, and provide the editor's required
+server runtime. See `docs/astro-migration.md` for the deferred compatibility issue.
 
 ## Component foundation
 

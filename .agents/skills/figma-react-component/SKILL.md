@@ -1,6 +1,6 @@
 ---
 name: figma-react-component
-description: Implement or revise a reusable Conloca React component from a Figma component or component set. Use for variants, props, layout, states, and visual parity; not for recreating whole pages or writing changes back to Figma.
+description: Implement or revise a reusable Conloca React component for Astro static rendering and interactive islands from a Figma component or component set. Use for variants, props, layout, states, and visual parity; not for recreating whole pages or writing changes back to Figma.
 ---
 
 # Figma React Component
@@ -16,7 +16,7 @@ Before inspecting Figma or editing code, read:
 - `Conloca Design system/README.md`
 - `Conloca Design system/design tokens/index.css` and the relevant semantic-token definitions
 
-This is a React 19, strict TypeScript, Vite/rolldown, Tailwind CSS v4 project. Every component is rendered during the client build, server-side render, and hydration, so browser APIs belong in effects or event handlers.
+This is a React 19, strict TypeScript, Astro 7 and official Vite 8, Tailwind CSS v4 project. Every component must render during Astro static generation. Hydration belongs to the Astro call site: an interactive component can be an island root or a descendant of a hydrated React island. Static React sections ship no component JavaScript. Browser APIs belong in effects or event handlers.
 
 Reusable sources belong in `Conloca Design system/components`. Every component must use the Conloca prefix consistently: a kebab-case folder and primary file named `conloca-<name>` (for example, `components/conloca-button/conloca-button.tsx`), a PascalCase React export named `Conloca<Name>` (for example, `ConlocaButton`), and a props type named `Conloca<Name>Props`. Prefix other public component-specific exports as well, such as `conlocaButtonVariants`; do not provide an unprefixed public alias. Keep the implementation, public export, stories, tests, fixtures, and component contract together in that folder. Application code imports only from `@conloca-design-system/components/conloca-<name>` and never imports `@base-ui/react` directly.
 
@@ -56,7 +56,7 @@ Inspect the relevant shadcn `base-nova` implementation using a read-only CLI vie
 - Use `cn` and CVA only for Figma-defined axes. Do not add speculative variants, sizes, tokens, or interaction props.
 - Translate Figma Auto Layout to intrinsic flex/grid behavior. Respect hug, fill, and min/max constraints; do not replace them with fixed dimensions merely to match one reference image.
 - Match a Figma variable to an existing Conloca semantic token by its identity and meaning, not a similar computed color. If no suitable token exists, use the exact value locally. Do not edit generated token files.
-- Import supplied icons statically and exactly, for example `@conloca-design-system/icons/arrow-right.svg?react`. Do not rename, substitute, download, register dynamically, or use an icon library. A missing required icon blocks the component.
+- Import fixed, Figma-specified icons statically and exactly, for example `@conloca-design-system/icons/arrow-right.svg?react`. Use the existing `ConlocaIcon` component only when the public API intentionally selects an icon by name. Do not create another runtime registry, rename, substitute, download, or use an icon library. A missing required icon blocks the component.
 - Keep supplied SVG artwork unchanged. Decorative icons use `aria-hidden="true"`; meaningful standalone icons need an accessible name or title.
 - Keep browser-only behavior out of server render paths.
 
@@ -68,7 +68,7 @@ Co-locate `conloca-<name>.stories.tsx` with every accepted component. Use typed 
 
 Add play functions for relevant pointer, keyboard, focus, open, selected, and disabled behavior. With the first stateful component, also add Vitest, Testing Library, user-event, and automated accessibility coverage.
 
-After implementing or revising a component, create or update `component-contract.md` in its folder. Keep it short and precise: document the public import, exported component and types, inputs and defaults, emitted outputs or callbacks, supported states/variants, accessibility obligations, composition constraints, and one minimal usage example. Record only details a future agent needs to use the component correctly; do not repeat implementation internals, Figma measurements, or long prose.
+After implementing or revising a component, create or update `component-contract.md` in its folder. Keep it short and precise: document the public import, exported component and types, inputs and defaults, emitted outputs or callbacks, supported states/variants, accessibility obligations, composition constraints, and one minimal usage example. If behavior depends on React state or callbacks, state that Astro consumers must place the component inside a hydrated React island; do not prescribe a directive because an ancestor may already provide hydration. Record only details a future agent needs to use the component correctly; do not repeat implementation internals, Figma measurements, or long prose.
 
 For visual parity:
 
@@ -77,7 +77,7 @@ For visual parity:
 3. Compare geometry first, then typography, colors/effects, icons, and interaction states.
 4. Iterate until no material mismatch remains. Browser-versus-Figma font antialiasing alone is acceptable; do not use an arbitrary pixel threshold.
 
-Before acceptance, verify the component folder contains its implementation, public export, stories, and concise `component-contract.md`; then verify keyboard behavior, focus visibility, disabled behavior, accessible naming, and server rendering. Run lint, strict type checking, the full prerender build, and the Storybook build. Confirm every component appears in Storybook with editable controls, and that no Radix, Lucide, or other icon-library dependency/import has entered the repository.
+Before acceptance, verify the component folder contains its implementation, public export, stories, and concise `component-contract.md`; then verify keyboard behavior, focus visibility, disabled behavior, accessible naming, and Astro static rendering. For interactive components, also verify behavior inside a representative hydrated React island. Run lint, strict type checking, the Astro static build, and the Storybook build. Confirm every component appears in Storybook with editable controls, and that no Radix, Lucide, or other icon-library dependency/import has entered the repository.
 
 ## Boundaries
 

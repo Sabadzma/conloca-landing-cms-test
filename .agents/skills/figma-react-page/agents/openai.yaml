@@ -1,6 +1,6 @@
 interface:
   display_name: "Figma React Page"
-  short_description: "Build responsive Conloca pages from Figma"
-  default_prompt: "Use $figma-react-page to implement the selected Figma page in Conloca with exact Auto Layout, responsive resizing, and visual parity."
+  short_description: "Build Conloca Astro pages with React sections"
+  default_prompt: "Use $figma-react-page to implement the selected Figma page in Conloca using Astro and typed React sections with exact Auto Layout, responsive resizing, and visual parity."
 policy:
   allow_implicit_invocation: true

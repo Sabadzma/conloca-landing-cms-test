@@ -92,3 +92,19 @@ Run `bun run storybook` to browse and interact with every design-system componen
 at `http://localhost:6006`. Each component has a Docs page plus Canvas stories with
 controls for its public properties. Run `bun run build-storybook` to verify the
 complete catalog as a static build.
+
+## Astro and tooling
+
+The public site uses Astro 7 static generation with React 19. Components must render
+without browser globals. Interactive header, audience sections, and pricing hydrate
+with `client:load`; capabilities and footer render only to HTML. Refs, Base UI APIs,
+`data-slot` attributes, and the exact SVG assets remain part of the public contract.
+The existing lazy icon catalog uses `import.meta.glob` and React Suspense; ordinary
+application icons continue to use exact static `?react` imports.
+
+`tooling/vite.ts` shares aliases and creates fresh plugins for each host. Astro's React
+integration owns its transform. Storybook explicitly configures React, SVG, Tailwind,
+and aliases in `viteFinal`; Vitest remains independent of Astro routing. Use official
+Vite 8 and plugin-react 5 without overrides; no exclusively Oxc transform is promised.
+Run `bun run typecheck` for Astro and TypeScript, `bun run test` for unit behavior, and
+`bun run test:e2e` after building for production hydration and browser checks.

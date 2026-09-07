@@ -2,10 +2,14 @@ import * as React from "react"
 import { Button as ButtonPrimitive } from "@base-ui/react/button"
 import { cva, type VariantProps } from "class-variance-authority"
 
-import {
-  ConlocaIcon,
-  type ConlocaIconName,
-} from "@conloca-design-system/components/conloca-icon"
+import type { ConlocaIconName } from "@conloca-design-system/components/conloca-icon"
+
+// Text-only buttons and links must not load the complete SVG catalog.
+const LazyConlocaIcon = React.lazy(async () => {
+  const { ConlocaIcon } =
+    await import("@conloca-design-system/components/conloca-icon")
+  return { default: ConlocaIcon }
+})
 import { cn } from "@/lib/utils"
 
 const conlocaButtonVariants = cva(
@@ -21,8 +25,7 @@ const conlocaButtonVariants = cva(
           "bg-[var(--color-bg-surface-initial)] text-[var(--color-fg-strong-default-initial)] outline-transparent hover:bg-[var(--color-bg-surface-hovered)] hover:outline-[var(--color-stroke-soft)] active:bg-[var(--color-bg-surface-pressed)] active:outline-[var(--color-stroke-soft)] disabled:text-[var(--color-fg-disabled-default)]",
         iconOnly:
           "bg-transparent text-[var(--color-fg-strong-default-initial)] outline-transparent hover:bg-[var(--color-bg-surface-hovered)] hover:outline-[var(--color-stroke-soft)] active:bg-[var(--color-bg-surface-pressed)] active:outline-[var(--color-stroke-soft)] disabled:text-[var(--color-fg-disabled-default)]",
-        link:
-          "rounded-none bg-transparent p-0 font-['Roboto_Mono'] font-normal leading-[16px] uppercase text-[var(--color-fg-softer-default-initial)] outline-none hover:text-[var(--color-fg-softer-default-hovered)] hover:underline active:text-[var(--color-fg-softer-default-pressed)] active:underline disabled:text-[var(--color-fg-disabled-default)] disabled:no-underline",
+        link: "rounded-none bg-transparent p-0 font-['Roboto_Mono'] font-normal leading-[16px] uppercase text-[var(--color-fg-softer-default-initial)] outline-none hover:text-[var(--color-fg-softer-default-hovered)] hover:underline active:text-[var(--color-fg-softer-default-pressed)] active:underline disabled:text-[var(--color-fg-disabled-default)] disabled:no-underline",
       },
       size: {
         default: "",
@@ -33,12 +36,14 @@ const conlocaButtonVariants = cva(
       {
         variant: ["primary", "secondary"],
         size: "default",
-        className: "gap-[6px] px-[10px] py-[10px] font-['Inter'] text-[14px] leading-[14px] font-medium",
+        className:
+          "gap-[6px] px-[10px] py-[10px] font-['Inter'] text-[14px] leading-[14px] font-medium",
       },
       {
         variant: ["primary", "secondary"],
         size: "small",
-        className: "gap-[4px] px-[8px] py-[8px] font-['Inter'] text-[12px] leading-[12px] font-medium",
+        className:
+          "gap-[4px] px-[8px] py-[8px] font-['Inter'] text-[12px] leading-[12px] font-medium",
       },
       {
         variant: ["iconWithBackground", "iconOnly"],
@@ -76,11 +81,33 @@ export type ConlocaButtonProps = ButtonPrimitive.Props &
     icon?: ConlocaIconName | boolean
   }
 
-function ConlocaButtonIcon({ name, size }: {
+function ConlocaButtonIcon({
+  name,
+  size,
+}: {
   name: ConlocaIconName
   size: number
 }) {
-  return <ConlocaIcon data-slot="button-icon" name={name} size={size} />
+  const placeholderStyle = React.useMemo(
+    () => ({ width: size, height: size }),
+    [size],
+  )
+  const placeholder = React.useMemo(
+    () => (
+      <span
+        aria-hidden="true"
+        data-slot="button-icon"
+        className="inline-flex shrink-0"
+        style={placeholderStyle}
+      />
+    ),
+    [placeholderStyle],
+  )
+  return (
+    <React.Suspense fallback={placeholder}>
+      <LazyConlocaIcon data-slot="button-icon" name={name} size={size} />
+    </React.Suspense>
+  )
 }
 
 const ConlocaButton = React.forwardRef<HTMLElement, ConlocaButtonProps>(
@@ -109,7 +136,9 @@ const ConlocaButton = React.forwardRef<HTMLElement, ConlocaButtonProps>(
         className={cn(conlocaButtonVariants({ variant, size }), className)}
         data-slot="conloca-button"
       >
-        {showsIcon ? <ConlocaButtonIcon name={iconName} size={iconSize} /> : null}
+        {showsIcon ? (
+          <ConlocaButtonIcon name={iconName} size={iconSize} />
+        ) : null}
         {isTextButton || variant === "link" ? children : null}
       </ButtonPrimitive>
     )

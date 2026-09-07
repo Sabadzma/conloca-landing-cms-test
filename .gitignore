@@ -1,12 +1,10 @@
 node_modules
 dist
-dist-ssr
 storybook-static
 .DS_Store
 *.log
 *.local
 .vite
-src/__canvas_preview__.tsx
 
 # Local secrets
 .env
@@ -19,3 +17,8 @@ rig.yaml.rig-bak-*
 # local agent caches
 .serena/
 .haft/
+
+# Astro and browser verification output
+.astro/
+playwright-report/
+test-results/

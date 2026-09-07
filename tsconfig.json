@@ -1,12 +1,21 @@
 {
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2023",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
-    "types": ["vite/client", "vite-plugin-svgr/client", "node"],
-
+    "types": [
+      "vite/client",
+      "vite-plugin-svgr/client",
+      "node",
+      "astro/client"
+    ],
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -14,7 +23,6 @@
     "noUncheckedSideEffectImports": true,
     "exactOptionalPropertyTypes": true,
     "noImplicitOverride": true,
-
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "moduleDetection": "force",
@@ -22,11 +30,14 @@
     "allowImportingTsExtensions": true,
     "noEmit": true,
     "skipLibCheck": true,
-
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@conloca-design-system/*": ["./Conloca Design system/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@conloca-design-system/*": [
+        "./Conloca Design system/*"
+      ]
     }
   },
   "include": [
@@ -34,8 +45,19 @@
     "scripts",
     "Conloca Design system/components",
     ".storybook",
-    "vite.config.ts",
     "vitest.config.ts",
-    "vitest.setup.ts"
+    "vitest.setup.ts",
+    ".astro/types.d.ts",
+    "astro.config.ts",
+    "playwright.config.ts",
+    "tooling",
+    "tests"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "storybook-static",
+    "playwright-report",
+    "test-results"
   ]
 }

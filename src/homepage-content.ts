@@ -101,7 +101,7 @@ export const audienceOptions = [
 export const navigation = [
   { label: "How it works", url: "/" },
   { label: "Docs", url: "/" },
-  { label: "Pricing", url: "/" },
+  { label: "Pricing", url: "/pricing" },
   { label: "Blog", url: "/blog" },
 ] as const
 
@@ -352,6 +352,6 @@ export const pricingContent: PricingContent = {
   currency: "$",
   intervals: { monthly: "/ Month", annual: "/ Year" },
   bestValueLabel: "Best value",
-  compareAction: { label: "Compare plans", url: "/" },
+  compareAction: { label: "Compare plans", url: "/pricing#comparison" },
   plans,
 }

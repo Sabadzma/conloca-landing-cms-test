@@ -187,19 +187,28 @@ test("supports skip navigation and mobile navigation with preserved destinations
   await expect(nav).toBeVisible()
   const blogLink = nav.getByRole("link", { name: "Blog" })
   await expect(blogLink).toHaveAttribute("href", "/blog")
-  await Promise.all(
-    (await nav.getByRole("link").all()).slice(0, 3).map((link) =>
-      expect(link).toHaveAttribute("href", "/"),
-    ),
-  )
-  await nav.getByRole("link", { name: "Pricing" }).click()
   await expect(
-    page.getByRole("button", { name: "Open navigation menu" }),
-  ).toHaveAttribute("aria-expanded", "false")
-  await expect(page.getByRole("link", { name: "Try Demo" })).toHaveAttribute(
+    nav.getByRole("link", { name: "How it works" }),
+  ).toHaveAttribute("href", "/")
+  await expect(nav.getByRole("link", { name: "Docs" })).toHaveAttribute(
     "href",
     "/",
   )
+  await expect(nav.getByRole("link", { name: "Pricing" })).toHaveAttribute(
+    "href",
+    "/pricing",
+  )
+  await nav.getByRole("link", { name: "Pricing" }).click()
+  await expect(page).toHaveURL(/\/pricing$/)
+  await expect(
+    page.getByRole("button", { name: "Open navigation menu" }),
+  ).toHaveAttribute("aria-expanded", "false")
+  await expect(
+    page.getByRole("heading", {
+      level: 1,
+      name: "Choose a plan that fits you the best",
+    }),
+  ).toBeVisible()
 })
 
 test("preserves the existing axe checks and records baseline contrast findings", async ({

@@ -1,0 +1,592 @@
+.pricing-page-shell {
+  position: relative;
+}
+
+.pricing-page-header {
+  position: absolute;
+  z-index: 10;
+  inset: 0 0 auto;
+}
+
+.pricing-page-hero {
+  box-sizing: border-box;
+  width: 100%;
+  height: 612px;
+  color: var(--color-fg-strong-inverted-initial);
+  background:
+    linear-gradient(#0000001a, #0000001a),
+    url("/assets/blog-edit-repeat.jpg") center / cover;
+}
+
+.pricing-page-hero-content {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  max-width: 1440px;
+  height: 100%;
+  margin-inline: auto;
+  padding: 136px 32px 56px;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.pricing-page-breadcrumbs ol {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+
+.pricing-page-breadcrumbs li {
+  display: flex;
+  align-items: center;
+}
+
+.pricing-page-breadcrumbs li + li::before {
+  content: "/";
+  margin-inline: 8px;
+  opacity: 0.72;
+}
+
+.pricing-page-hero-body {
+  min-height: 0;
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.pricing-page-hero-copy {
+  display: flex;
+  width: min(800px, 100%);
+  flex-direction: column;
+  gap: 32px;
+}
+
+.pricing-page-hero h1 {
+  font-family: "Inter Display", Inter, sans-serif;
+  font-size: 76px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -1.52px;
+}
+
+.pricing-page-hero-copy p {
+  max-width: 650px;
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.7;
+}
+
+.pricing-page-hero-billing {
+  flex-shrink: 0;
+}
+
+.pricing-page-plans {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1440px;
+  min-height: 825px;
+  margin-inline: auto;
+  padding: 72px 32px;
+}
+
+.pricing-page-plans .pricing-cards {
+  height: 100%;
+}
+
+.pricing-page-plans .plan-name h2 {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 36px;
+}
+
+.pricing-comparison {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1440px;
+  min-height: 1521px;
+  margin-inline: auto;
+  padding: 72px 32px 32px;
+}
+
+.pricing-comparison-intro {
+  display: flex;
+  min-height: 158px;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+
+.pricing-comparison-copy {
+  display: flex;
+  width: min(760px, 100%);
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pricing-comparison-eyebrow,
+.pricing-comparison-group th {
+  font-family: "Roboto Mono", ui-monospace, monospace;
+  text-transform: uppercase;
+}
+
+.pricing-comparison-eyebrow {
+  color: var(--color-fg-softer-default-initial);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.pricing-comparison h2 {
+  font-family: "Inter Display", Inter, sans-serif;
+  font-size: 60px;
+  font-weight: 700;
+  line-height: 62px;
+  letter-spacing: -1.2px;
+}
+
+.pricing-comparison-billing {
+  flex-shrink: 0;
+}
+
+.pricing-comparison-scroll {
+  box-sizing: border-box;
+  height: 1210px;
+  overflow: hidden;
+  border: 1px solid var(--color-stroke-strong);
+  border-radius: 28px;
+  outline: none;
+}
+
+.pricing-comparison-scroll:focus-visible {
+  outline: 2px solid var(--color-stroke-accent);
+  outline-offset: 3px;
+}
+
+.pricing-comparison table {
+  width: 100%;
+  height: 1208px;
+  border-spacing: 0;
+  table-layout: fixed;
+  border-collapse: separate;
+}
+
+.pricing-comparison-label-column {
+  width: 27.365%;
+}
+
+.pricing-comparison th,
+.pricing-comparison td {
+  box-sizing: border-box;
+  border: 0;
+  border-right: 1px solid var(--color-stroke-strong);
+  border-bottom: 1px solid var(--color-stroke-strong);
+  text-align: left;
+}
+
+.pricing-comparison tr > :last-child {
+  border-right: 0;
+}
+
+.pricing-comparison thead tr {
+  height: 168px;
+}
+
+.pricing-comparison thead th {
+  padding: 28px;
+  vertical-align: bottom;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 36px;
+}
+
+.pricing-comparison thead th:first-child {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.pricing-comparison thead th:not(:first-child) {
+  vertical-align: top;
+}
+
+.pricing-comparison thead th.is-featured {
+  background: linear-gradient(
+    180deg,
+    var(--color-olive-50),
+    var(--color-bg-surface-initial)
+  );
+  box-shadow: inset 0 8px 30px -20px var(--color-lime-400);
+}
+
+.pricing-comparison-plan-name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pricing-comparison-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.pricing-comparison-price strong {
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 48px;
+}
+
+.pricing-comparison-price > span {
+  color: var(--color-fg-soft-default-initial);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.pricing-comparison-group {
+  height: 53px;
+  background: var(--color-bg-elevated-initial);
+}
+
+.pricing-comparison-group th {
+  padding: 18px 28px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.pricing-comparison tbody tr:not(.pricing-comparison-group) {
+  height: 72px;
+}
+
+.pricing-comparison tbody tr:not(.pricing-comparison-group) > * {
+  padding: 22px 28px;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.pricing-comparison tbody th {
+  font-weight: 500;
+}
+
+.pricing-comparison tbody td {
+  font-weight: 400;
+}
+
+.pricing-comparison tbody td.is-featured {
+  font-weight: 500;
+}
+
+.pricing-comparison tfoot tr {
+  height: 108px;
+}
+
+.pricing-comparison tfoot td {
+  padding: 32px 28px;
+  border-bottom: 0;
+}
+
+.pricing-assistant {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1440px;
+  height: 590px;
+  margin-inline: auto;
+  padding: 8px 8px 0;
+}
+
+.pricing-assistant-inner {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  height: 582px;
+  padding: 24px;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 96px;
+  overflow: hidden;
+  border-radius: 28px;
+  color: var(--color-fg-strong-inverted-initial);
+  background:
+    linear-gradient(#0000001a, #0000001a),
+    url("/assets/hero-background.webp") center / cover;
+}
+
+.pricing-assistant-copy {
+  display: flex;
+  width: min(600px, 100%);
+  flex-direction: column;
+  gap: 24px;
+}
+
+.pricing-assistant h2 {
+  font-family: "Inter Display", Inter, sans-serif;
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -1.44px;
+}
+
+.pricing-assistant-copy p {
+  font-size: 20px;
+  font-style: italic;
+  line-height: 1.7;
+}
+
+.pricing-assistant-actions {
+  display: grid;
+  width: 516px;
+  flex-shrink: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.pricing-assistant-action {
+  box-sizing: border-box;
+  height: 80px;
+  justify-content: flex-start;
+  gap: 24px;
+  padding: 24px;
+  border-radius: 24px;
+  font-size: 16px;
+  line-height: 27px;
+}
+
+.pricing-assistant-action:last-child {
+  grid-column: 1 / -1;
+}
+
+.pricing-assistant-action svg {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1280px) {
+  .pricing-page-hero h1 {
+    font-size: 60px;
+    letter-spacing: -1.2px;
+  }
+
+  .pricing-page-plans {
+    min-height: 0;
+  }
+
+  .pricing-page-plans .pricing-cards {
+    height: auto;
+  }
+
+  .pricing-comparison {
+    min-height: 0;
+  }
+
+  .pricing-comparison-scroll {
+    height: auto;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  .pricing-comparison table {
+    min-width: 1000px;
+  }
+
+  .pricing-assistant-inner {
+    gap: 48px;
+  }
+
+  .pricing-assistant-copy {
+    max-width: 444px;
+  }
+
+  .pricing-assistant h2 {
+    font-size: 60px;
+    letter-spacing: -1.2px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .pricing-page-header {
+    position: relative;
+    color: var(--color-fg-strong-default-initial);
+    background: var(--color-bg-surface-initial);
+  }
+
+  .pricing-page-hero {
+    height: auto;
+    min-height: 532px;
+    margin-inline: 8px;
+    width: calc(100% - 16px);
+    border-radius: 24px;
+  }
+
+  .pricing-page-hero-content {
+    min-height: 532px;
+    padding: 48px 24px 24px;
+  }
+
+  .pricing-page-hero-body {
+    min-height: 404px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+
+  .pricing-page-hero-copy {
+    gap: 24px;
+  }
+
+  .pricing-page-hero h1 {
+    max-width: 680px;
+    font-size: 52px;
+    line-height: 1.05;
+    letter-spacing: -1.04px;
+  }
+
+  .pricing-page-plans {
+    padding: 72px 24px;
+  }
+
+  .pricing-comparison {
+    padding: 72px 24px 32px;
+  }
+
+  .pricing-comparison-intro {
+    min-height: 0;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .pricing-comparison h2 {
+    max-width: 680px;
+    font-size: 48px;
+    line-height: 50px;
+    letter-spacing: -0.96px;
+  }
+
+  .pricing-assistant {
+    height: auto;
+  }
+
+  .pricing-assistant-inner {
+    height: auto;
+    min-height: 760px;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-end;
+    gap: 48px;
+  }
+
+  .pricing-assistant-copy {
+    max-width: 600px;
+  }
+
+  .pricing-assistant h2 {
+    font-size: 52px;
+    letter-spacing: -1.04px;
+  }
+
+  .pricing-assistant-actions {
+    width: 100%;
+  }
+}
+
+@media (max-width: 639px) {
+  .pricing-page-hero {
+    min-height: 500px;
+    margin-inline: 4px;
+    width: calc(100% - 8px);
+    border-radius: 20px;
+  }
+
+  .pricing-page-hero-content {
+    min-height: 500px;
+    padding: 32px 16px 16px;
+  }
+
+  .pricing-page-hero-body {
+    min-height: 408px;
+    gap: 24px;
+  }
+
+  .pricing-page-hero h1 {
+    max-width: 350px;
+    font-size: 40px;
+    line-height: 42px;
+    letter-spacing: -0.8px;
+  }
+
+  .pricing-page-hero-copy p {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .pricing-page-plans {
+    padding: 64px 8px;
+  }
+
+  .pricing-page-plans .plan-name h2 {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  .pricing-comparison {
+    padding: 64px 8px 24px;
+  }
+
+  .pricing-comparison-intro {
+    padding-inline: 8px;
+  }
+
+  .pricing-comparison h2 {
+    font-size: 36px;
+    line-height: 38px;
+    letter-spacing: -0.72px;
+  }
+
+  .pricing-comparison-scroll {
+    border-radius: 20px;
+  }
+
+  .pricing-comparison table {
+    min-width: 900px;
+  }
+
+  .pricing-assistant {
+    padding: 4px 4px 0;
+  }
+
+  .pricing-assistant-inner {
+    min-height: 800px;
+    padding: 16px;
+    gap: 32px;
+    border-radius: 20px;
+  }
+
+  .pricing-assistant h2 {
+    font-size: 40px;
+    line-height: 42px;
+    letter-spacing: -0.8px;
+  }
+
+  .pricing-assistant-copy p {
+    font-size: 16px;
+    line-height: 27px;
+  }
+
+  .pricing-assistant-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-assistant-action:last-child {
+    grid-column: auto;
+  }
+}

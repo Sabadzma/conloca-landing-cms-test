@@ -133,10 +133,14 @@ describe("Conloca homepage", () => {
     expect(
       screen.queryByRole("button", { name: "Try Demo" }),
     ).not.toBeInTheDocument()
-    for (const link of within(
+    const primaryNavigation = within(
       screen.getByRole("navigation", { name: "Primary navigation" }),
-    ).getAllByRole("link")) {
-      expect(link).toHaveAttribute("href", "/")
+    )
+    for (const { label, url } of headerContent.menuItems) {
+      expect(primaryNavigation.getByRole("link", { name: label })).toHaveAttribute(
+        "href",
+        url,
+      )
     }
     const results = await axe.run(container, {
       rules: { "color-contrast": { enabled: false } },

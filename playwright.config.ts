@@ -22,6 +22,8 @@ export default defineConfig({
     : {
         webServer: {
           command: "bun run preview --host 127.0.0.1",
+          // Playwright owns this process, so Astro must keep it in the foreground.
+          env: { ASTRO_PREVIEW_BACKGROUND: "1" },
           url: "http://127.0.0.1:4173",
           reuseExistingServer: !process.env.CI,
         },

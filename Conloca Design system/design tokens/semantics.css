@@ -1,0 +1,51 @@
+/*
+ * Generated from the Figma "Semantics" variable collection.
+ * Mode: Light
+ *
+ * Alias values intentionally remain var() references to their Primitives token.
+ */
+
+:root {
+  --color-bg-surface-initial: var(--color-absolute-white);
+  --color-bg-elevated-initial: var(--color-stone-100);
+  --color-bg-elevated-hovered: var(--color-stone-200);
+  --color-bg-elevated-pressed: var(--color-stone-200);
+  --color-bg-surface-hovered: var(--color-stone-100);
+  --color-bg-surface-pressed: var(--color-stone-200);
+  --color-fg-strong-default-initial: var(--color-stone-900);
+  --color-fg-soft-default-initial: var(--color-stone-700);
+  --color-fg-softer-default-initial: var(--color-stone-500);
+  --color-fg-disabled-default: var(--color-stone-400);
+  --color-stroke-softer: var(--color-stone-50);
+  --color-stroke-soft: var(--color-stone-100);
+  --color-stroke-strong: var(--color-stone-200);
+  --color-stroke-stronger: var(--color-stone-400);
+  --color-stroke-accent: var(--color-stone-800);
+  --color-fg-strong-inverted-initial: var(--color-stone-50);
+  --color-bg-primary-initial: var(--color-stone-800);
+  --color-bg-primary-hovered: var(--color-stone-700);
+  --color-bg-primary-pressed: var(--color-stone-950);
+  --color-bg-primary-disabled: var(--color-stone-500);
+  --color-bg-sunken-initial: var(--color-stone-100);
+  --color-bg-sunken-hovered: var(--color-stone-200);
+  --color-bg-sunken-pressed: var(--color-stone-300);
+  --color-bg-accent-initial: var(--color-lime-300);
+  --color-bg-accent-hovered: var(--color-lime-400);
+  --color-bg-accent-pressed: var(--color-lime-500);
+  --color-bg-accent-disabled: var(--color-lime-100);
+  --color-bg-overlay-darken-initial: color-mix(in srgb, var(--color-stone-950) 20%, transparent);
+  --color-bg-overlay-darken-hovered: color-mix(in srgb, var(--color-stone-950) 30%, transparent);
+  --color-bg-overlay-darken-pressed: color-mix(in srgb, var(--color-stone-950) 40%, transparent);
+  --color-fg-accent-default-initial: var(--color-lime-700);
+  --color-fg-accent-default-hovered: var(--color-lime-600);
+  --color-fg-accent-default-pressed: var(--color-lime-800);
+  --color-fg-strong-default-hovered: var(--color-stone-800);
+  --color-fg-strong-default-pressed: var(--color-stone-950);
+  --color-fg-soft-default-hovered: var(--color-stone-800);
+  --color-fg-soft-default-pressed: var(--color-stone-900);
+  --color-fg-softer-default-hovered: var(--color-stone-600);
+  --color-fg-softer-default-pressed: var(--color-stone-700);
+  --color-fg-strong-inverted-hovered: var(--color-stone-200);
+  --color-fg-strong-inverted-pressed: var(--color-stone-400);
+  --color-background-buttn: #FFFFFF;
+}

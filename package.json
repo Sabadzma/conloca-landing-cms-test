@@ -1,0 +1,55 @@
+{
+  "name": "conloca-landing",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "icons:generate": "bun run scripts/generate-icon-names.ts",
+    "dev": "vite",
+    "build": "vite build && vite build --ssr src/entry-server.tsx && bun run scripts/prerender.ts",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test": "vitest run",
+    "preview": "vite preview",
+    "lint": "oxlint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@base-ui/react": "^1.8.0",
+    "@fontsource-variable/inter": "5.2.8",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tailwind-merge": "^3.6.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "^10.6.0",
+    "@storybook/addon-docs": "^10.6.0",
+    "@storybook/react-vite": "^10.6.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/react": "16.3.0",
+    "@testing-library/user-event": "14.6.1",
+    "@types/node": "^26.3.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "@vitejs/plugin-react": "^6.1.0",
+    "axe-core": "4.10.3",
+    "jsdom": "26.1.0",
+    "oxlint": "^1.80.0",
+    "shadcn": "^4.21.0",
+    "storybook": "^10.6.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3",
+    "vite": "npm:rolldown-vite@^7.3.1",
+    "vite-plugin-svgr": "^5.2.0",
+    "vitest": "3.2.4"
+  },
+  "overrides": {
+    "vite": "npm:rolldown-vite@^7.3.1"
+  },
+  "resolutions": {
+    "vite": "npm:rolldown-vite@^7.3.1"
+  }
+}

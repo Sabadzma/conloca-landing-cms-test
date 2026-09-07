@@ -1,0 +1,9 @@
+{
+  "_generated": true,
+  "schemaVersion": 1,
+  "atomComponentsPaths": [],
+  "compositeComponentsPaths": [],
+  "pagesPaths": [
+    "src/App.tsx"
+  ]
+}

@@ -1,0 +1,21 @@
+node_modules
+dist
+dist-ssr
+storybook-static
+.DS_Store
+*.log
+*.local
+.vite
+src/__canvas_preview__.tsx
+
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# rig writes timestamped backups next to the config it rewrites
+rig.yaml.rig-bak-*
+
+# local agent caches
+.serena/
+.haft/

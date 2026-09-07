@@ -1,0 +1,6 @@
+interface:
+  display_name: "Figma React Component"
+  short_description: "Build Conloca React components from Figma"
+  default_prompt: "Use $figma-react-component to implement the selected Figma component in Conloca."
+policy:
+  allow_implicit_invocation: true

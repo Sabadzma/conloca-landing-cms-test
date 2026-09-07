@@ -1,0 +1,24 @@
+---
+import SiteLayout from "@/layouts/site-layout.astro"
+import { ConlocaHeader } from "@conloca-design-system/components/conloca-header"
+import { ConlocaFooter } from "@conloca-design-system/components/conloca-footer"
+import { ArticlePageSections } from "@/sections/article-page-sections"
+import {
+  articlePageContent,
+  articlePageFooterContent,
+  articlePageHeaderContent,
+  articlePageMetadata,
+} from "@/article-page-content"
+import "@/article-page.css"
+---
+<SiteLayout metadata={articlePageMetadata}>
+  <div class="article-page">
+    <ConlocaHeader {...articlePageHeaderContent} client:load />
+    <main id="main-content">
+      <ArticlePageSections content={articlePageContent} />
+    </main>
+    <div class="article-footer-wrap">
+      <ConlocaFooter {...articlePageFooterContent} />
+    </div>
+  </div>
+</SiteLayout>

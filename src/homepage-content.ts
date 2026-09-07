@@ -102,7 +102,7 @@ export const navigation = [
   { label: "How it works", url: "/" },
   { label: "Docs", url: "/" },
   { label: "Pricing", url: "/" },
-  { label: "Blog", url: "/" },
+  { label: "Blog", url: "/blog" },
 ] as const
 
 export const heroHeadings = {

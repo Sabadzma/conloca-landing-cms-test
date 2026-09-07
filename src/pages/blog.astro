@@ -1,0 +1,23 @@
+no---
+import SiteLayout from "@/layouts/site-layout.astro"
+import { ConlocaHeader } from "@conloca-design-system/components/conloca-header"
+import { ConlocaFooter } from "@conloca-design-system/components/conloca-footer"
+import { BlogHeroSection } from "@/sections/blog-hero-section"
+import { BlogListingSection } from "@/sections/blog-listing-section"
+import {
+  blogMetadata,
+  blogHeaderContent,
+  blogFooterContent,
+  blogHeroContent,
+  blogListingContent,
+} from "@/blog-content"
+import "@/blog.css"
+---
+<SiteLayout metadata={blogMetadata}>
+  <ConlocaHeader {...blogHeaderContent} client:load />
+  <main id="main-content">
+    <BlogHeroSection content={blogHeroContent} />
+    <BlogListingSection content={blogListingContent} />
+  </main>
+  <ConlocaFooter {...blogFooterContent} />
+</SiteLayout>

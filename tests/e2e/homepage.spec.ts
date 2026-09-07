@@ -185,8 +185,10 @@ test("supports skip navigation and mobile navigation with preserved destinations
   await page.keyboard.press("Enter")
   const nav = page.getByRole("navigation", { name: "Mobile navigation" })
   await expect(nav).toBeVisible()
+  const blogLink = nav.getByRole("link", { name: "Blog" })
+  await expect(blogLink).toHaveAttribute("href", "/blog")
   await Promise.all(
-    (await nav.getByRole("link").all()).map((link) =>
+    (await nav.getByRole("link").all()).slice(0, 3).map((link) =>
       expect(link).toHaveAttribute("href", "/"),
     ),
   )

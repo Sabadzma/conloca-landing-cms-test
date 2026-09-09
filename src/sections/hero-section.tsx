@@ -44,29 +44,31 @@ export function HeroSection({
         </div>
         <div className="hero-visual">
           <div className="hero-video-background">
-            <button
-              className="hero-video"
-              type="button"
-              aria-label={content.video.playLabel}
-              onClick={onOpenVideo}
-            >
-              <img
-                className="hero-video-poster"
-                src={content.video.poster.src}
-                alt={content.video.poster.alt}
-                width={content.video.poster.width}
-                height={content.video.poster.height}
-                fetchPriority="high"
-              />
-              <span className="video-play">
+            <div className="hero-video-clip">
+              <button
+                className="hero-video"
+                type="button"
+                aria-label={content.video.playLabel}
+                onClick={onOpenVideo}
+              >
                 <img
-                  src="/assets/play-mark.svg"
-                  alt=""
-                  width="24"
-                  height="24"
+                  className="hero-video-poster"
+                  src={content.video.poster.src}
+                  alt={content.video.poster.alt}
+                  width={content.video.poster.width}
+                  height={content.video.poster.height}
+                  fetchPriority="high"
                 />
-              </span>
-            </button>
+                <span className="video-play">
+                  <img
+                    src="/assets/play-mark.svg"
+                    alt=""
+                    width="24"
+                    height="24"
+                  />
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>

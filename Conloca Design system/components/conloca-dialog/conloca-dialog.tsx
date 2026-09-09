@@ -43,7 +43,7 @@ const ConlocaDialogContent = React.forwardRef<
         ref={ref}
         data-slot="conloca-dialog"
         className={cn(
-          "fixed top-1/2 left-1/2 z-50 w-[calc(100%-32px)] max-w-[1120px] -translate-x-1/2 -translate-y-1/2 rounded-[20px] bg-[var(--color-bg-surface-initial)] p-[16px] text-[var(--color-fg-strong-default-initial)] outline-none",
+          "fixed top-1/2 left-1/2 z-50 w-[calc(100%-32px)] max-w-[1120px] -translate-x-1/2 -translate-y-1/2 rounded-[20px] bg-[var(--color-bg-surface-initial)] p-[16px] text-[var(--color-fg-strong-default-initial)] outline-none transition-[opacity,scale] duration-200 ease-[cubic-bezier(0.05,0.7,0.1,1)] data-[starting-style]:scale-95 data-[starting-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:opacity-0 motion-reduce:transition-[opacity]",
           className,
         )}
       >

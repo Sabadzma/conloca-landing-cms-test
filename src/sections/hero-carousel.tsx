@@ -91,7 +91,11 @@ export function HeroCarousel({
           ))}
         </div>
       </div>
-      <p className="hero-message" aria-live={paused ? "polite" : "off"}>
+      <p
+        className="hero-message"
+        key={slide}
+        aria-live={paused ? "polite" : "off"}
+      >
         <strong>{message[0]}</strong>
         {message[1]}
       </p>

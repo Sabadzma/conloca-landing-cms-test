@@ -47,6 +47,14 @@ beforeEach(() => {
     removeListener: vi.fn(),
     dispatchEvent: () => true,
   }))
+  vi.stubGlobal(
+    "IntersectionObserver",
+    class {
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    },
+  )
 })
 
 afterEach(() => {

@@ -1,9 +1,28 @@
+import { useEffect, useRef } from "react"
+
 import type { CapabilitiesContent } from "@/homepage-content"
 
 export interface CapabilitiesSectionProps {
   content: CapabilitiesContent
 }
 export function CapabilitiesSection({ content }: CapabilitiesSectionProps) {
+  const gridRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const grid = gridRef.current
+    if (!grid) return
+    grid.dataset.armed = ""
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          grid.dataset.revealed = ""
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.15 },
+    )
+    observer.observe(grid)
+    return () => observer.disconnect()
+  }, [])
   return (
     <section className="capabilities" aria-labelledby="capabilities-heading">
       <div className="capabilities-heading">
@@ -63,7 +82,7 @@ export function CapabilitiesSection({ content }: CapabilitiesSectionProps) {
           </picture>
         </div>
       </div>
-      <div className="bento-grid">
+      <div className="bento-grid" ref={gridRef}>
         {content.items.map((capability) => (
           <article
             className={"bento-card bento-" + capability.name}

@@ -13,7 +13,7 @@ const LazyConlocaIcon = React.lazy(async () => {
 import { cn } from "@/lib/utils"
 
 const conlocaButtonVariants = cva(
-  "group/button inline-flex shrink-0 appearance-none items-center justify-center whitespace-nowrap rounded-[8px] outline outline-1 outline-offset-0 select-none transition-[background-color,color,outline-color,text-decoration-color] duration-[110ms] ease-linear focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-stroke-accent)] disabled:pointer-events-none disabled:cursor-not-allowed",
+  "group/button inline-flex shrink-0 appearance-none items-center justify-center whitespace-nowrap rounded-[8px] outline outline-1 outline-offset-0 select-none transition-[background-color,color,outline-color,text-decoration-color,scale] duration-[110ms] ease-linear focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-stroke-accent)] active:scale-[0.97] motion-reduce:active:scale-100 disabled:pointer-events-none disabled:cursor-not-allowed",
   {
     variants: {
       variant: {

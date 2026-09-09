@@ -42,7 +42,7 @@ export function PricingSection({ content }: PricingSectionProps) {
                 </div>
                 <div className="plan-price-description">
                   <p className="plan-price">
-                    <strong>
+                    <strong key={billing}>
                       {content.currency +
                         plan.price * (billing === "annual" ? 12 : 1)}
                     </strong>

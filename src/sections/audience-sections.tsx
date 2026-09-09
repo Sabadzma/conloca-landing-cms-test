@@ -19,8 +19,21 @@ export function AudienceSections({ content }: AudienceSectionsProps) {
     lastVideoTrigger.current = event.currentTarget
     setVideoOpen(true)
   }, [])
+  const [transitioning, setTransitioning] = useState(false)
+  const transitionTimeout = useRef(0)
+  useEffect(() => () => window.clearTimeout(transitionTimeout.current), [])
   const selectAudience = useCallback((value: string) => {
-    if (value === "developers" || value === "editors") setAudience(value)
+    if (value !== "developers" && value !== "editors") return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setAudience(value)
+      return
+    }
+    setTransitioning(true)
+    window.clearTimeout(transitionTimeout.current)
+    transitionTimeout.current = window.setTimeout(() => {
+      setAudience(value)
+      setTransitioning(false)
+    }, 110)
   }, [])
   const featuresTrackRef = useRef<HTMLDivElement>(null)
   const [activeFeature, setActiveFeature] = useState(0)
@@ -57,7 +70,11 @@ export function AudienceSections({ content }: AudienceSectionsProps) {
   }, [content.features.length])
 
   return (
-    <div className="audience-sections" data-audience={audience}>
+    <div
+      className="audience-sections"
+      data-audience={audience}
+      data-transitioning={transitioning || undefined}
+    >
       <HeroSection
         content={content.hero}
         audience={audience}

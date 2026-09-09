@@ -78,6 +78,17 @@ p {
   --history-background-image: url("/assets/history-editors-background.webp");
 }
 
+.hero-heading-group h1,
+.hero-message,
+.feature--active .feature-text {
+  transition: opacity 110ms ease-linear;
+}
+.audience-sections[data-transitioning] .hero-heading-group h1,
+.audience-sections[data-transitioning] .hero-message,
+.audience-sections[data-transitioning] .feature--active .feature-text {
+  opacity: 0;
+}
+
 /* Figma Frame 610: header (80px) + hero fill the viewport height,
    clamped to 835–960px total, so the hero breathes between 755 and 880px. */
 .hero {
@@ -149,6 +160,15 @@ p {
 }
 .hero-message strong {
   font-weight: 700;
+}
+.hero-message {
+  transition:
+    opacity 240ms ease,
+    translate 240ms ease;
+  @starting-style {
+    opacity: 0;
+    translate: 0 4px;
+  }
 }
 .hero-indicator-space {
   flex: 0 0 2px;
@@ -509,6 +529,23 @@ p {
   flex-direction: column;
   justify-content: flex-end;
 }
+.bento-grid[data-armed] .bento-card {
+  opacity: 0;
+  translate: 0 12px;
+}
+.bento-grid[data-revealed] .bento-card {
+  opacity: 1;
+  translate: none;
+  transition:
+    opacity 320ms cubic-bezier(0.05, 0.7, 0.1, 1),
+    translate 320ms cubic-bezier(0.05, 0.7, 0.1, 1);
+}
+.bento-grid[data-revealed] .bento-card:nth-child(2) { transition-delay: 50ms; }
+.bento-grid[data-revealed] .bento-card:nth-child(3) { transition-delay: 100ms; }
+.bento-grid[data-revealed] .bento-card:nth-child(4) { transition-delay: 150ms; }
+.bento-grid[data-revealed] .bento-card:nth-child(5) { transition-delay: 200ms; }
+.bento-grid[data-revealed] .bento-card:nth-child(6) { transition-delay: 250ms; }
+.bento-grid[data-revealed] .bento-card:nth-child(7) { transition-delay: 300ms; }
 .bento-copy {
   position: relative;
   z-index: 1;
@@ -737,6 +774,12 @@ p {
   font-size: 32px;
   line-height: 48px;
   font-weight: 900;
+}
+.plan-price strong {
+  transition: opacity 240ms ease;
+  @starting-style {
+    opacity: 0;
+  }
 }
 .plan-price span,
 .plan-description {
@@ -1340,6 +1383,20 @@ p {
   }
   .video-play {
     transition: none;
+  }
+  .hero-message {
+    transition: opacity 240ms ease;
+    @starting-style {
+      opacity: 0;
+      translate: none;
+    }
+  }
+  .bento-grid[data-armed] .bento-card {
+    translate: none;
+  }
+  .bento-grid[data-revealed] .bento-card {
+    transition: opacity 320ms ease;
+    transition-delay: 0ms;
   }
 }
 

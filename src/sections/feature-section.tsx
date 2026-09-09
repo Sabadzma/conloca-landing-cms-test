@@ -1,13 +1,16 @@
 import type { AudienceControlProps } from "./audience-controls"
 import { ConlocaSegmentedControl } from "@conloca-design-system/components/conloca-segmented-control"
 import type { FeatureContent, FeatureControls } from "@/homepage-content"
+import { cn } from "@/lib/utils"
 import { SectionLink } from "./section-link"
 
 export interface FeatureSectionProps extends AudienceControlProps {
+  active: boolean
   feature: FeatureContent
   controls: FeatureControls
 }
 export function FeatureSection({
+  active,
   feature,
   controls,
   audience,
@@ -16,8 +19,13 @@ export function FeatureSection({
 }: FeatureSectionProps) {
   return (
     <section
-      className={"feature feature-" + feature.name}
       aria-labelledby={"feature-" + feature.name}
+      className={cn(
+        "feature",
+        "feature-" + feature.name,
+        active && "feature--active",
+      )}
+      inert={!active}
     >
       <div className="feature-audience">
         <ConlocaSegmentedControl

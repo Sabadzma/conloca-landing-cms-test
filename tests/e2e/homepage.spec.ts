@@ -73,8 +73,8 @@ test("keeps hero and features synchronized and resets manual carousel selection"
     page.getByRole("button", { name: "Play messages" }),
   ).toBeVisible()
   await page
+    .locator(".feature--active")
     .getByRole("button", { name: "Content editors", exact: true })
-    .nth(2)
     .click()
   await expect(page.locator("h1")).toHaveText(
     "Build and edit pages visually without touching the codebase",

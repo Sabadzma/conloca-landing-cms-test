@@ -6,6 +6,7 @@
   "scripts": {
     "icons:generate": "bun run scripts/generate-icon-names.ts",
     "dev": "astro dev --port 5173",
+    "dev:network": "astro dev --host --port 5173",
     "build": "astro build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",

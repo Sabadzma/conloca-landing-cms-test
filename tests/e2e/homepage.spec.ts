@@ -236,7 +236,7 @@ test("supports skip navigation and mobile navigation with preserved destinations
   await expect(blogLink).toHaveAttribute("href", "/blog")
   await expect(
     nav.getByRole("link", { name: "How it works" }),
-  ).toHaveAttribute("href", "/")
+  ).toHaveAttribute("href", "/how-it-works")
   await expect(nav.getByRole("link", { name: "Docs" })).toHaveAttribute(
     "href",
     "https://conloca.com/getting-started/",

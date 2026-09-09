@@ -217,7 +217,7 @@ test("renders the visual editing article without page, asset, or hydration error
   const header = page.getByRole("banner")
   await expect(
     header.getByRole("link", { name: "How it works" }),
-  ).toHaveAttribute("href", "/")
+  ).toHaveAttribute("href", "/how-it-works")
   await expect(header.getByRole("link", { name: "Docs" })).toHaveAttribute(
     "href",
     "https://conloca.com/getting-started/",
@@ -258,7 +258,7 @@ test("keeps the complete article content and links without JavaScript", async ({
   const header = page.getByRole("banner")
   await expect(
     header.getByRole("link", { name: "How it works" }),
-  ).toHaveAttribute("href", "/")
+  ).toHaveAttribute("href", "/how-it-works")
   await expect(header.getByRole("link", { name: "Docs" })).toHaveAttribute(
     "href",
     "https://conloca.com/getting-started/",

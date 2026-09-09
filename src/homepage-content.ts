@@ -99,7 +99,7 @@ export const audienceOptions = [
 ] as const
 
 export const navigation = [
-  { label: "How it works", url: "/" },
+  { label: "How it works", url: "/how-it-works" },
   { label: "Docs", url: "https://conloca.com/getting-started/" },
   { label: "Pricing", url: "/pricing" },
   { label: "Blog", url: "/blog" },

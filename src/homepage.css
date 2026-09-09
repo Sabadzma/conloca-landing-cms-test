@@ -78,8 +78,10 @@ p {
   --history-background-image: url("/assets/history-editors-background.webp");
 }
 
+/* Figma Frame 610: header (80px) + hero fill the viewport height,
+   clamped to 835–960px total, so the hero breathes between 755 and 880px. */
 .hero {
-  height: 880px;
+  height: clamp(755px, 100svh - 80px, 880px);
   max-width: 1440px;
   margin-inline: auto;
   padding-inline: 32px;
@@ -784,9 +786,6 @@ p {
   border-radius: 16px;
 }
 @media (max-width: 1280px) and (min-width: 1024px) {
-  .hero {
-    height: 752px;
-  }
   .feature-source .feature-artwork img {
     width: 927px;
     left: -18px;

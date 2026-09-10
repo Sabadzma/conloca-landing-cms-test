@@ -19,7 +19,7 @@ test.afterAll(async () => {
   )
 })
 
-test("all seven catalogs expose Docs, Canvas examples, controls, and exact SVG icons", async ({
+test("all nine catalogs expose Docs, Canvas examples, controls, and exact SVG icons", async ({
   page,
   request,
 }) => {
@@ -29,7 +29,7 @@ test("all seven catalogs expose Docs, Canvas examples, controls, and exact SVG i
   }
   const entries = Object.values(index.entries)
   const docs = entries.filter((entry) => entry.type === "docs")
-  expect(docs).toHaveLength(7)
+  expect(docs).toHaveLength(9)
   const errors: string[] = []
   page.on("pageerror", (error) => errors.push(error.message))
   page.on("response", (res) => {

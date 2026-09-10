@@ -2,7 +2,7 @@
 
 Import `ConlocaProse`, `ConlocaProseProps`, `ConlocaProseBlock`, and `ConlocaProseTableItem` from `@conloca-design-system/components/conloca-prose`. Import the canonical stylesheet with `import "@conloca-design-system/components/conloca-prose/conloca-prose.css"`.
 
-- Inputs: `blocks` is a readonly array of typed blocks: `paragraph`, `heading` (`weight: "bold" | "semibold"`, default bold), `eyebrow`, `list` (`marker: "number" | "alpha"`, default number), `table` (`{ title, text }` rows), `group` (nested blocks with the tighter 24px flow), and `section` (nested blocks with an optional anchor `id`, the stone-200 top hairline, and 56px top padding).
+- Inputs: `blocks` is a readonly array of typed blocks: `paragraph`, `heading` (`weight: "bold" | "semibold"`, default bold), `eyebrow`, `list` (`marker: "number" | "alpha"`, default number), `table` (`{ title, text }` rows), `group` (nested blocks with the tighter 24px flow), and `section` (nested blocks with an optional anchor `id`, the stroke-strong top hairline, and 56px top spacing).
 - Outputs: forwards div attributes and a ref to the `.conloca-prose` root. Renders semantic HTML only: `p`, `h2`, `ol`/`li` with CSS-counter markers, `dl`/`div`/`dt`/`dd`, `section`, `div`.
 - Styling: all five Figma text styles (paragraph, title, numbered list, eyebrow, text table) live in `conloca-prose.css` as `.conloca-prose` descendant rules, with exact per-breakpoint sizes at 640/1024/1280. The component emits markup only; it carries no styling logic.
 - CMS path: rich text HTML from any source matches the same spec when rendered inside a `.conloca-prose` container (`p`, `h2`, `ol`, `dl > div > dt + dd`, `section.conloca-prose__section`, `p.conloca-prose__eyebrow`); list markers and hairlines are CSS-generated.

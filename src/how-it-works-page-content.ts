@@ -2,6 +2,7 @@
 import {
   type ContentLink,
   type HomepageMetadata,
+  footerNavigation,
   navigation,
 } from "@/homepage-content"
 
@@ -84,7 +85,7 @@ export const howItWorksPageHeaderContent = {
 }
 
 export const howItWorksPageFooterContent = {
-  navigationItems: navigation,
+  navigationItems: footerNavigation,
   action: { label: "Get started", url: "/" },
   logoUrl: "/",
   logoLabel: "Conloca home",

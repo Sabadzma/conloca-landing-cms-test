@@ -22,6 +22,8 @@ export type PricingAssistantIcon = "chatgpt" | "claude" | "gemini" | "grok" | "m
 
 export interface PricingAssistantAction extends ContentLink {
   icon: PricingAssistantIcon
+  /** Open the destination in a new tab. Use for external assistants. */
+  newTab?: boolean
 }
 
 export interface PricingPageContent {
@@ -125,10 +127,10 @@ export const pricingPageContent: PricingPageContent = {
     description:
       "Still not sure about how Conloca suits your team or project? Ask an AI agent about it, or leave your mail to talk to our team.",
     actions: [
-      { label: "Ask ChatGPT", url: "https://chatgpt.com/", icon: "chatgpt" },
-      { label: "Ask Claude", url: "https://claude.ai/new", icon: "claude" },
-      { label: "Ask Gemini", url: "https://gemini.google.com/", icon: "gemini" },
-      { label: "Ask Grok", url: "https://grok.com/", icon: "grok" },
+      { label: "Ask ChatGPT", url: "https://chatgpt.com/", icon: "chatgpt", newTab: true },
+      { label: "Ask Claude", url: "https://claude.ai/new", icon: "claude", newTab: true },
+      { label: "Ask Gemini", url: "https://gemini.google.com/", icon: "gemini", newTab: true },
+      { label: "Ask Grok", url: "https://grok.com/", icon: "grok", newTab: true },
       { label: "Leave us a mail", url: "mailto:hello@conloca.com", icon: "mail" },
     ],
   },

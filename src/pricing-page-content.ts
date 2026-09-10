@@ -125,10 +125,10 @@ export const pricingPageContent: PricingPageContent = {
     description:
       "Still not sure about how Conloca suits your team or project? Ask an AI agent about it, or leave your mail to talk to our team.",
     actions: [
-      { label: "Ask ChatGPT", url: "https://chatgpt.com/", icon: "chatgpt" },
-      { label: "Ask Claude", url: "https://claude.ai/new", icon: "claude" },
-      { label: "Ask Gemini", url: "https://gemini.google.com/", icon: "gemini" },
-      { label: "Ask Grok", url: "https://grok.com/", icon: "grok" },
+      { label: "Ask ChatGPT", url: "https://chatgpt.com/?prompt=Explore+https%3A%2F%2Fconloca.com%2Fgetting-started%2F+and+https%3A%2F%2Fconloca.com%2Fhow-it-works%2F.+Explain+what+Conloca+is%2C+how+it+works%2C+and+why+a+team+might+prefer+it+over+a+traditional+CMS.&utm_source=chatgpt.com", icon: "chatgpt" },
+      { label: "Ask Claude", url: "https://claude.ai/new?q=Explore+https%3A%2F%2Fconloca.com%2Fgetting-started%2F+and+https%3A%2F%2Fconloca.com%2Fhow-it-works%2F.+Explain+what+Conloca+is%2C+how+it+works%2C+and+why+a+team+might+prefer+it+over+a+traditional+CMS.&utm_source=chatgpt.com", icon: "claude" },
+      { label: "Ask Gemini", url: "https://gemini.google.com/app?text=Explore+https%3A%2F%2Fconloca.com%2Fgetting-started%2F+and+https%3A%2F%2Fconloca.com%2Fhow-it-works%2F.+Explain+what+Conloca+is%2C+how+it+works%2C+and+why+a+team+might+prefer+it+over+a+traditional+CMS.&utm_source=chatgpt.com", icon: "gemini" },
+      { label: "Ask Grok", url: "https://grok.com/?q=Explore+https%3A%2F%2Fconloca.com%2Fgetting-started%2F+and+https%3A%2F%2Fconloca.com%2Fhow-it-works%2F.+Explain+what+Conloca+is%2C+how+it+works%2C+and+why+a+team+might+prefer+it+over+a+traditional+CMS.&utm_source=chatgpt.com", icon: "grok" },
       { label: "Leave us a mail", url: "mailto:hello@conloca.com", icon: "mail" },
     ],
   },

@@ -24,7 +24,6 @@ export interface ArticleCoverContent {
 }
 
 export interface ArticleStep {
-  number: string
   text: string
 }
 
@@ -206,23 +205,18 @@ export const articlePageContent: ArticlePageContent = {
     ],
     steps: [
       {
-        number: "01",
         text: "The marketer opens a page in the visual editor.",
       },
       {
-        number: "02",
         text: "They change text, an image, or metadata, and see the result as they go.",
       },
       {
-        number: "03",
         text: "Conloca enforces the structure and content rules defined in the code.",
       },
       {
-        number: "04",
         text: "The saved change lands in Git history, where it can be reviewed or rolled back.",
       },
       {
-        number: "05",
         text: "Astro publishes the updated content as a fast website.",
       },
     ],

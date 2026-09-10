@@ -127,23 +127,18 @@ export const visualEditingArticlePageContent: ArticlePageContent = {
     ],
     steps: [
       {
-        number: "01",
         text: "Developers map existing React components to the fields an editor is allowed to change.",
       },
       {
-        number: "02",
         text: "A marketer opens the real page in the visual editor and changes copy, media, or layout inside those components.",
       },
       {
-        number: "03",
         text: "The preview is the project, so they can see the result against the actual design system.",
       },
       {
-        number: "04",
         text: "Saving writes the change to Git, where it can be reviewed or rolled back like any other file.",
       },
       {
-        number: "05",
         text: "Astro publishes the updated page without introducing a separate content runtime.",
       },
     ],

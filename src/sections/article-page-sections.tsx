@@ -1,6 +1,12 @@
 import { conlocaButtonVariants } from "@conloca-design-system/components/conloca-button"
+import {
+  ConlocaProse,
+  type ConlocaProseBlock,
+} from "@conloca-design-system/components/conloca-prose"
+import { ConlocaToc } from "@conloca-design-system/components/conloca-toc"
+import { useMemo } from "react"
 import type {
-  ArticleBenefit,
+  ArticleBodyContent,
   ArticleBodySection,
   ArticleDescription,
   ArticlePageContent,
@@ -29,34 +35,6 @@ function Description({ content }: { content: ArticleDescription }) {
   )
 }
 
-function ArticleBenefits({ items }: { items: readonly ArticleBenefit[] }) {
-  return (
-    <dl className="article-benefits">
-      {items.map((item) => (
-        <div className="article-benefit" key={item.title}>
-          <dt>{item.title}</dt>
-          <dd>{item.description}</dd>
-        </div>
-      ))}
-    </dl>
-  )
-}
-
-function ArticleSection({ section }: { section: ArticleBodySection }) {
-  return (
-    <section className="article-block" id={section.id}>
-      <p className="article-block__label">{section.label}</p>
-      <h2>{section.title}</h2>
-      {section.paragraphs.map((paragraph) => (
-        <p key={paragraph}>{paragraph}</p>
-      ))}
-      {section.benefits ? <ArticleBenefits items={section.benefits} /> : null}
-      {section.quote ? (
-        <p className="article-block__quote">{section.quote}</p>
-      ) : null}
-    </section>
-  )
-}
 
 function RelatedStoryCard({ story }: { story: ArticleRelatedStory }) {
   return (
@@ -97,7 +75,77 @@ function RelatedStoryCard({ story }: { story: ArticleRelatedStory }) {
   )
 }
 
+function articleSectionBlocks(section: ArticleBodySection): ConlocaProseBlock[] {
+  const blocks: ConlocaProseBlock[] = [
+    { type: "eyebrow", text: section.label },
+    { type: "heading", text: section.title },
+    ...section.paragraphs.map(
+      (text): ConlocaProseBlock => ({ type: "paragraph", text }),
+    ),
+  ]
+
+  if (section.benefits) {
+    blocks.push({
+      type: "table",
+      items: section.benefits.map((benefit) => ({
+        title: benefit.title,
+        text: benefit.description,
+      })),
+    })
+  }
+
+  if (section.quote) {
+    blocks.push({ type: "paragraph", text: section.quote })
+  }
+
+  return blocks
+}
+
+function articleBodyBlocks(body: ArticleBodyContent): ConlocaProseBlock[] {
+  return [
+    {
+      type: "group",
+      blocks: body.intro.map(
+        (text): ConlocaProseBlock => ({ type: "paragraph", text }),
+      ),
+    },
+    {
+      type: "group",
+      blocks: [
+        { type: "heading", text: body.practiceHeading, weight: "semibold" },
+        {
+          type: "list",
+          items: body.steps.map((step) => step.text),
+        },
+      ],
+    },
+    { type: "paragraph", text: body.practiceIntro },
+    ...body.sections.map(
+      (section): ConlocaProseBlock => ({
+        type: "section",
+        id: section.id,
+        blocks: articleSectionBlocks(section),
+      }),
+    ),
+    { type: "paragraph", text: body.closing },
+  ]
+}
+
 export function ArticlePageSections({ content }: ArticlePageSectionsProps) {
+  const tocItems = useMemo(
+    () =>
+      content.body.sections.map((section) => ({
+        id: section.id,
+        title: section.tocTitle,
+      })),
+    [content.body.sections],
+  )
+
+  const bodyBlocks = useMemo(
+    () => articleBodyBlocks(content.body),
+    [content.body],
+  )
+
   return (
     <>
       <section className="article-hero" aria-labelledby="article-heading">
@@ -138,46 +186,10 @@ export function ArticlePageSections({ content }: ArticlePageSectionsProps) {
       </figure>
 
       <div className="article-body">
-        <nav aria-label={content.body.tocLabel} className="article-toc">
-          <p className="article-toc__label">{content.body.tocLabel}</p>
-          <ol>
-            {content.body.sections.map((section, index) => (
-              <li key={section.id}>
-                <a href={`#${section.id}`}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <span>{section.tocTitle}</span>
-                </a>
-              </li>
-            ))}
-          </ol>
-        </nav>
+        <ConlocaToc className="article-toc" items={tocItems} label={content.body.tocLabel} />
 
         <article aria-labelledby="article-heading" className="article-content">
-          <div className="article-intro">
-            {content.body.intro.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
-
-          <div className="article-practice">
-            <h2>{content.body.practiceHeading}</h2>
-            <ol className="article-steps">
-              {content.body.steps.map((step) => (
-                <li key={step.number}>
-                  <span>{step.number}</span>
-                  <span>{step.text}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
-
-          <p className="article-practice-intro">{content.body.practiceIntro}</p>
-
-          {content.body.sections.map((section) => (
-            <ArticleSection key={section.id} section={section} />
-          ))}
-
-          <p className="article-closing">{content.body.closing}</p>
+          <ConlocaProse blocks={bodyBlocks} />
         </article>
       </div>
 

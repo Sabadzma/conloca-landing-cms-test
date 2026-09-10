@@ -1,3 +1,5 @@
+@import "@conloca-design-system/components/conloca-prose/conloca-prose.css";
+
 @import "@fontsource-variable/roboto-mono";
 
 @font-face {
@@ -90,7 +92,6 @@ html:has(.article-page) {
 .article-hero__date,
 .article-hero__date-compact,
 .article-hero__breadcrumbs,
-.article-toc__label,
 .article-related-card__meta {
   color: var(--color-stone-500);
   font-family: "Roboto Mono Variable", "Roboto Mono", monospace;
@@ -169,147 +170,9 @@ html:has(.article-page) {
   padding: 24px 16px 72px;
 }
 
-.article-toc {
-  display: none;
-}
-
 .article-content {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
   min-width: 0;
   max-width: 832px;
-}
-
-.article-intro,
-.article-practice,
-.article-block {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.article-practice {
-  padding-top: 24px;
-}
-
-.article-block {
-  padding-top: 56px;
-  scroll-margin-top: 24px;
-}
-
-.article-content p,
-.article-benefit dd {
-  color: var(--color-fg-soft-default-hovered);
-}
-
-.article-intro p,
-.article-practice-intro,
-.article-block p {
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1.7;
-}
-
-.article-practice h2,
-.article-block h2 {
-  color: var(--color-fg-strong-default-initial);
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -1.05px;
-}
-
-.article-practice h2 {
-  font-weight: 600;
-  letter-spacing: -0.64px;
-}
-
-.article-block__label {
-  color: var(--color-stone-500);
-  font-family: "Roboto Mono Variable", "Roboto Mono", monospace;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 1.7;
-}
-
-.article-steps,
-.article-benefits,
-.article-toc ol {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.article-steps li,
-.article-benefit {
-  display: flex;
-  gap: 20px;
-  padding: 18px 0;
-  box-shadow: inset 0 -0.56px 0 var(--color-stone-200);
-}
-
-.article-steps li span:first-child,
-.article-toc a span:first-child {
-  flex: 0 0 36px;
-  color: var(--color-stone-500);
-  font-family: "Roboto Mono Variable", "Roboto Mono", monospace;
-}
-
-.article-steps li {
-  font-size: 16px;
-  line-height: 1.7;
-}
-
-.article-steps li span:first-child {
-  font-size: 16px;
-}
-
-.article-steps li span:last-child,
-.article-toc a span:last-child {
-  min-width: 0;
-  flex: 1 1 auto;
-}
-
-.article-benefits {
-  display: flex;
-  flex-direction: column;
-}
-
-.article-benefit {
-  gap: 24px;
-  align-items: flex-start;
-  box-shadow: inset 0 -0.56px 0 var(--color-stone-300);
-}
-
-.article-benefit dt {
-  flex: 0 0 176px;
-  color: var(--color-fg-strong-default-initial);
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 24px;
-}
-
-.article-benefit dd {
-  min-width: 0;
-  flex: 1 1 auto;
-  margin: 0;
-  color: var(--color-stone-600);
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 25px;
-}
-
-.article-block__quote {
-  font-size: 19px;
-}
-
-.article-closing {
-  color: var(--color-fg-strong-default-initial);
-  font-size: 32px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.64px;
 }
 
 .article-related,
@@ -433,25 +296,6 @@ html:has(.article-page) {
   padding: 4px;
 }
 
-.article-toc a {
-  display: flex;
-  align-items: center;
-  padding: 14px 0;
-  color: var(--color-fg-soft-default-hovered);
-  font-size: 14px;
-  line-height: 1.7;
-  text-decoration: none;
-}
-
-.article-toc a:hover,
-.article-toc a:focus-visible {
-  text-decoration: underline;
-}
-
-.article-toc a span:first-child {
-  color: var(--color-stone-500);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .article-related-card__link {
     transition: none;
@@ -481,10 +325,6 @@ html:has(.article-page) {
 
   .article-body {
     padding: 72px 24px;
-  }
-
-  .article-block__label {
-    font-size: 12px;
   }
 
   .article-related,
@@ -591,37 +431,8 @@ html:has(.article-page) {
     padding: 96px 32px 120px;
   }
 
-  .article-toc {
-    position: sticky;
-    top: 72px;
-    display: flex;
-    flex: 1 1 0;
-    flex-direction: column;
-    align-self: flex-start;
-    max-width: 320px;
-  }
-
-  .article-toc__label {
-    padding-bottom: 20px;
-    color: var(--color-stone-500);
-    font-size: 14px;
-    line-height: 1.7;
-  }
-
   .article-content {
     flex: 1 1 0;
-  }
-
-  .article-steps li {
-    font-size: 20px;
-  }
-
-  .article-steps li span:first-child {
-    font-size: 20px;
-  }
-
-  .article-block__label {
-    font-size: 14px;
   }
 
   .article-related__header {

@@ -50,6 +50,8 @@ type ConlocaHeaderNavigationItemVariantProps = VariantProps<
 
 export type ConlocaHeaderMenuItem = {
   label: string
+  /** Open the destination in a new tab. Use for external links. */
+  newTab?: boolean
   url: string
 }
 
@@ -104,7 +106,7 @@ const ConlocaHeaderNavigationItem = React.forwardRef<
   HTMLAnchorElement,
   ConlocaHeaderNavigationItemProps
 >(function ConlocaHeaderNavigationItem(
-  { className, label, transparent = false, url, ...props },
+  { className, label, newTab = false, transparent = false, url, ...props },
   ref,
 ) {
   return (
@@ -117,6 +119,8 @@ const ConlocaHeaderNavigationItem = React.forwardRef<
       )}
       data-slot="conloca-header-navigation-item"
       href={url}
+      rel={newTab ? "noopener noreferrer" : undefined}
+      target={newTab ? "_blank" : undefined}
     >
       {label}
     </NavigationMenuPrimitive.Link>
@@ -287,6 +291,7 @@ const ConlocaHeader = React.forwardRef<HTMLElement, ConlocaHeaderProps>(
                     <NavigationMenuPrimitive.Item key={item.label + item.url}>
                       <ConlocaHeaderNavigationItem
                         label={item.label}
+                        newTab={item.newTab ?? false}
                         transparent={transparent}
                         url={item.url}
                       />
@@ -366,6 +371,8 @@ const ConlocaHeader = React.forwardRef<HTMLElement, ConlocaHeaderProps>(
                       className="flex h-[64px] w-full items-center justify-end px-[24px] py-[20px] text-right font-[family-name:Inter_Variable] text-[16px] leading-[24px] font-bold outline outline-1 outline-transparent transition-[background-color] duration-[110ms] ease-linear hover:bg-[var(--color-bg-surface-hovered)] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--color-stroke-accent)] active:bg-[var(--color-bg-surface-pressed)]"
                       data-slot="conloca-header-mobile-navigation-item"
                       href={item.url}
+                      rel={item.newTab ? "noopener noreferrer" : undefined}
+                      target={item.newTab ? "_blank" : undefined}
                       onClick={handleMobileNavigationClick}
                     >
                       {item.label}

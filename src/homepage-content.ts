@@ -105,6 +105,12 @@ export const navigation = [
   { label: "Blog", url: "/blog" },
 ] as const
 
+// Footer-only: legal pages are linked from the footer, never the header nav.
+export const footerNavigation = [
+  ...navigation,
+  { label: "Terms", url: "/terms" },
+] as const
+
 export const heroHeadings = {
   developers:
     "Keep content in your repo. Give editors a visual editing interface",
@@ -295,7 +301,7 @@ export const headerContent = {
   menuCloseButtonLabel: "Close navigation menu",
 }
 export const footerContent = {
-  navigationItems: navigation,
+  navigationItems: footerNavigation,
   action: { label: "Get started", url: "/" },
   logoUrl: "/",
   logoLabel: "Conloca home",

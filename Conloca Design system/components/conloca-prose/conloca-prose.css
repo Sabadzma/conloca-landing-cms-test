@@ -1,0 +1,201 @@
+/* Canonical long-form text styles from the Figma "Article" body comps
+   (40002647:31356 and its 592px/361px breakpoint variants). Every text page
+   renders only these five styles: paragraph, title, eyebrow, numbered list,
+   and text table. Markup from any source — typed blocks via ConlocaProse,
+   Astro content, or future CMS rich text HTML — matches Figma as long as it
+   sits inside .conloca-prose. Mobile-first, matching blog.css conventions. */
+
+.conloca-prose {
+  color: var(--color-fg-soft-default-hovered);
+}
+
+/* UA list/definition-list margins are reset at zero specificity (:where)
+   before the flow rules so a list or table still picks up the 40px root or
+   24px group/section spacing — a plain element-class rule here would win on
+   specificity and collapse those gaps to 0. */
+.conloca-prose :where(ol, dl) {
+  margin: 0;
+}
+
+/* Root flow: 40px between top-level blocks, 24px between consecutive
+   paragraphs, mirroring the Figma Article root and its paragraph groups. */
+.conloca-prose > * + * {
+  margin-top: 40px;
+}
+
+.conloca-prose > p + p {
+  margin-top: 24px;
+}
+
+/* Grouped block (e.g. a heading attached to its list): internal 24px flow. */
+.conloca-prose__group > * + * {
+  margin-top: 24px;
+}
+
+/* Section: stroke-strong top hairline, 56px from the hairline to the content
+   (1px border + 55px padding, mirroring Figma's inside top stroke), 24px
+   internal flow. */
+.conloca-prose__section {
+  padding-top: 55px;
+  border-top: 1px solid var(--color-stroke-strong);
+  scroll-margin-top: 24px;
+}
+
+.conloca-prose__section > * + * {
+  margin-top: 24px;
+}
+
+/* Paragraph text: Inter Regular, 170% line height. */
+.conloca-prose p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+/* Title text: Inter Bold, 120% line height. */
+.conloca-prose h2 {
+  color: var(--color-fg-strong-default-initial);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -1.05px;
+}
+
+.conloca-prose h2.conloca-prose__heading--semibold {
+  font-weight: 600;
+  letter-spacing: -0.64px;
+}
+
+/* Eyebrow text: Roboto Mono Regular, uppercase. */
+.conloca-prose .conloca-prose__eyebrow {
+  color: var(--color-stone-500);
+  font-family: "Roboto Mono Variable", "Roboto Mono", monospace;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+
+/* Numbered list: 1px stroke-strong hairlines (border-top between rows,
+   border-bottom closing the list — Figma draws no line above the first
+   item), 18px row padding, 20px gap, 36px mono marker column. Markers are CSS
+   counters so bare <ol> markup from a CMS renders identically. */
+.conloca-prose ol {
+  padding: 0;
+  list-style: none;
+  counter-reset: conloca-prose-item;
+  border-bottom: 1px solid var(--color-stroke-strong);
+}
+
+.conloca-prose ol > li {
+  display: flex;
+  gap: 20px;
+  padding: 18px 0;
+  counter-increment: conloca-prose-item;
+  font-size: 17px;
+  line-height: 26px;
+}
+
+.conloca-prose ol > li + li {
+  border-top: 1px solid var(--color-stroke-strong);
+}
+
+.conloca-prose ol > li::before {
+  content: counter(conloca-prose-item, decimal-leading-zero);
+  flex: 0 0 36px;
+  color: var(--color-stone-500);
+  font-family: "Roboto Mono Variable", "Roboto Mono", monospace;
+  font-size: 12px;
+  line-height: 24px;
+}
+
+.conloca-prose ol[data-marker="alpha"] > li::before {
+  content: counter(conloca-prose-item, lower-alpha) ".";
+}
+
+/* Text table: 1px stone-300 hairlines (same border scheme as the list),
+   18px row padding, 24px gap, 176px semibold title column. */
+.conloca-prose dl {
+  border-bottom: 1px solid var(--color-stone-300);
+}
+
+.conloca-prose dl > div {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 18px 0;
+}
+
+.conloca-prose dl > div + div {
+  border-top: 1px solid var(--color-stone-300);
+}
+
+.conloca-prose dt {
+  flex: 0 0 176px;
+  color: var(--color-fg-strong-default-initial);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.conloca-prose dd {
+  min-width: 0;
+  flex: 1 1 auto;
+  margin: 0;
+  color: var(--color-stone-600);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 25px;
+}
+
+@media (min-width: 640px) {
+  .conloca-prose p {
+    font-size: 19px;
+  }
+
+  .conloca-prose h2 {
+    font-size: 32px;
+  }
+
+  .conloca-prose .conloca-prose__eyebrow {
+    line-height: 1.7;
+  }
+
+  .conloca-prose ol > li,
+  .conloca-prose ol > li::before {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* Table rows switch to a 170% line height across the 640–1279px range in
+     the Figma Article comps. */
+  .conloca-prose dt,
+  .conloca-prose dd {
+    line-height: 1.7;
+  }
+}
+
+@media (min-width: 1024px) {
+  .conloca-prose .conloca-prose__eyebrow {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .conloca-prose p {
+    font-size: 20px;
+  }
+
+  .conloca-prose ol > li,
+  .conloca-prose ol > li::before {
+    font-size: 20px;
+  }
+
+  .conloca-prose dt {
+    line-height: 24px;
+  }
+
+  .conloca-prose dd {
+    line-height: 25px;
+  }
+}

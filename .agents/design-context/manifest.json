@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-10T01:55:00Z",
+  "verifiedCommit": "c4ed53864195f66fae2bbb23394863c399189eab",
+  "project": {
+    "framework": "astro",
+    "frameworkVersion": 7,
+    "output": "static",
+    "styling": "tailwind-v4-css-first + per-page hand-written CSS",
+    "ui": "react-19 islands (client:load), static HTML elsewhere",
+    "packageManager": "bun",
+    "sourceRoot": "src"
+  },
+  "designSources": {
+    "tokens": [
+      "Conloca Design system/design tokens/primitives.css",
+      "Conloca Design system/design tokens/semantics.css",
+      "Conloca Design system/design tokens/index.css",
+      "docs/figma-homepage-variables.json"
+    ],
+    "globalStyles": [
+      "src/index.css",
+      "src/homepage.css"
+    ],
+    "pageStyles": [
+      "src/how-it-works-page.css",
+      "src/pricing-page.css",
+      "src/blog.css",
+      "src/article-page.css"
+    ],
+    "components": [
+      "Conloca Design system/components/conloca-button",
+      "Conloca Design system/components/conloca-header",
+      "Conloca Design system/components/conloca-footer",
+      "Conloca Design system/components/conloca-segmented-control",
+      "Conloca Design system/components/conloca-dialog",
+      "Conloca Design system/components/conloca-carousel-progress",
+      "Conloca Design system/components/conloca-icon"
+    ],
+    "sections": [
+      "src/sections/hero-section.tsx",
+      "src/sections/feature-section.tsx",
+      "src/sections/audience-sections.tsx",
+      "src/sections/hero-carousel.tsx",
+      "src/sections/capabilities-section.tsx",
+      "src/sections/pricing-section.tsx",
+      "src/sections/pricing-page-sections.tsx",
+      "src/sections/how-it-works-page-sections.tsx",
+      "src/sections/blog-hero-section.tsx",
+      "src/sections/blog-listing-section.tsx",
+      "src/sections/article-page-sections.tsx",
+      "src/sections/section-link.tsx"
+    ],
+    "assets": [
+      "public/assets"
+    ],
+    "fonts": [
+      "public/fonts",
+      "src/index.css"
+    ],
+    "icons": [
+      "Conloca Design system/icons"
+    ],
+    "content": [
+      "src/homepage-content.ts",
+      "src/how-it-works-page-content.ts",
+      "src/pricing-page-content.ts",
+      "src/blog-content.ts",
+      "src/article-page-content.ts"
+    ],
+    "documentation": [
+      "docs/figma-homepage-layout.md",
+      "Conloca Design system/README.md"
+    ]
+  },
+  "watchPaths": [
+    "Conloca Design system/design tokens",
+    "Conloca Design system/components",
+    "Conloca Design system/icons",
+    "src/index.css",
+    "src/homepage.css",
+    "src/how-it-works-page.css",
+    "src/pricing-page.css",
+    "src/blog.css",
+    "src/article-page.css",
+    "src/sections",
+    "src/pages",
+    "src/layouts",
+    "src/homepage-content.ts",
+    "src/how-it-works-page-content.ts",
+    "src/pricing-page-content.ts",
+    "src/blog-content.ts",
+    "src/article-page-content.ts",
+    "public/assets",
+    "public/fonts",
+    "docs/figma-homepage-layout.md",
+    "docs/figma-homepage-variables.json"
+  ],
+  "representativePages": [
+    {
+      "route": "/",
+      "source": "src/pages/index.astro",
+      "role": "primary marketing reference (audience hero, pinned features, capabilities bento, pricing)"
+    },
+    {
+      "route": "/how-it-works",
+      "source": "src/pages/how-it-works.astro",
+      "role": "editorial/technical page (eyebrow hero, pinned step flow, diagram, terminal CTA)"
+    },
+    {
+      "route": "/pricing",
+      "source": "src/pages/pricing.astro",
+      "role": "conversion page (image hero with transparent header, plan cards, comparison table)"
+    },
+    {
+      "route": "/blog",
+      "source": "src/pages/blog.astro",
+      "role": "listing page (editorial hero, stacked card deck)"
+    },
+    {
+      "route": "/blog/one-change-across-three-systems",
+      "source": "src/pages/blog/one-change-across-three-systems.astro",
+      "role": "long-form article (sticky TOC, prose measure, related stories)"
+    }
+  ],
+  "renderedVerification": {
+    "performed": true,
+    "method": "bun run build + bun run preview, headless Chromium screenshots",
+    "viewports": [1440, 390],
+    "routes": ["/", "/how-it-works", "/pricing", "/blog", "/blog/one-change-across-three-systems"]
+  },
+  "contextFiles": {
+    "visualLanguage": "visual-language.md",
+    "foundations": "foundations.md",
+    "layouts": "layout-patterns.md",
+    "components": "components.md",
+    "sections": "section-patterns.md",
+    "pages": "page-patterns.md",
+    "responsive": "responsive-patterns.md",
+    "content": "content-style.md",
+    "interaction": "interaction-motion.md"
+  }
+}

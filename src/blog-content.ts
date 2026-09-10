@@ -1,4 +1,4 @@
-import { type HomepageMetadata, navigation } from "@/homepage-content"
+import { footerNavigation, type HomepageMetadata, navigation } from "@/homepage-content"
 
 export interface BlogDescription {
   emphasis: string
@@ -56,7 +56,7 @@ export const blogHeaderContent = {
 }
 
 export const blogFooterContent = {
-  navigationItems: navigation,
+  navigationItems: footerNavigation,
   action: { label: "Get started", url: "/" },
   logoUrl: "/",
   logoLabel: "Conloca home",

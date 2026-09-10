@@ -309,7 +309,7 @@ test("retains complete default content and ordinary links with JavaScript disabl
     page
       .getByRole("navigation", { name: "Footer navigation" })
       .getByRole("link"),
-  ).toHaveCount(4)
+  ).toHaveCount(5)
   expect(await page.content()).not.toMatch(
     /<!--app-html-->|entry-client|entry-server/,
   )

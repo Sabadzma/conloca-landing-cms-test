@@ -3,6 +3,7 @@ import {
   type ContentLink,
   type HomepageMetadata,
   type PricingContent,
+  footerNavigation,
   navigation,
   pricingContent,
 } from "@/homepage-content"
@@ -65,7 +66,7 @@ export const pricingPageHeaderContent = {
 }
 
 export const pricingPageFooterContent = {
-  navigationItems: navigation,
+  navigationItems: footerNavigation,
   action: { label: "Get started", url: "/" },
   logoUrl: "/",
   logoLabel: "Conloca home",

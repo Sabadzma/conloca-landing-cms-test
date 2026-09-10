@@ -241,6 +241,8 @@ export function PricingPageSections({ content }: PricingPageSectionsProps) {
                   }) + " pricing-assistant-action"}
                   data-slot="conloca-button"
                   href={action.url}
+                  rel={action.newTab ? "noopener noreferrer" : undefined}
+                  target={action.newTab ? "_blank" : undefined}
                 >
                   <Icon aria-hidden="true" />
                   <span>{action.label}</span>

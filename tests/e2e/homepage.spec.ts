@@ -13,7 +13,7 @@ test.beforeEach(async ({ page }) => {
   )
 })
 
-test("hydrates three islands with no asset, page, or hydration errors", async ({
+test("hydrates four islands with no asset, page, or hydration errors", async ({
   page,
 }) => {
   const errors: string[] = []
@@ -38,10 +38,10 @@ test("hydrates three islands with no asset, page, or hydration errors", async ({
   })
   await page.goto("/")
   await expect(page.locator("astro-island[ssr]")).toHaveCount(0)
-  await expect(page.locator('astro-island[client="load"]')).toHaveCount(3)
+  await expect(page.locator('astro-island[client="load"]')).toHaveCount(4)
   expect(
     await page
-      .locator(".capabilities, footer")
+      .locator("footer")
       .evaluateAll((nodes) =>
         nodes.every((node) => !node.closest("astro-island")),
       ),

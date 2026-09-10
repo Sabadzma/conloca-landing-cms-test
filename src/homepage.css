@@ -508,6 +508,10 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.bento-card:hover {
+  transform: scale(0.98);
 }
 .bento-copy {
   position: relative;
@@ -531,6 +535,14 @@ p {
   max-width: none;
   height: auto;
   pointer-events: none;
+}
+.bento-lottie {
+  position: absolute;
+  max-width: none;
+  pointer-events: none;
+}
+.bento-card:has(> .bento-lottie[data-active]) .bento-artwork {
+  visibility: hidden;
 }
 .bento-scrim {
   position: absolute;
@@ -557,6 +569,12 @@ p {
   background: linear-gradient(180deg, #f5f4ee00, #f5f4eecc 67.637%);
   backdrop-filter: blur(7px);
 }
+.bento-publishing .bento-lottie {
+  width: 1755px;
+  aspect-ratio: 1755 / 1273;
+  left: -919px;
+  top: -54.61px;
+}
 .bento-git {
   grid-column: 3 / 5;
   grid-row: 1;
@@ -565,6 +583,12 @@ p {
   width: 855px;
   left: calc(50% - 403px);
   top: 19px;
+}
+.bento-git .bento-lottie {
+  width: 902px;
+  aspect-ratio: 902 / 244;
+  left: -79px;
+  top: 9.39px;
 }
 .bento-data {
   grid-column: 2;
@@ -575,6 +599,12 @@ p {
   left: 24px;
   top: -134.94px;
 }
+.bento-data .bento-lottie {
+  width: 534px;
+  aspect-ratio: 534 / 362;
+  left: 24px;
+  top: -141.94px;
+}
 .bento-fragments {
   grid-column: 3;
   grid-row: 3;
@@ -583,6 +613,12 @@ p {
   width: 376.459px;
   left: calc(50% - 125.5px);
   top: -35.94px;
+}
+.bento-fragments .bento-lottie {
+  width: 482px;
+  aspect-ratio: 482 / 358;
+  left: -20px;
+  top: -84.94px;
 }
 .bento-media {
   grid-column: 1;
@@ -593,6 +629,12 @@ p {
   left: calc(50% - 118.5px);
   top: 53.54px;
 }
+.bento-media .bento-lottie {
+  width: 251px;
+  aspect-ratio: 251 / 140;
+  left: 42px;
+  top: 23.06px;
+}
 .bento-markdown {
   grid-column: 3 / 5;
   grid-row: 2;
@@ -602,6 +644,12 @@ p {
   right: 12.89px;
   top: 22.33px;
 }
+.bento-markdown .bento-lottie {
+  width: 514px;
+  aspect-ratio: 514 / 420;
+  left: 175px;
+  top: 9.73px;
+}
 .bento-history {
   grid-column: 4;
   grid-row: 3;
@@ -610,6 +658,12 @@ p {
   width: 254.94px;
   left: calc(50% - 126.97px);
   top: 53px;
+}
+.bento-history .bento-lottie {
+  width: 420px;
+  aspect-ratio: 420 / 436;
+  left: -42px;
+  top: -85.94px;
 }
 .pricing {
   display: grid;
@@ -841,6 +895,35 @@ p {
   }
   .bento-markdown .bento-artwork {
     right: -17.1px;
+  }
+  .bento-publishing .bento-lottie {
+    width: 1978.81px;
+    left: -820px;
+    top: -76.61px;
+  }
+  .bento-git .bento-lottie {
+    left: 53px;
+    top: 1.99px;
+  }
+  .bento-data .bento-lottie {
+    left: 15px;
+    top: -156.94px;
+  }
+  .bento-fragments .bento-lottie {
+    left: -45px;
+    top: -75.94px;
+  }
+  .bento-media .bento-lottie {
+    left: 38px;
+    top: 32.73px;
+  }
+  .bento-markdown .bento-lottie {
+    left: 201px;
+    top: -0.27px;
+  }
+  .bento-history .bento-lottie {
+    left: -46px;
+    top: -87.94px;
   }
   .pricing {
     grid-template-columns: 440px minmax(0, 1fr);
@@ -1127,6 +1210,35 @@ p {
   .bento-markdown .bento-artwork {
     right: -39.1087px;
   }
+  .bento-publishing .bento-lottie {
+    width: 1127px;
+    left: -461px;
+    top: -58.61px;
+  }
+  .bento-git .bento-lottie {
+    left: -139px;
+    top: 1.99px;
+  }
+  .bento-data .bento-lottie {
+    left: 4px;
+    top: -156.94px;
+  }
+  .bento-fragments .bento-lottie {
+    left: -56px;
+    top: -75.94px;
+  }
+  .bento-media .bento-lottie {
+    left: 27px;
+    top: 32.73px;
+  }
+  .bento-markdown .bento-lottie {
+    left: 179px;
+    top: -0.27px;
+  }
+  .bento-history .bento-lottie {
+    left: -57px;
+    top: -87.94px;
+  }
   .pricing {
     padding: 132px 24px 42px;
     grid-template-columns: minmax(0, 1fr);
@@ -1296,6 +1408,35 @@ p {
     left: calc(50% - 126.97px);
     top: 76px;
   }
+  .bento-publishing .bento-lottie {
+    left: -631px;
+    top: -52.64px;
+  }
+  .bento-git .bento-lottie {
+    width: 633px;
+    left: -87px;
+    top: 52.36px;
+  }
+  .bento-data .bento-lottie {
+    left: 24px;
+    top: -93.64px;
+  }
+  .bento-fragments .bento-lottie {
+    left: -13px;
+    top: -39.64px;
+  }
+  .bento-media .bento-lottie {
+    left: 79.32px;
+    top: 58.83px;
+  }
+  .bento-markdown .bento-lottie {
+    left: -17.95px;
+    top: 0.36px;
+  }
+  .bento-history .bento-lottie {
+    left: -17px;
+    top: -72.64px;
+  }
   .pricing {
     padding: 72px 8px 8px;
     column-gap: 12px;
@@ -1338,7 +1479,8 @@ p {
   *::after {
     scroll-behavior: auto !important;
   }
-  .video-play {
+  .video-play,
+  .bento-card {
     transition: none;
   }
 }

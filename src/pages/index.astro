@@ -11,7 +11,7 @@ import { metadata, headerContent, footerContent, audienceContent, capabilitiesCo
   <ConlocaHeader {...headerContent} client:load />
   <main id="main-content">
     <AudienceSections content={audienceContent} client:load />
-    <CapabilitiesSection content={capabilitiesContent} />
+    <CapabilitiesSection content={capabilitiesContent} client:load />
     <PricingSection content={pricingContent} client:load />
   </main>
   <ConlocaFooter {...footerContent} />

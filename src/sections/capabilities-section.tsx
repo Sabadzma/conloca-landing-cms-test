@@ -1,7 +1,18 @@
+import { BentoLottie } from "@/sections/bento-lottie"
 import type { CapabilitiesContent } from "@/homepage-content"
 
 export interface CapabilitiesSectionProps {
   content: CapabilitiesContent
+}
+
+const bentoLotties: Record<string, string> = {
+  publishing: "/assets/Lotties/bento-01.lottie",
+  git: "/assets/Lotties/bento-02.lottie",
+  markdown: "/assets/Lotties/bento-03.lottie",
+  media: "/assets/Lotties/bento-04.lottie",
+  data: "/assets/Lotties/bento-05.lottie",
+  fragments: "/assets/Lotties/bento-06.lottie",
+  history: "/assets/Lotties/bento-07.lottie",
 }
 export function CapabilitiesSection({ content }: CapabilitiesSectionProps) {
   return (
@@ -91,6 +102,10 @@ export function CapabilitiesSection({ content }: CapabilitiesSectionProps) {
                 loading="lazy"
               />
             </picture>
+            <BentoLottie
+              src={bentoLotties[capability.name]}
+              {...(capability.name === "fragments" ? { startFrame: 1 } : {})}
+            />
             <div className="bento-scrim" aria-hidden="true" />
             <div className="bento-copy">
               <h3>{capability.title}</h3>

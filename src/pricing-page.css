@@ -216,27 +216,10 @@
 }
 
 .pricing-comparison thead th.is-featured {
-  position: relative;
   border-top: 2px solid var(--color-lime-300);
-  background: var(--color-bg-surface-initial);
-}
-
-.pricing-comparison thead th.is-featured::before {
-  position: absolute;
-  top: -55px;
-  left: 50%;
-  width: 168px;
-  height: 168px;
-  border-radius: 50%;
-  background: var(--color-lime-300);
-  content: "";
-  filter: blur(134px);
-  pointer-events: none;
-  transform: translateX(-50%);
-}
-
-.pricing-comparison thead th.is-featured > span {
-  position: relative;
+  background:
+    linear-gradient(to bottom, rgb(154 230 0 / 0.1) 0%, rgb(154 230 0 / 0) 100%),
+    var(--color-bg-surface-initial);
 }
 
 .pricing-comparison-plan-name {

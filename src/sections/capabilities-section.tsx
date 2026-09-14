@@ -105,6 +105,7 @@ export function CapabilitiesSection({ content }: CapabilitiesSectionProps) {
             <BentoLottie
               src={bentoLotties[capability.name]}
               {...(capability.name === "fragments" ? { startFrame: 1 } : {})}
+              {...(capability.name === "git" ? { reverseOnLeave: false } : {})}
             />
             <div className="bento-scrim" aria-hidden="true" />
             <div className="bento-copy">

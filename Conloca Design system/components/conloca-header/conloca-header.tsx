@@ -13,7 +13,7 @@ import MenuIcon from "@conloca-design-system/icons/menu-01.svg?react"
 import CloseIcon from "@conloca-design-system/icons/x-01.svg?react"
 import { cn } from "@/lib/utils"
 
-const conlocaHeaderVariants = cva("conloca-header-appear w-full", {
+const conlocaHeaderVariants = cva("conloca-header-appear relative w-full", {
   variants: {
     transparent: {
       false:
@@ -232,6 +232,28 @@ const ConlocaHeader = React.forwardRef<HTMLElement, ConlocaHeaderProps>(
       handleMenuExpandedChange(false)
     }, [handleMenuExpandedChange])
 
+    // The compact menu overlays the page: lock scroll and close on Escape,
+    // on scrim click, or when the viewport reaches the desktop breakpoint.
+    React.useEffect(() => {
+      if (!isMenuExpanded) return
+      const previousOverflow = document.body.style.overflow
+      document.body.style.overflow = "hidden"
+      const desktopQuery = window.matchMedia("(min-width: 1024px)")
+      const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key === "Escape") handleMenuExpandedChange(false)
+      }
+      const handleBreakpointChange = () => {
+        if (desktopQuery.matches) handleMenuExpandedChange(false)
+      }
+      document.addEventListener("keydown", handleKeyDown)
+      desktopQuery.addEventListener("change", handleBreakpointChange)
+      return () => {
+        document.body.style.overflow = previousOverflow
+        document.removeEventListener("keydown", handleKeyDown)
+        desktopQuery.removeEventListener("change", handleBreakpointChange)
+      }
+    }, [isMenuExpanded, handleMenuExpandedChange])
+
     return (
       <header
         {...props}
@@ -355,8 +377,18 @@ const ConlocaHeader = React.forwardRef<HTMLElement, ConlocaHeaderProps>(
             </div>
           </div>
 
+          <div
+            aria-hidden="true"
+            className={cn(
+              "invisible pointer-events-none absolute inset-x-0 top-full z-40 h-[calc(100dvh-100%)] bg-[#0c0a09]/20 opacity-0 transition-[opacity,visibility] duration-[320ms] ease-[cubic-bezier(0.05,0.7,0.1,1)] min-[1024px]:hidden motion-reduce:transition-none",
+              isMenuExpanded && "visible pointer-events-auto opacity-100",
+            )}
+            data-slot="conloca-header-menu-scrim"
+            onClick={handleMobileNavigationClick}
+          />
+
           <CollapsiblePrimitive.Panel
-            className="h-[var(--collapsible-panel-height)] translate-y-0 overflow-hidden bg-[var(--color-bg-surface-initial)] text-[var(--color-fg-strong-default-initial)] opacity-100 shadow-[inset_0_1px_0_var(--color-stroke-soft)] transition-[height,opacity,transform] duration-[320ms] ease-[cubic-bezier(0.05,0.7,0.1,1)] data-[ending-style]:h-0 data-[starting-style]:h-0 data-[ending-style]:-translate-y-[8px] data-[starting-style]:-translate-y-[8px] data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 min-[1024px]:hidden motion-reduce:transition-none"
+            className="absolute inset-x-0 top-full z-50 h-[var(--collapsible-panel-height)] translate-y-0 overflow-hidden bg-[var(--color-bg-surface-initial)] text-[var(--color-fg-strong-default-initial)] opacity-100 shadow-[inset_0_1px_0_var(--color-stroke-soft)] transition-[height,opacity,transform] duration-[320ms] ease-[cubic-bezier(0.05,0.7,0.1,1)] data-[ending-style]:h-0 data-[starting-style]:h-0 data-[ending-style]:-translate-y-[8px] data-[starting-style]:-translate-y-[8px] data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 min-[1024px]:hidden motion-reduce:transition-none"
             data-slot="conloca-header-mobile-panel"
             id={mobileMenuId}
           >

@@ -9,6 +9,8 @@ import { cn } from "@/lib/utils"
 
 export type ConlocaFooterNavigationItem = {
   label: string
+  /** Open the destination in a new tab. Use for external links. */
+  newTab?: boolean
   url: string
 }
 
@@ -141,6 +143,8 @@ const ConlocaFooter = React.forwardRef<HTMLElement, ConlocaFooterProps>(
                       className="inline-flex whitespace-nowrap rounded-[2px] outline outline-1 outline-transparent hover:underline hover:underline-offset-[4px] focus-visible:outline-2 focus-visible:outline-offset-[5px] focus-visible:outline-[var(--color-bg-accent-initial)]"
                       data-slot="conloca-footer-navigation-item"
                       href={item.url}
+                      rel={item.newTab ? "noopener noreferrer" : undefined}
+                      target={item.newTab ? "_blank" : undefined}
                     >
                       {item.label}
                     </a>

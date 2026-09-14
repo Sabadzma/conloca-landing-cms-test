@@ -31,9 +31,15 @@ export interface BentoLottieProps {
   src: string
   /** Skips defective leading frames: playback and initial paint start here */
   startFrame?: number
+  /** Play the animation backwards when the pointer leaves the card */
+  reverseOnLeave?: boolean
 }
 
-export function BentoLottie({ src, startFrame }: BentoLottieProps) {
+export function BentoLottie({
+  src,
+  startFrame,
+  reverseOnLeave = true,
+}: BentoLottieProps) {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const playerRef = useRef<DotLottie | null>(null)
   const appearedRef = useRef(false)
@@ -110,12 +116,12 @@ export function BentoLottie({ src, startFrame }: BentoLottieProps) {
       player.play()
     }
     card.addEventListener("mouseenter", playForward)
-    card.addEventListener("mouseleave", playReverse)
+    if (reverseOnLeave) card.addEventListener("mouseleave", playReverse)
     return () => {
       card.removeEventListener("mouseenter", playForward)
       card.removeEventListener("mouseleave", playReverse)
     }
-  }, [enabled, firstFrame])
+  }, [enabled, firstFrame, reverseOnLeave])
 
   return (
     <div

@@ -245,9 +245,10 @@ p {
   padding: 0;
   border: 0;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 28px;
   background: #191919;
   transform: rotate(-1.5deg);
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
   box-shadow:
     0 4px 6px #10182808,
     0 12px 16px #10182814,
@@ -276,6 +277,9 @@ p {
   border-radius: 1000px;
   background: #0003;
   transition: background 110ms linear;
+}
+.hero-video:hover {
+  transform: rotate(0deg) translate(-16px, -12px);
 }
 .hero-video:hover .video-play {
   background: #0006;
@@ -1479,6 +1483,7 @@ p {
   *::after {
     scroll-behavior: auto !important;
   }
+  .hero-video,
   .video-play,
   .bento-card {
     transition: none;

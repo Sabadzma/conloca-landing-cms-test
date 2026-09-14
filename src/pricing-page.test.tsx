@@ -16,10 +16,12 @@ describe("Conloca pricing page", () => {
     expect(screen.getAllByRole("article")).toHaveLength(3)
     expect(screen.getByRole("table")).toBeInTheDocument()
     expect(screen.getByText("Governance & support")).toBeInTheDocument()
-    expect(screen.getByRole("link", { name: "Ask ChatGPT" })).toHaveAttribute(
-      "href",
-      "https://chatgpt.com/",
+    const askChatGpt = new URL(
+      screen.getByRole("link", { name: "Ask ChatGPT" }).getAttribute("href") ??
+        "",
     )
+    expect(askChatGpt.origin).toBe("https://chatgpt.com")
+    expect(askChatGpt.searchParams.get("prompt")).toContain("Conloca")
     expect(
       screen.getAllByRole("link", { name: "Choose business" }),
     ).not.toHaveLength(0)

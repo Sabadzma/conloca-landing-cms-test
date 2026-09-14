@@ -1,14 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { conlocaButtonVariants } from "@conloca-design-system/components/conloca-button"
-import FlashOffIcon from "@conloca-design-system/icons/flash-off.svg?react"
-import DatabaseIcon from "@conloca-design-system/icons/database-01.svg?react"
-import GlobeIcon from "@conloca-design-system/icons/globe-01.svg?react"
-import LeftIndentIcon from "@conloca-design-system/icons/left-indent-02.svg?react"
+import { ConlocaIcon } from "@conloca-design-system/components/conloca-icon"
 import CopyIcon from "@conloca-design-system/icons/copy-02.svg?react"
 import { cn } from "@/lib/utils"
 import type {
-  HowItWorksBentoIcon,
   HowItWorksPageContent,
+  HowItWorksStep,
   PackageManager,
 } from "@/how-it-works-page-content"
 
@@ -16,14 +13,26 @@ export interface HowItWorksPageSectionsProps {
   content: HowItWorksPageContent
 }
 
-const bentoIcons: Record<
-  HowItWorksBentoIcon,
-  typeof FlashOffIcon
-> = {
-  "flash-off": FlashOffIcon,
-  "database-01": DatabaseIcon,
-  "globe-01": GlobeIcon,
-  "left-indent-02": LeftIndentIcon,
+function StepScrollButton({
+  index,
+  onSelect,
+  step,
+}: {
+  index: number
+  onSelect: (index: number) => void
+  step: HowItWorksStep
+}) {
+  const handleClick = useCallback(() => onSelect(index), [index, onSelect])
+  return (
+    <button
+      aria-labelledby={
+        "hiw-step-" + step.number + "-number hiw-step-" + step.number + "-title"
+      }
+      className="hiw-step__trigger"
+      onClick={handleClick}
+      type="button"
+    />
+  )
 }
 
 function PackageManagerTab({
@@ -97,6 +106,27 @@ export function HowItWorksPageSections({
       if (frame !== 0) cancelAnimationFrame(frame)
     }
   }, [content.steps.items.length])
+  const scrollToStep = useCallback(
+    (index: number) => {
+      const track = flowTrackRef.current
+      if (!track) return
+      const rect = track.getBoundingClientRect()
+      const scrollable = rect.height - window.innerHeight
+      if (scrollable <= 0) return
+      const reduceMotion =
+        window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ??
+        false
+      window.scrollTo({
+        behavior: reduceMotion ? "auto" : "smooth",
+        top:
+          window.scrollY +
+          rect.top +
+          (scrollable * index) / content.steps.items.length +
+          1,
+      })
+    },
+    [content.steps.items.length],
+  )
 
   return (
     <>
@@ -130,11 +160,26 @@ export function HowItWorksPageSections({
                 )}
                 key={step.number}
               >
-                <span className="hiw-step__number">{step.number}</span>
+                <span
+                  className="hiw-step__number"
+                  id={"hiw-step-" + step.number + "-number"}
+                >
+                  {step.number}
+                </span>
                 <div className="hiw-step__body">
-                  <h2 className="hiw-step__title">{step.title}</h2>
+                  <h2
+                    className="hiw-step__title"
+                    id={"hiw-step-" + step.number + "-title"}
+                  >
+                    {step.title}
+                  </h2>
                   <p className="hiw-step__description">{step.description}</p>
                 </div>
+                <StepScrollButton
+                  index={index}
+                  onSelect={scrollToStep}
+                  step={step}
+                />
               </li>
             ))}
           </ol>
@@ -195,27 +240,24 @@ export function HowItWorksPageSections({
 
       <section className="hiw-bento" aria-label={content.bento.label}>
         <div className="hiw-bento__grid">
-          {content.bento.cards.map((card) => {
-            const Icon = bentoIcons[card.icon]
-            return (
-              <article className="hiw-bento-card" key={card.title}>
-                <Icon
-                  aria-hidden="true"
-                  className={cn(
-                    "hiw-bento-card__icon",
-                    card.iconTint === "olive" &&
-                      "hiw-bento-card__icon--olive",
-                  )}
-                />
-                <div className="hiw-bento-card__body">
-                  <h3 className="hiw-bento-card__title">{card.title}</h3>
-                  <p className="hiw-bento-card__description">
-                    {card.description}
-                  </p>
-                </div>
-              </article>
-            )
-          })}
+          {content.bento.cards.map((card) => (
+            <article className="hiw-bento-card" key={card.title}>
+              <ConlocaIcon
+                className="hiw-bento-card__icon"
+                name={card.icon}
+                size={32}
+                {...(card.iconTint === "olive"
+                  ? { color: "var(--color-olive-700)" }
+                  : {})}
+              />
+              <div className="hiw-bento-card__body">
+                <h3 className="hiw-bento-card__title">{card.title}</h3>
+                <p className="hiw-bento-card__description">
+                  {card.description}
+                </p>
+              </div>
+            </article>
+          ))}
           <h2 className="hiw-bento__heading">{content.bento.heading}</h2>
         </div>
       </section>

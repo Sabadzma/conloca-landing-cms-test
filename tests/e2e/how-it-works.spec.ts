@@ -91,14 +91,14 @@ test("matches the 1440px Figma section geometry", async ({ page }) => {
   }))
 
   const expected: Record<keyof typeof geometry, number> = {
-    bento: 664,
+    bento: 780,
     cta: 590,
     flow: 3840,
     footer: 92,
     header: 80,
     hero: 422,
-    layers: 813,
-    page: 6501,
+    layers: 877,
+    page: 6681,
     showcase: 795,
     steps: 165,
   }

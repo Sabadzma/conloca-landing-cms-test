@@ -296,6 +296,12 @@ html:has(.article-page) {
   padding: 4px;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.article-page) {
+    scroll-behavior: smooth;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .article-related-card__link {
     transition: none;

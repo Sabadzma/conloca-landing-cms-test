@@ -14,6 +14,12 @@ html:has(.terms-page) {
   overflow-x: clip;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.terms-page) {
+    scroll-behavior: smooth;
+  }
+}
+
 .terms-hero,
 .terms-body {
   box-sizing: border-box;

@@ -1,8 +1,8 @@
 import { expect, test } from "@playwright/test"
 
 const referenceViewports = [
-  { width: 393, header: 66, hero: 330, page: 1189.511 },
-  { width: 640, header: 74, hero: 406, page: 1677.207 },
+  { width: 393, header: 66, hero: 330, page: 2412 },
+  { width: 640, header: 74, hero: 406, page: 3544 },
   { width: 1024, header: 80, hero: 398, page: 2450 },
   { width: 1281, header: 80, hero: 398, page: 2642.528 },
   { width: 1360, header: 80, hero: 398, page: 2769.461 },

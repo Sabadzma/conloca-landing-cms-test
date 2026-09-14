@@ -182,7 +182,7 @@ test("keeps complete pricing content without JavaScript", async ({
   await expect(page.getByRole("table")).toBeVisible()
   await expect(page.getByRole("link", { name: "Ask ChatGPT" })).toHaveAttribute(
     "href",
-    "https://chatgpt.com/",
+    "https://chatgpt.com/?prompt=Explore+https%3A%2F%2Fconloca.com%2Fgetting-started%2F+and+https%3A%2F%2Fconloca.com%2Fhow-it-works%2F.+Explain+what+Conloca+is%2C+how+it+works%2C+and+why+a+team+might+prefer+it+over+a+traditional+CMS.&utm_source=chatgpt.com",
   )
   await context.close()
 })

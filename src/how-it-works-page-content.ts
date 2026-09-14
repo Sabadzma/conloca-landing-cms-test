@@ -13,7 +13,7 @@ export interface HowItWorksStep {
 }
 
 export type HowItWorksBentoIcon =
-  | "flash-off"
+  | "flash-off-1"
   | "database-01"
   | "globe-01"
   | "left-indent-02"
@@ -131,7 +131,7 @@ export const howItWorksPageContent: HowItWorksPageContent = {
     heading: "Conloca can manage more than just pages",
     cards: [
       {
-        icon: "flash-off",
+        icon: "flash-off-1",
         iconTint: "olive",
         title: "Media",
         description: "URL-addressable site content and standalone landing pages",

@@ -27,12 +27,24 @@ export function AudienceSections({ content }: AudienceSectionsProps) {
 
   useEffect(() => {
     let frame = 0
+    let pin: Element | null = null
     const update = () => {
       frame = 0
       const track = featuresTrackRef.current
       if (!track) return
+      pin ??= track.querySelector(".features__pin")
       const rect = track.getBoundingClientRect()
       const scrollable = rect.height - window.innerHeight
+      const stickyTop = pin ? Number.parseFloat(getComputedStyle(pin).top) : 0
+      const pinTop = pin
+        ? pin.getBoundingClientRect().top
+        : Number.POSITIVE_INFINITY
+      track.classList.toggle(
+        "features--stuck",
+        scrollable > 0 &&
+          pinTop <= stickyTop + 1 &&
+          rect.bottom >= window.innerHeight,
+      )
       if (scrollable <= 0) return
       const progress = Math.min(Math.max(-rect.top / scrollable, 0), 1)
       setActiveFeature((previous) => {

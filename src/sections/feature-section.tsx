@@ -1,41 +1,58 @@
-import type { AudienceControlProps } from "./audience-controls"
-import { ConlocaSegmentedControl } from "@conloca-design-system/components/conloca-segmented-control"
-import type { FeatureContent, FeatureControls } from "@/homepage-content"
+import { useEffect, useMemo, type CSSProperties } from "react"
+import type { Audience, FeatureContent, FeatureControls } from "@/homepage-content"
 import { cn } from "@/lib/utils"
 import { SectionLink } from "./section-link"
+import { FeatureBanner5 } from "./feature-banner-5"
 
-export interface FeatureSectionProps extends AudienceControlProps {
+export type FeatureMotion = "idle" | "enter" | "shown"
+export type FeatureDirection = "down" | "up"
+
+export interface FeatureSectionProps {
+  index: number
+  motion: FeatureMotion
   active: boolean
+  direction: FeatureDirection
   feature: FeatureContent
   controls: FeatureControls
+  audience: Audience
+  onEnterEnd: () => void
 }
 export function FeatureSection({
+  index,
+  motion,
   active,
+  direction,
   feature,
   controls,
   audience,
-  options,
-  onAudienceChange,
+  onEnterEnd,
 }: FeatureSectionProps) {
+  const interactive = active && motion !== "idle"
+  const slideStyle = useMemo(
+    () => ({ "--slide-index": index }) as CSSProperties,
+    [index],
+  )
+  // time-based, so a single timer covers the staggered copy and artwork.
+  useEffect(() => {
+    if (motion !== "enter") return
+    const id = window.setTimeout(onEnterEnd, 720)
+    return () => window.clearTimeout(id)
+  }, [motion, onEnterEnd])
+
   return (
     <section
       aria-labelledby={"feature-" + feature.name}
       className={cn(
         "feature",
         "feature-" + feature.name,
-        active && "feature--active",
+        interactive && "feature--active",
+        motion !== "idle" && "feature--" + motion,
       )}
-      inert={!active}
+      data-dir={direction}
+      style={slideStyle}
+      inert={!interactive}
     >
-      <div className="feature-audience">
-        <ConlocaSegmentedControl
-          aria-label={controls.audienceLabelPrefix + feature[audience].title}
-          options={options}
-          value={audience}
-          onValueChange={onAudienceChange}
-          transparent
-        />
-      </div>
+      <div className="feature-audience-slot" />
       <div className="feature-content">
         <div className="feature-copy">
           <div className="feature-text">
@@ -55,7 +72,16 @@ export function FeatureSection({
           </div>
         </div>
         <div className="feature-artwork" aria-hidden="true">
-          <img src={"/assets/" + feature.artwork} alt="" loading="lazy" />
+          {feature.name === "source" ? (
+            <div className="feature-banner-5-frame">
+              <FeatureBanner5
+                play={motion !== "idle"}
+                direction={direction}
+              />
+            </div>
+          ) : (
+            <img src={"/assets/" + feature.artwork} alt="" loading="lazy" />
+          )}
         </div>
       </div>
     </section>

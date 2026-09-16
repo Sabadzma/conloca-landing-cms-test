@@ -203,7 +203,7 @@ it("switches audience from a feature, resets the carousel, and renders supplied 
   render(<AudienceSections content={customAudienceContent} />)
   await user.click(screen.getByRole("button", { name: "Show message 3" }))
   await user.click(
-    screen.getAllByRole("button", { name: "Content editors" })[2]!,
+    screen.getAllByRole("button", { name: "Content editors" })[1]!,
   )
   expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
     "Custom editor heading",

@@ -68,7 +68,7 @@ p {
   --hero-background-overlay: linear-gradient(#0003, #0003);
   --source-background-image: url("/assets/feature-background.webp");
   --localization-background-image: url("/assets/localization-background.webp");
-  --history-background-image: url("/assets/feature-background.webp");
+  --history-background-image: url("/assets/history-background.webp");
 }
 .audience-sections[data-audience="editors"] {
   --hero-background-image: url("/assets/hero-editors-background.webp");
@@ -290,74 +290,97 @@ p {
 }
 .features {
   position: relative;
-  height: 400vh;
-  padding: 72px 12px 12px;
-  transition:
-    padding-left 320ms ease,
-    padding-right 320ms ease;
+  height: calc((var(--slide-count, 3) + 1) * 100vh + var(--pin-inset-top, 72px));
+  height: calc((var(--slide-count, 3) + 1) * 100dvh + var(--pin-inset-top, 72px));
+  --pin-inset-top: 72px;
 }
+/* The pin is one viewport plus the banner's top inset tall, so the rounded
+   card scrolls until its visual top touches the viewport top, then docks. */
 .features__pin {
   position: sticky;
-  top: 12px;
-  height: calc(100vh - 24px);
-  height: calc(100dvh - 24px);
-  transition:
-    top 320ms ease,
-    height 320ms ease;
-}
-.feature {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  pointer-events: none;
-  transition:
-    opacity 240ms ease,
-    border-radius 320ms ease;
-  padding: 24px;
-  border-radius: 28px;
+  top: calc(-1 * var(--pin-inset-top));
+  height: calc(100vh + var(--pin-inset-top));
+  height: calc(100dvh + var(--pin-inset-top));
   overflow: hidden;
+}
+.features__bg {
+  position: absolute;
+  top: var(--pin-inset-top);
+  right: 12px;
+  bottom: 12px;
+  left: 12px;
+  border-radius: 28px;
   background:
     linear-gradient(#0003, #0003),
     var(--source-background-image) center / cover;
+  transition:
+    top 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    right 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    bottom 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    left 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    border-radius 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.features__bg[data-feature="localization"] {
+  background:
+    linear-gradient(#0003, #0003),
+    var(--localization-background-image) center / cover;
+}
+.features__bg[data-feature="history"] {
+  background:
+    linear-gradient(#0003, #0003),
+    var(--history-background-image) center / cover;
+}
+.features--stuck .features__bg {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 0;
+}
+.feature {
+  position: absolute;
+  inset: var(--pin-inset-top) 0 0 0;
+  visibility: hidden;
+  pointer-events: none;
+  padding: 24px;
+  overflow: hidden;
+  z-index: calc(2 - var(--slide-index, 0));
   color: var(--color-fg-strong-inverted-initial);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  --feature-ease-in: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --feature-ease-out: cubic-bezier(0.898, 0.077, 0.975, 0.249);
+}
+.feature--enter,
+.feature--shown {
+  visibility: visible;
 }
 .feature--active {
-  z-index: 1;
-  opacity: 1;
   pointer-events: auto;
 }
-.features.features--stuck {
-  padding-left: 0;
-  padding-right: 0;
+.features__pin > .feature-audience {
+  position: absolute;
+  top: calc(var(--pin-inset-top) + 24px);
+  left: 24px;
+  right: 24px;
+  width: auto;
+  max-width: 1374px;
+  height: 43px;
+  margin-inline: auto;
+  z-index: 3;
+  opacity: 1;
 }
-.features--stuck .features__pin {
-  top: 0;
-  height: 100vh;
-  height: 100dvh;
-}
-.features--stuck .feature {
-  border-radius: 0;
-}
-.feature-history {
-  background-image:
-    linear-gradient(#0003, #0003), var(--history-background-image);
-}
-.feature-localization {
-  background-image:
-    linear-gradient(#0003, #0003), var(--localization-background-image);
-}
-.feature-audience {
+.feature-audience-slot {
   width: 100%;
   max-width: 1374px;
   height: 43px;
   flex: 0 0 43px;
-  position: relative;
-  z-index: 1;
 }
+/* Slide position and fade are scrubbed: --feature-progress (0..N) is written
+   from the scroll handler, each slide exits over [index, index+1] and rises
+   in over [index-1, index]. Fully reversible, no per-slide JS. */
 .feature-content {
   display: flex;
   width: 100%;
@@ -366,6 +389,19 @@ p {
   min-height: 0;
   max-height: 920px;
   justify-content: space-between;
+  --slide-enter: min(
+    max(var(--feature-progress, 0) - (var(--slide-index, 0) - 1), 0),
+    1
+  );
+  --slide-exit: min(
+    max(var(--feature-progress, 0) - var(--slide-index, 0), 0),
+    1
+  );
+  transform: translateY(
+    calc((1 - var(--slide-enter)) * 52.5625rem - var(--slide-exit) * 52.5625rem)
+  );
+  opacity: calc(1 - var(--slide-exit));
+  will-change: transform, opacity;
 }
 .feature-copy {
   position: relative;
@@ -397,6 +433,130 @@ p {
   flex-shrink: 0;
   gap: 12px;
 }
+@keyframes feature-copy-enter {
+  from {
+    opacity: 0;
+    transform: translate(0, 2.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes feature-artwork-enter-left {
+  from {
+    opacity: 0;
+    transform: translate(-37rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes feature-artwork-enter-up {
+  from {
+    opacity: 0;
+    transform: translate(0, 5.3125rem);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes feature-copy-enter-from-top {
+  from {
+    opacity: 0;
+    transform: translate(0, -2.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes feature-artwork-enter-right {
+  from {
+    opacity: 0;
+    transform: translate(37rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes feature-artwork-enter-from-top {
+  from {
+    opacity: 0;
+    transform: translate(0, -5.3125rem);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+.feature-text h2,
+.feature-text p,
+.feature-actions {
+  opacity: 0;
+  transform: translate(0, 2.5rem);
+}
+.feature--enter .feature-text h2 {
+  animation: feature-copy-enter 0.5s var(--feature-ease-in) both;
+}
+.feature--enter .feature-text p {
+  animation: feature-copy-enter 0.5s 50ms var(--feature-ease-in) both;
+}
+.feature--enter .feature-actions {
+  animation: feature-copy-enter 0.5s 100ms var(--feature-ease-in) both;
+}
+.feature--shown .feature-text h2,
+.feature--shown .feature-text p,
+.feature--shown .feature-actions {
+  opacity: 1;
+  transform: none;
+}
+
+.feature--enter[data-dir="up"] .feature-text h2 {
+  animation: feature-copy-enter-from-top 0.5s var(--feature-ease-in) both;
+}
+.feature--enter[data-dir="up"] .feature-text p {
+  animation: feature-copy-enter-from-top 0.5s 50ms var(--feature-ease-in) both;
+}
+.feature--enter[data-dir="up"] .feature-actions {
+  animation: feature-copy-enter-from-top 0.5s 100ms var(--feature-ease-in) both;
+}
+.feature-localization.feature--enter[data-dir="up"] .feature-artwork {
+  animation: feature-artwork-enter-right 0.65s var(--feature-ease-in) both;
+}
+.feature-history.feature--enter[data-dir="up"] .feature-artwork {
+  animation: feature-artwork-enter-from-top 0.6s var(--feature-ease-in) both;
+}
+
+.feature-localization .feature-artwork {
+  opacity: 0;
+  transform: translate(-37rem, 0);
+}
+.feature-localization.feature--enter .feature-artwork {
+  animation: feature-artwork-enter-left 0.65s var(--feature-ease-in) both;
+}
+.feature-localization.feature--shown .feature-artwork {
+  opacity: 1;
+  transform: none;
+}
+.feature-history .feature-artwork {
+  opacity: 0;
+  transform: translate(0, 5.3125rem);
+}
+.feature-history.feature--enter .feature-artwork {
+  animation: feature-artwork-enter-up 0.6s var(--feature-ease-in) both;
+}
+.feature-history.feature--shown .feature-artwork {
+  opacity: 1;
+  transform: none;
+}
+
 .feature-artwork {
   position: relative;
   min-width: 0;
@@ -413,11 +573,19 @@ p {
 }
 .feature-source .feature-artwork {
   max-width: 860px;
+  --fb5-w: 1088px;
 }
-.feature-source .feature-artwork img {
-  width: 1095px;
-  left: 50px;
-  top: 23px;
+.feature-source .feature-banner-5-frame {
+  position: absolute;
+  left: 0;
+  top: calc(var(--fb5-w) * -490 / 1088);
+  width: var(--fb5-w);
+  height: calc(var(--fb5-w) * 1859.7 / 1088);
+  overflow: hidden;
+}
+.feature-source .feature-banner-5 {
+  transform: scale(calc(var(--fb5-w) / 1204));
+  transform-origin: top left;
 }
 .feature-localization .feature-copy {
   width: 50%;
@@ -865,10 +1033,8 @@ p {
   border-radius: 16px;
 }
 @media (max-width: 1280px) and (min-width: 1024px) {
-  .feature-source .feature-artwork img {
-    width: 927px;
-    left: -18px;
-    top: -9.048px;
+  .feature-source .feature-artwork {
+    --fb5-w: 921px;
   }
   .feature-history .feature-artwork img {
     top: 26px;
@@ -1092,12 +1258,13 @@ p {
     transform: rotate(2.089deg);
   }
   .features {
-    padding-top: 12px;
+    --pin-inset-top: 12px;
   }
-  .feature {
+  .features__bg {
     border-radius: 24px;
   }
-  .feature-audience {
+  .feature-audience,
+  .feature-audience-slot {
     display: none;
   }
   .feature h2 {
@@ -1133,10 +1300,8 @@ p {
   .feature-artwork {
     order: 1;
   }
-  .feature-source .feature-artwork img {
-    width: 790px;
-    left: 0;
-    top: 130px;
+  .feature-source .feature-artwork {
+    --fb5-w: 785px;
   }
   .feature-localization .feature-artwork img {
     width: 667.4082px;
@@ -1312,16 +1477,21 @@ p {
     padding: 156px 24px 72px;
   }
   .features {
-    padding: 4px;
+    --pin-inset-top: 4px;
   }
-  .features__pin {
-    top: 4px;
-    height: calc(100vh - 8px);
-    height: calc(100dvh - 8px);
+  .features__bg {
+    right: 4px;
+    bottom: 4px;
+    left: 4px;
+    border-radius: 20px;
+  }
+  .features__pin > .feature-audience {
+    top: calc(var(--pin-inset-top) + 20px);
+    left: 20px;
+    right: 20px;
   }
   .feature {
     padding: 20px;
-    border-radius: 20px;
   }
   .feature h2 {
     font-size: 32px;
@@ -1334,10 +1504,8 @@ p {
   .feature-localization {
     padding-block: 24px;
   }
-  .feature-source .feature-artwork img {
-    width: 526px;
-    left: 0;
-    top: 43px;
+  .feature-source .feature-artwork {
+    --fb5-w: 523px;
   }
   .feature-localization .feature-artwork img {
     width: 463.3333px;
@@ -1398,9 +1566,6 @@ p {
   .bento-copy {
     font-size: 16px;
     line-height: 24px;
-    min-height: 80px;
-  }
-  .bento-copy p {
     max-width: 320px;
   }
   .bento-publishing .bento-artwork {
@@ -1507,12 +1672,17 @@ p {
   .hero-video,
   .video-play,
   .bento-card,
-  .features,
-  .features__pin {
+  .features__bg {
     transition: none;
   }
-  .feature {
-    transition: opacity 240ms ease;
+  .feature--enter .feature-text h2,
+  .feature--enter .feature-text p,
+  .feature--enter .feature-actions,
+  .feature-localization.feature--enter .feature-artwork,
+  .feature-history.feature--enter .feature-artwork {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }
 

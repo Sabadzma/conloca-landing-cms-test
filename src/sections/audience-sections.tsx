@@ -1,17 +1,48 @@
-import { useCallback, useEffect, useRef, useState, type MouseEvent } from "react"
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type MouseEvent,
+} from "react"
 import {
   ConlocaDialog,
   ConlocaDialogContent,
   ConlocaDialogTitle,
 } from "@conloca-design-system/components/conloca-dialog"
+import { ConlocaSegmentedControl } from "@conloca-design-system/components/conloca-segmented-control"
 import type { Audience, AudienceContent } from "@/homepage-content"
 import { HeroSection } from "./hero-section"
-import { FeatureSection } from "./feature-section"
+import {
+  FeatureSection,
+  type FeatureDirection,
+  type FeatureMotion,
+} from "./feature-section"
 
 export interface AudienceSectionsProps {
   content: AudienceContent
 }
+
+type ScrollSnap = {
+  engaged: boolean
+  active: number
+  lo: number
+  hi: number
+  dir: FeatureDirection
+}
+
+const initialSnap: ScrollSnap = {
+  engaged: false,
+  active: 0,
+  lo: 0,
+  hi: 0,
+  dir: "down",
+}
+
 export function AudienceSections({ content }: AudienceSectionsProps) {
+  const lastIndex = content.features.length - 1
   const [audience, setAudience] = useState<Audience>("developers")
   const [videoOpen, setVideoOpen] = useState(false)
   const lastVideoTrigger = useRef<HTMLElement | null>(null)
@@ -23,40 +54,61 @@ export function AudienceSections({ content }: AudienceSectionsProps) {
     if (value === "developers" || value === "editors") setAudience(value)
   }, [])
   const featuresTrackRef = useRef<HTMLDivElement>(null)
-  const [activeFeature, setActiveFeature] = useState(0)
+  const featuresPinRef = useRef<HTMLDivElement>(null)
+  const [snap, setSnap] = useState<ScrollSnap>(initialSnap)
 
+  // Scroll-driven choreography. The pin docks full-viewport once the banner
+  // card touches the viewport top; every viewport of scrolling after that
+  // scrubs one slide transition through --feature-progress. No input
+  // hijacking: wheel, touch, keyboard, and scrollbar all map to the same
+  // scroll position, and transitions reverse with it.
   useEffect(() => {
-    let frame = 0
-    let pin: Element | null = null
+    const track = featuresTrackRef.current
+    const pin = featuresPinRef.current
+    if (!track || !pin) return
+    let raf = 0
     const update = () => {
-      frame = 0
-      const track = featuresTrackRef.current
-      if (!track) return
-      pin ??= track.querySelector(".features__pin")
+      raf = 0
       const rect = track.getBoundingClientRect()
-      const scrollable = rect.height - window.innerHeight
-      const stickyTop = pin ? Number.parseFloat(getComputedStyle(pin).top) : 0
-      const pinTop = pin
-        ? pin.getBoundingClientRect().top
-        : Number.POSITIVE_INFINITY
-      track.classList.toggle(
-        "features--stuck",
-        scrollable > 0 &&
-          pinTop <= stickyTop + 1 &&
-          rect.bottom >= window.innerHeight,
+      const viewport = window.innerHeight
+      // The pin is 100vh + inset tall, so its overhang equals the banner's
+      // top inset at every breakpoint without reading computed styles.
+      const insetTop = pin.getBoundingClientRect().height - viewport
+      const progress = Math.min(
+        Math.max((-rect.top - insetTop) / viewport, 0),
+        lastIndex + 1,
       )
-      if (scrollable <= 0) return
-      const progress = Math.min(Math.max(-rect.top / scrollable, 0), 1)
-      setActiveFeature((previous) => {
-        const next = Math.min(
-          Math.floor(progress * content.features.length),
-          content.features.length - 1,
-        )
-        return next === previous ? previous : next
+      track.style.setProperty("--feature-progress", progress.toFixed(4))
+      const engaged = rect.top <= -insetTop && rect.bottom >= viewport
+      track.classList.toggle("features--stuck", engaged)
+      const clamp = (value: number) => Math.min(Math.max(value, 0), lastIndex)
+      const lo = clamp(Math.floor(progress))
+      const hi = clamp(Math.ceil(progress))
+      const active = clamp(Math.round(progress))
+      setSnap((prev) => {
+        if (
+          prev.engaged === engaged &&
+          prev.active === active &&
+          prev.lo === lo &&
+          prev.hi === hi
+        ) {
+          return prev
+        }
+        const dir: FeatureDirection =
+          !prev.engaged && engaged
+            ? progress > active
+              ? "up"
+              : "down"
+            : active > prev.active
+              ? "down"
+              : active < prev.active
+                ? "up"
+                : prev.dir
+        return { engaged, active, lo, hi, dir }
       })
     }
     const onScroll = () => {
-      if (frame === 0) frame = requestAnimationFrame(update)
+      if (!raf) raf = requestAnimationFrame(update)
     }
     update()
     window.addEventListener("scroll", onScroll, { passive: true })
@@ -64,9 +116,30 @@ export function AudienceSections({ content }: AudienceSectionsProps) {
     return () => {
       window.removeEventListener("scroll", onScroll)
       window.removeEventListener("resize", onScroll)
-      if (frame !== 0) cancelAnimationFrame(frame)
+      if (raf) cancelAnimationFrame(raf)
     }
-  }, [content.features.length])
+  }, [lastIndex])
+
+  // The appearing animation replays on every engage and every slide change;
+  // leaving the section resets it so the next visit starts from scratch.
+  // Derived during render: only the active slide's enter timer can fire
+  // onEnterEnd, so the flag always belongs to the current transition.
+  const transitionKey = snap.engaged ? snap.active : -1
+  const [enterState, setEnterState] = useState({ key: -1, done: false })
+  if (enterState.key !== transitionKey) {
+    setEnterState({ key: transitionKey, done: false })
+  }
+  const phase: FeatureMotion =
+    transitionKey === -1 ? "idle" : enterState.done ? "shown" : "enter"
+
+  const handleEnterEnd = useCallback(() => {
+    setEnterState((current) => ({ ...current, done: true }))
+  }, [])
+
+  const trackStyle = useMemo(
+    () => ({ "--slide-count": content.features.length }) as CSSProperties,
+    [content.features.length],
+  )
 
   return (
     <div className="audience-sections" data-audience={audience}>
@@ -77,19 +150,48 @@ export function AudienceSections({ content }: AudienceSectionsProps) {
         onAudienceChange={selectAudience}
         onOpenVideo={openVideo}
       />
-      <div className="features" id="how-it-works" ref={featuresTrackRef}>
-        <div className="features__pin">
-          {content.features.map((feature, index) => (
-            <FeatureSection
-              active={index === activeFeature}
-              key={feature.name}
-              feature={feature}
-              controls={content.featureControls}
-              audience={audience}
+      <div
+        className="features"
+        id="how-it-works"
+        ref={featuresTrackRef}
+        style={trackStyle}
+      >
+        <div className="features__pin" data-dir={snap.dir} ref={featuresPinRef}>
+          <div
+            className="features__bg"
+            data-feature={content.features[snap.active].name}
+          />
+          <div className="feature-audience">
+            <ConlocaSegmentedControl
+              aria-label={content.featureControls.audienceLabelPrefix}
               options={content.options}
-              onAudienceChange={selectAudience}
+              value={audience}
+              onValueChange={selectAudience}
+              transparent
             />
-          ))}
+          </div>
+          {content.features.map((feature, index) => {
+            const motion: FeatureMotion = !snap.engaged
+              ? "idle"
+              : index === snap.active
+                ? phase
+                : index >= snap.lo && index <= snap.hi
+                  ? "shown"
+                  : "idle"
+            return (
+              <FeatureSection
+                key={feature.name}
+                index={index}
+                motion={motion}
+                active={snap.engaged && index === snap.active}
+                direction={snap.dir}
+                feature={feature}
+                controls={content.featureControls}
+                audience={audience}
+                onEnterEnd={handleEnterEnd}
+              />
+            )
+          })}
         </div>
       </div>
       <ConlocaDialog open={videoOpen} onOpenChange={setVideoOpen}>

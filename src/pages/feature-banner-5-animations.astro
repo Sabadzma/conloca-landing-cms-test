@@ -1,0 +1,61 @@
+---
+import "@/index.css"
+import "@/homepage.css"
+import "@/feature-banner-5.css"
+import { FeatureBanner5 } from "@/sections/feature-banner-5"
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feature banner 5 — animations test</title>
+    <meta name="description" content="Animation recreation test page for the Feature banner 5 Figma frame." />
+  </head>
+  <body>
+    <main class="fb5-test-page">
+      <div class="fb5-test-toolbar">
+        <button id="fb5-replay" type="button">Replay animation</button>
+      </div>
+      <FeatureBanner5 demo />
+    </main>
+    <script is:inline>
+      document.getElementById("fb5-replay").addEventListener("click", () => {
+        const banner = document.querySelector(".feature-banner-5")
+        banner.style.display = "none"
+        void banner.offsetHeight
+        banner.style.display = ""
+      })
+    </script>
+    <style>
+      .fb5-test-page {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+        padding: 48px 24px;
+        background: #ffffff;
+        box-sizing: border-box;
+      }
+      .fb5-test-toolbar {
+        display: flex;
+        gap: 12px;
+      }
+      .fb5-test-toolbar button {
+        font-family: Inter, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 8px 16px;
+        border: 1px solid #e7e5e4;
+        border-radius: 8px;
+        background: #ffffff;
+        color: #1c1917;
+        cursor: pointer;
+      }
+      .fb5-test-toolbar button:hover {
+        background: #f5f5f4;
+      }
+    </style>
+  </body>
+</html>

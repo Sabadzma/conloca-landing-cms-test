@@ -1,0 +1,37 @@
+<svg width="314" height="278" viewBox="0 0 314 278" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g opacity="0.5" filter="url(#fb5-media-noise)">
+<g clip-path="url(#fb5-media-clip)">
+<path d="M0 12C0 5.37258 5.37258 0 12 0H302C308.627 0 314 5.37258 314 12V266C314 272.627 308.627 278 302 278H12C5.37259 278 0 272.627 0 266V12Z" fill="#F5F6EF"/>
+<path opacity="0.4" d="M243.899 126.549L103.779 266.347C83.5847 286.495 97.854 321 126.381 321H406.619C435.146 321 449.415 286.495 429.221 266.347L289.101 126.549C276.611 114.087 256.389 114.087 243.899 126.549Z" fill="#EAECDB"/>
+<path d="M87.8986 173.549L-52.2206 313.347C-72.4153 333.495 -58.146 368 -29.6193 368H250.619C279.146 368 293.415 333.495 273.221 313.347L133.101 173.549C120.611 161.087 100.389 161.087 87.8986 173.549Z" fill="#EAECDB"/>
+</g>
+</g>
+<defs>
+<filter id="fb5-media-noise" x="0" y="0" width="314" height="278" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feTurbulence type="fractalNoise" baseFrequency="1.25 1.25" stitchTiles="stitch" numOctaves="3" result="noise" seed="4440" />
+<feColorMatrix in="noise" type="luminanceToAlpha" result="alphaNoise" />
+<feComponentTransfer in="alphaNoise" result="coloredNoise1">
+<feFuncA type="discrete" tableValues="0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "/>
+</feComponentTransfer>
+<feComposite operator="in" in2="shape" in="coloredNoise1" result="noise1Clipped" />
+<feComponentTransfer in="alphaNoise" result="coloredNoise2">
+<feFuncA type="discrete" tableValues="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 "/>
+</feComponentTransfer>
+<feComposite operator="in" in2="shape" in="coloredNoise2" result="noise2Clipped" />
+<feFlood flood-color="rgba(0, 0, 0, 0.05)" result="color1Flood" />
+<feComposite operator="in" in2="noise1Clipped" in="color1Flood" result="color1" />
+<feFlood flood-color="rgba(255, 255, 255, 0.12)" result="color2Flood" />
+<feComposite operator="in" in2="noise2Clipped" in="color2Flood" result="color2" />
+<feMerge result="effect1_noise">
+<feMergeNode in="shape" />
+<feMergeNode in="color1" />
+<feMergeNode in="color2" />
+</feMerge>
+</filter>
+<clipPath id="fb5-media-clip">
+<path d="M0 12C0 5.37258 5.37258 0 12 0H302C308.627 0 314 5.37258 314 12V266C314 272.627 308.627 278 302 278H12C5.37259 278 0 272.627 0 266V12Z" fill="white"/>
+</clipPath>
+</defs>
+</svg>

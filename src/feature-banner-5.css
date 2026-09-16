@@ -1,153 +1,14 @@
 /* Feature banner 5 — animations test page styles.
    Recreates Figma frame "Feature banner 5" (40002938:13308) 1:1 at 1204×2058.
-   Animation keyframes provided by design (lottie export CSS). */
+   Entrance plays once on load; the delete/retype loop then runs infinitely. */
 
 :root {
   --fb5-ease-1: cubic-bezier(0.05, 0.7, 0.1, 1);
-  --fb5-ease-2: cubic-bezier(0.64, 0, 0.78, 0);
   --fb5-ease-3: step-end;
-  --fb5-ease-4: cubic-bezier(0.56, 0, 0, 0.99);
-  --fb5-ease-5: linear;
   --fb5-font-code: "Roboto Mono Variable", monospace;
   --fb5-code-line-height: 22px;
 }
 
-@keyframes feature-banner-5-lootie-animation-01 {
-  0% {
-    opacity: 0;
-    transform: translate(0, 20.8156rem);
-    animation-timing-function: var(--fb5-ease-1);
-  }
-  6.6327% {
-    opacity: 1;
-    transform: translate(0, 0);
-    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
-  }
-  93.3673% {
-    opacity: 1;
-    transform: translate(0, 0);
-    animation-timing-function: var(--fb5-ease-2);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(0, -32.9375rem);
-  }
-}
-@keyframes feature-banner-5-editable-text {
-  0% {
-    width: 8.4375rem;
-    animation-timing-function: var(--fb5-ease-3);
-  }
-  27.0408% {
-    width: 8.4375rem;
-    animation-timing-function: steps(14, end);
-  }
-  32.1429% {
-    width: 0.0625rem;
-    animation-timing-function: var(--fb5-ease-3);
-  }
-  34.6939% {
-    width: 0.0625rem;
-    animation-timing-function: steps(11, end);
-  }
-  39.7959% {
-    width: 6.5625rem;
-    animation-timing-function: var(--fb5-ease-3);
-  }
-  60.2041% {
-    width: 6.5625rem;
-    animation-timing-function: steps(11, end);
-  }
-  65.3061% {
-    width: 0.0625rem;
-    animation-timing-function: var(--fb5-ease-3);
-  }
-  67.8571% {
-    width: 0.0625rem;
-    animation-timing-function: steps(14, end);
-  }
-  72.9592% {
-    width: 8.4375rem;
-    animation-timing-function: var(--fb5-ease-3);
-  }
-  100% {
-    width: 8.4375rem;
-  }
-}
-@keyframes feature-banner-5-button-text {
-  0% {
-    width: 5.3125rem;
-    animation-timing-function: var(--fb5-ease-3);
-  }
-  27.0408% {
-    width: 5.3125rem;
-    animation-timing-function: steps(14, end);
-  }
-  32.1429% {
-    width: 0rem;
-    animation-timing-function: var(--fb5-ease-3);
-  }
-  34.6939% {
-    width: 0rem;
-    animation-timing-function: steps(11, end);
-  }
-  39.7959% {
-    width: 3.9076rem;
-    animation-timing-function: var(--fb5-ease-3);
-  }
-  60.2041% {
-    width: 3.9076rem;
-    animation-timing-function: steps(11, end);
-  }
-  65.3061% {
-    width: 0rem;
-    animation-timing-function: var(--fb5-ease-3);
-  }
-  67.8571% {
-    width: 0rem;
-    animation-timing-function: steps(14, end);
-  }
-  72.9592% {
-    width: 5.3125rem;
-    animation-timing-function: var(--fb5-ease-3);
-  }
-  100% {
-    width: 5.3125rem;
-  }
-}
-@keyframes feature-banner-5-text-swap {
-  0%,
-  32.1429% {
-    transform: translate(0, 0);
-    animation-timing-function: var(--fb5-ease-3);
-  }
-  34.6939%,
-  65.3061% {
-    transform: translate(0, var(--fb5-swap-y));
-    animation-timing-function: var(--fb5-ease-3);
-  }
-  67.8571%,
-  100% {
-    transform: translate(0, 0);
-  }
-}
-@keyframes feature-banner-5-lootie-animation-01-item-02 {
-  0% {
-    transform: translate(0, 16.5206rem);
-    animation-timing-function: var(--fb5-ease-1);
-  }
-  6.6327% {
-    transform: translate(0, 0);
-    animation-timing-function: var(--fb5-ease-5);
-  }
-  93.3673% {
-    transform: translate(0, 0);
-    animation-timing-function: var(--fb5-ease-2);
-  }
-  100% {
-    transform: translate(0, 6.1875rem);
-  }
-}
 @keyframes feature-banner-5-lootie-enter {
   from {
     opacity: 0;
@@ -182,25 +43,6 @@
   }
   to {
     transform: translate(0, 0);
-  }
-}
-
-@keyframes feature-banner-5-lootie-exit {
-  from {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
-  to {
-    opacity: 0;
-    transform: translate(0, -32.9375rem);
-  }
-}
-@keyframes feature-banner-5-item-exit {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(0, 6.1875rem);
   }
 }
 @keyframes feature-banner-5-editable-text-loop {
@@ -912,26 +754,27 @@
   color: #ffffff;
 }
 
-/* Homepage choreography: enter once, typewriter loops, exit on leave.
-   Test page uses --demo for the original 9.8s sequence. */
+/* Demo (test page): entrance plays once on load, then the delete/retype
+   loop runs infinitely. The 0.65s loop delay matches the enter handoff. */
 .feature-banner-5--demo .lootie-animation-01 {
-  animation: feature-banner-5-lootie-animation-01 9.8s var(--fb5-ease-1) both;
+  animation: feature-banner-5-lootie-enter 0.65s var(--fb5-ease-1) both;
 }
 .feature-banner-5--demo .lootie-animation-01-item-02 {
-  animation: feature-banner-5-lootie-animation-01-item-02 9.8s var(--fb5-ease-1) both;
+  animation: feature-banner-5-item-enter 0.65s var(--fb5-ease-1) both;
 }
 .feature-banner-5--demo .editable-text {
-  animation: feature-banner-5-editable-text 9.8s var(--fb5-ease-3) both;
+  animation: feature-banner-5-editable-text-loop 6.5s var(--fb5-ease-3) 0.65s infinite;
 }
 .feature-banner-5--demo .editable-text span {
-  animation: feature-banner-5-text-swap 9.8s var(--fb5-ease-3) both;
+  animation: feature-banner-5-text-swap-loop 6.5s var(--fb5-ease-3) 0.65s infinite;
 }
 .feature-banner-5--demo .button-text {
-  animation: feature-banner-5-button-text 9.8s var(--fb5-ease-3) both;
+  animation: feature-banner-5-button-text-loop 6.5s var(--fb5-ease-3) 0.65s infinite;
 }
 .feature-banner-5--demo .button-text span {
-  animation: feature-banner-5-text-swap 9.8s var(--fb5-ease-3) both;
+  animation: feature-banner-5-text-swap-loop 6.5s var(--fb5-ease-3) 0.65s infinite;
 }
+/* Homepage choreography: enter once on play, then the delete/retype loop runs. */
 .feature-banner-5--enter[data-dir="down"] .lootie-animation-01,
 .feature-banner-5--enter:not([data-dir]) .lootie-animation-01 {
   animation: feature-banner-5-lootie-enter 0.65s var(--fb5-ease-1) both;
@@ -946,35 +789,23 @@
 .feature-banner-5--enter[data-dir="up"] .lootie-animation-01-item-02 {
   animation: feature-banner-5-item-enter-up 0.65s var(--fb5-ease-1) both;
 }
-.feature-banner-5--loop .lootie-animation-01,
-.feature-banner-5--exit .lootie-animation-01 {
+.feature-banner-5--loop .lootie-animation-01 {
   opacity: 1;
   transform: none;
 }
-.feature-banner-5--loop .lootie-animation-01-item-02,
-.feature-banner-5--exit .lootie-animation-01-item-02 {
+.feature-banner-5--loop .lootie-animation-01-item-02 {
   transform: none;
 }
-.feature-banner-5--exit .lootie-animation-01 {
-  animation: feature-banner-5-lootie-exit 0.65s var(--fb5-ease-2) both;
-}
-.feature-banner-5--exit .lootie-animation-01-item-02 {
-  animation: feature-banner-5-item-exit 0.65s var(--fb5-ease-2) both;
-}
-.feature-banner-5--loop .editable-text,
-.feature-banner-5--exit .editable-text {
+.feature-banner-5--loop .editable-text {
   animation: feature-banner-5-editable-text-loop 6.5s var(--fb5-ease-3) infinite;
 }
-.feature-banner-5--loop .editable-text span,
-.feature-banner-5--exit .editable-text span {
+.feature-banner-5--loop .editable-text span {
   animation: feature-banner-5-text-swap-loop 6.5s var(--fb5-ease-3) infinite;
 }
-.feature-banner-5--loop .button-text,
-.feature-banner-5--exit .button-text {
+.feature-banner-5--loop .button-text {
   animation: feature-banner-5-button-text-loop 6.5s var(--fb5-ease-3) infinite;
 }
-.feature-banner-5--loop .button-text span,
-.feature-banner-5--exit .button-text span {
+.feature-banner-5--loop .button-text span {
   animation: feature-banner-5-text-swap-loop 6.5s var(--fb5-ease-3) infinite;
 }
 

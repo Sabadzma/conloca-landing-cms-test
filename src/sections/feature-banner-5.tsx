@@ -90,7 +90,7 @@ const CODE_TOKENS: CodeToken[] = [
   { text: ": {}\n    }\n  }\n}" },
 ]
 
-type MotionPhase = "idle" | "enter" | "loop" | "exit"
+type MotionPhase = "idle" | "enter" | "loop"
 
 export interface FeatureBanner5Props {
   play?: boolean
@@ -108,7 +108,7 @@ export function FeatureBanner5({
   const [phase, setPhase] = useState<MotionPhase>("idle")
 
   if (!demo) {
-    if (play && (phase === "idle" || phase === "exit")) {
+    if (play && phase === "idle") {
       setPhase("enter")
     } else if (!play && phase !== "idle") {
       setPhase("idle")

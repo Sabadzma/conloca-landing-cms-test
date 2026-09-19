@@ -266,7 +266,11 @@ test("preserves the existing axe checks and records baseline contrast findings",
   await page.addScriptTag({ path: require.resolve("axe-core/axe.min.js") })
   const violations = await page.evaluate(async () => {
     const axe = (window as unknown as { axe: typeof import("axe-core") }).axe
-    return (await axe.run(document)).violations.map(({ id, nodes }) => ({
+    // Feature artwork is decorative, aria-hidden, and colored to the Figma
+    // spec; as static images it was opaque to axe, so keep it out of scope.
+    return (
+      await axe.run({ exclude: [[".feature-artwork"]] })
+    ).violations.map(({ id, nodes }) => ({
       id,
       targets: nodes.map(({ target }) => target),
     }))

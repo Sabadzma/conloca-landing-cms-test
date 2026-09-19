@@ -24,6 +24,7 @@ export function AudienceSections({ content }: AudienceSectionsProps) {
   }, [])
   const featuresTrackRef = useRef<HTMLDivElement>(null)
   const [activeFeature, setActiveFeature] = useState(0)
+  const [featuresStuck, setFeaturesStuck] = useState(false)
 
   useEffect(() => {
     let frame = 0
@@ -47,6 +48,7 @@ export function AudienceSections({ content }: AudienceSectionsProps) {
       if (stuck) entered = true
       else if (rect.top >= window.innerHeight || rect.bottom <= 0)
         entered = false
+      setFeaturesStuck(stuck)
       track.classList.toggle("features--stuck", stuck)
       track.classList.toggle("features--entered", entered)
       if (scrollable <= 0) return
@@ -86,6 +88,7 @@ export function AudienceSections({ content }: AudienceSectionsProps) {
           {content.features.map((feature, index) => (
             <FeatureSection
               active={index === activeFeature}
+              pinned={featuresStuck}
               key={feature.name}
               feature={feature}
               controls={content.featureControls}

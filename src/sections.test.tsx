@@ -21,6 +21,22 @@ import {
   footerContent,
 } from "./homepage-content"
 
+// lottie-web touches canvas at module scope, which jsdom cannot provide; the
+// tests do not exercise animation playback, so the player is stubbed out.
+vi.mock("lottie-web", () => ({
+  default: {
+    loadAnimation: () => ({
+      addEventListener: () => {},
+      destroy: () => {},
+      setLoop: () => {},
+      playSegments: () => {},
+      play: () => {},
+      stop: () => {},
+      goToAndStop: () => {},
+    }),
+  },
+}))
+
 // Test fixture only: the production document and composition belong to Astro.
 function HomepageSections() {
   return (

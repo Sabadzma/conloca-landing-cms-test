@@ -38,10 +38,3 @@ jobs:
             playwright-report/
             test-results/
           retention-days: 14
-      - uses: actions/upload-artifact@v4
-        # Archival only (nothing downloads it); skip on PRs to stay within
-        # the artifact storage quota.
-        if: github.event_name != 'pull_request'
-        with:
-          name: static-site
-          path: dist/

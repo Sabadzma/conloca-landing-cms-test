@@ -29,7 +29,9 @@ jobs:
       - run: bunx playwright install --with-deps chromium
       - run: bun run test:e2e
       - uses: actions/upload-artifact@v4
-        if: always()
+        # Debugging material; the account artifact quota is small, so only
+        # publish reports when the e2e run actually failed.
+        if: failure()
         with:
           name: browser-verification
           path: |
@@ -37,6 +39,9 @@ jobs:
             test-results/
           retention-days: 14
       - uses: actions/upload-artifact@v4
+        # Archival only (nothing downloads it); skip on PRs to stay within
+        # the artifact storage quota.
+        if: github.event_name != 'pull_request'
         with:
           name: static-site
           path: dist/

@@ -24,10 +24,12 @@ export function AudienceSections({ content }: AudienceSectionsProps) {
   }, [])
   const featuresTrackRef = useRef<HTMLDivElement>(null)
   const [activeFeature, setActiveFeature] = useState(0)
+  const [featuresStuck, setFeaturesStuck] = useState(false)
 
   useEffect(() => {
     let frame = 0
     let pin: Element | null = null
+    let entered = false
     const update = () => {
       frame = 0
       const track = featuresTrackRef.current
@@ -39,12 +41,16 @@ export function AudienceSections({ content }: AudienceSectionsProps) {
       const pinTop = pin
         ? pin.getBoundingClientRect().top
         : Number.POSITIVE_INFINITY
-      track.classList.toggle(
-        "features--stuck",
+      const stuck =
         scrollable > 0 &&
-          pinTop <= stickyTop + 1 &&
-          rect.bottom >= window.innerHeight,
-      )
+        pinTop <= stickyTop + 1 &&
+        rect.bottom >= window.innerHeight
+      if (stuck) entered = true
+      else if (rect.top >= window.innerHeight || rect.bottom <= 0)
+        entered = false
+      setFeaturesStuck(stuck)
+      track.classList.toggle("features--stuck", stuck)
+      track.classList.toggle("features--entered", entered)
       if (scrollable <= 0) return
       const progress = Math.min(Math.max(-rect.top / scrollable, 0), 1)
       setActiveFeature((previous) => {
@@ -82,6 +88,7 @@ export function AudienceSections({ content }: AudienceSectionsProps) {
           {content.features.map((feature, index) => (
             <FeatureSection
               active={index === activeFeature}
+              pinned={featuresStuck}
               key={feature.name}
               feature={feature}
               controls={content.featureControls}

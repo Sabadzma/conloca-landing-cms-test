@@ -68,7 +68,7 @@ p {
   --hero-background-overlay: linear-gradient(#0003, #0003);
   --source-background-image: url("/assets/feature-background.webp");
   --localization-background-image: url("/assets/localization-background.webp");
-  --history-background-image: url("/assets/feature-background.webp");
+  --history-background-image: url("/assets/history-background.webp");
 }
 .audience-sections[data-audience="editors"] {
   --hero-background-image: url("/assets/hero-editors-background.webp");

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react"
 import { BentoLottie } from "@/sections/bento-lottie"
 import type { CapabilitiesContent } from "@/homepage-content"
 
@@ -15,8 +16,36 @@ const bentoLotties: Record<string, string> = {
   history: "/assets/Lotties/bento-07.lottie",
 }
 export function CapabilitiesSection({ content }: CapabilitiesSectionProps) {
+  const sectionRef = useRef<HTMLElement>(null)
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+    const groups = [
+      { selector: ".capabilities-heading", entered: "capabilities-heading--entered" },
+      { selector: ".bento-grid", entered: "bento-grid--entered" },
+    ]
+      .map(({ selector, entered }) => ({ group: section.querySelector(selector), entered }))
+      .filter((item): item is { group: Element; entered: string } => item.group !== null)
+    if (typeof IntersectionObserver !== "function") {
+      for (const { group, entered } of groups) group.classList.add(entered)
+      return
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue
+          const item = groups.find(({ group }) => group === entry.target)
+          if (item) item.group.classList.add(item.entered)
+          observer.unobserve(entry.target)
+        }
+      },
+      { rootMargin: "0px 0px -15% 0px" },
+    )
+    for (const { group } of groups) observer.observe(group)
+    return () => observer.disconnect()
+  }, [])
   return (
-    <section className="capabilities" aria-labelledby="capabilities-heading">
+    <section ref={sectionRef} className="capabilities" aria-labelledby="capabilities-heading">
       <div className="capabilities-heading">
         <div className="capabilities-title-art">
           <h2 id="capabilities-heading">

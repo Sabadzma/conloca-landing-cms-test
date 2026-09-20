@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { ConlocaSegmentedControl } from "@conloca-design-system/components/conloca-segmented-control"
 import CheckIcon from "@conloca-design-system/icons/check-01.svg?react"
 import type { BillingInterval, PricingContent } from "@/homepage-content"
@@ -12,8 +12,37 @@ export function PricingSection({ content }: PricingSectionProps) {
   const selectBilling = useCallback((value: string) => {
     if (value === "monthly" || value === "annual") setBilling(value)
   }, [])
+  const sectionRef = useRef<HTMLElement>(null)
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+    const groups = [
+      { selector: ".pricing-sticky", entered: "pricing-sticky--entered" },
+      { selector: ".pricing-cards", entered: "pricing-cards--entered" },
+      { selector: ".pricing-compare", entered: "pricing-compare--entered" },
+    ]
+      .map(({ selector, entered }) => ({ group: section.querySelector(selector), entered }))
+      .filter((item): item is { group: Element; entered: string } => item.group !== null)
+    if (typeof IntersectionObserver !== "function") {
+      for (const { group, entered } of groups) group.classList.add(entered)
+      return
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue
+          const item = groups.find(({ group }) => group === entry.target)
+          if (item) item.group.classList.add(item.entered)
+          observer.unobserve(entry.target)
+        }
+      },
+      { rootMargin: "0px 0px -15% 0px" },
+    )
+    for (const { group } of groups) observer.observe(group)
+    return () => observer.disconnect()
+  }, [])
   return (
-    <section className="pricing" id="pricing" aria-labelledby="pricing-heading">
+    <section ref={sectionRef} className="pricing" id="pricing" aria-labelledby="pricing-heading">
       <header className="pricing-sticky">
         <div className="pricing-intro">
           <h2 id="pricing-heading">{content.heading}</h2>

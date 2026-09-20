@@ -620,6 +620,247 @@ p {
 .bento-card:has(> .bento-lottie[data-active]) .bento-artwork {
   visibility: hidden;
 }
+.js .capabilities-heading:not(.capabilities-heading--entered) .capabilities-title-art,
+.js .capabilities-heading:not(.capabilities-heading--entered) .decoration,
+.js .bento-grid:not(.bento-grid--entered) .bento-card {
+  opacity: 0;
+}
+@keyframes capabilities-capabilities-title-art {
+  0% {
+    opacity: 0;
+    transform: translate(0, 2.4998rem);
+    animation-timing-function: cubic-bezier(0.05, 0.7, 0.1, 1);
+  }
+  62.5% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes capabilities-git-logo {
+  0% {
+    opacity: 0;
+    transform: rotate(-7deg) scale(0.79);
+    animation-timing-function: step-end;
+  }
+  32.228% {
+    opacity: 0;
+    transform: rotate(-7deg) scale(0.79);
+    animation-timing-function: linear(
+      0,
+      0.076 6.25%,
+      0.249 12.5%,
+      0.456 18.75%,
+      0.654 25%,
+      0.819 31.25%,
+      0.942 37.5%,
+      1.022 43.75%,
+      1.067 50%,
+      1.084 56.25%,
+      1.082 62.5%,
+      1.07 68.75%,
+      1.053 75%,
+      1.035 81.25%,
+      1.02 87.5%,
+      1.008 93.75%,
+      1
+    );
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+@keyframes capabilities-astro-logo {
+  0% {
+    opacity: 0;
+    transform: rotate(10.806deg) scale(0.7);
+    animation-timing-function: step-end;
+  }
+  20.181% {
+    opacity: 0;
+    transform: rotate(10.806deg) scale(0.7);
+    animation-timing-function: linear(0, 0.084 6.25%, 0.27 12.5%, 0.484 18.75%, 0.68 25%, 0.836 31.25%, 0.947 37.5%, 1.016 43.75%, 1.051 50%, 1.063 56.25%, 1.06 62.5%, 1.049 68.75%, 1.035 75%, 1.023 81.25%, 1.012 87.5%, 1.005 93.75%, 1);
+  }
+  92.723% {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+@keyframes capabilities-changes-published {
+  0% {
+    opacity: 0;
+    transform: rotate(4.907deg) scale(0.69);
+    animation-timing-function: step-end;
+  }
+  8.631% {
+    opacity: 0;
+    transform: rotate(4.907deg) scale(0.69);
+    animation-timing-function: linear(0, 0.084 6.25%, 0.27 12.5%, 0.484 18.75%, 0.68 25%, 0.836 31.25%, 0.947 37.5%, 1.016 43.75%, 1.051 50%, 1.063 56.25%, 1.06 62.5%, 1.049 68.75%, 1.035 75%, 1.023 81.25%, 1.012 87.5%, 1.005 93.75%, 1);
+  }
+  88.816% {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+@keyframes capabilities-homepage-eng-vx-json {
+  0% {
+    opacity: 0;
+    transform: rotate(-3.911deg) scale(0.83);
+    animation-timing-function: step-end;
+  }
+  15.399% {
+    opacity: 0;
+    transform: rotate(-3.911deg) scale(0.83);
+    animation-timing-function: linear(0, 0.084 6.25%, 0.27 12.5%, 0.484 18.75%, 0.68 25%, 0.836 31.25%, 0.947 37.5%, 1.016 43.75%, 1.051 50%, 1.063 56.25%, 1.06 62.5%, 1.049 68.75%, 1.035 75%, 1.023 81.25%, 1.012 87.5%, 1.005 93.75%, 1);
+  }
+  99.028% {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+@keyframes capabilities-bento-card-bento-git {
+  0% {
+    opacity: 0;
+    transform: translate(0, 2.4998rem);
+    animation-timing-function: step-end;
+  }
+  25% {
+    opacity: 0;
+    transform: translate(0, 2.4998rem);
+    animation-timing-function: cubic-bezier(0.05, 0.7, 0.1, 1);
+  }
+  67.319% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes capabilities-bento-card-bento-data {
+  0% {
+    opacity: 0;
+    transform: translate(0, 2.5002rem);
+    animation-timing-function: step-end;
+  }
+  12.5% {
+    opacity: 0;
+    transform: translate(0, 2.5002rem);
+    animation-timing-function: cubic-bezier(0.05, 0.7, 0.1, 1);
+  }
+  54.819% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes capabilities-bento-card-bento-fragments {
+  0% {
+    opacity: 0;
+    transform: translate(0, 2.5002rem);
+    animation-timing-function: step-end;
+  }
+  9.431% {
+    opacity: 0;
+    transform: translate(0, 2.5002rem);
+    animation-timing-function: cubic-bezier(0.05, 0.7, 0.1, 1);
+  }
+  51.75% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes capabilities-bento-card-bento-markdown {
+  0% {
+    opacity: 0;
+    transform: translate(0, 2.5rem);
+    animation-timing-function: step-end;
+  }
+  20.181% {
+    opacity: 0;
+    transform: translate(0, 2.5rem);
+    animation-timing-function: cubic-bezier(0.05, 0.7, 0.1, 1);
+  }
+  62.5% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes capabilities-bento-card-bento-media {
+  0% {
+    opacity: 0;
+    transform: translate(0, 2.5002rem);
+    animation-timing-function: step-end;
+  }
+  12.5% {
+    opacity: 0;
+    transform: translate(0, 2.5002rem);
+    animation-timing-function: cubic-bezier(0.05, 0.7, 0.1, 1);
+  }
+  54.819% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes capabilities-bento-card-bento-history {
+  0% {
+    opacity: 0;
+    transform: translate(0, 2.5002rem);
+    animation-timing-function: cubic-bezier(0.05, 0.7, 0.1, 1);
+  }
+  42.319% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes capabilities-bento-card-bento-publishing {
+  0% {
+    opacity: 0;
+    transform: translate(0, 2.5002rem);
+    animation-timing-function: step-end;
+  }
+  25.298% {
+    opacity: 0;
+    transform: translate(0, 2.5002rem);
+    animation-timing-function: cubic-bezier(0.05, 0.7, 0.1, 1);
+  }
+  67.617% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+.capabilities-heading--entered .capabilities-title-art {
+  animation: capabilities-capabilities-title-art 0.8s cubic-bezier(0.05, 0.7, 0.1, 1) backwards;
+}
+.capabilities-heading--entered .decoration-git {
+  animation: capabilities-git-logo 0.8s step-end backwards;
+}
+.capabilities-heading--entered .decoration-astro {
+  animation: capabilities-astro-logo 0.8s step-end backwards;
+}
+.capabilities-heading--entered .decoration-published {
+  animation: capabilities-changes-published 0.8s step-end backwards;
+}
+.capabilities-heading--entered .decoration-file {
+  animation: capabilities-homepage-eng-vx-json 0.8s step-end backwards;
+}
+.bento-grid--entered .bento-git {
+  animation: capabilities-bento-card-bento-git 0.8s step-end backwards;
+}
+.bento-grid--entered .bento-data {
+  animation: capabilities-bento-card-bento-data 0.8s step-end backwards;
+}
+.bento-grid--entered .bento-fragments {
+  animation: capabilities-bento-card-bento-fragments 0.8s step-end backwards;
+}
+.bento-grid--entered .bento-markdown {
+  animation: capabilities-bento-card-bento-markdown 0.8s step-end backwards;
+}
+.bento-grid--entered .bento-media {
+  animation: capabilities-bento-card-bento-media 0.8s step-end backwards;
+}
+.bento-grid--entered .bento-history {
+  animation: capabilities-bento-card-bento-history 0.8s cubic-bezier(0.05, 0.7, 0.1, 1) backwards;
+}
+.bento-grid--entered .bento-publishing {
+  animation: capabilities-bento-card-bento-publishing 0.8s step-end backwards;
+}
 .bento-scrim {
   position: absolute;
   bottom: 0;
@@ -901,6 +1142,141 @@ p {
 }
 .plan-features svg path {
   fill: currentColor;
+}
+.js .pricing-sticky:not(.pricing-sticky--entered) .pricing-intro,
+.js .pricing-sticky:not(.pricing-sticky--entered) .pricing-billing,
+.js .pricing-cards:not(.pricing-cards--entered) .plan-card,
+.js .pricing-cards:not(.pricing-cards--entered) .plan-badge,
+.js .pricing-compare:not(.pricing-compare--entered) {
+  opacity: 0;
+}
+@keyframes frame-1618873226-chat-title {
+  0% {
+    opacity: 0;
+    transform: translate(0, 2.5rem);
+    animation-timing-function: cubic-bezier(0.05, 0.7, 0.1, 1);
+  }
+  31% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes frame-1618873226-conloca-segmented-control {
+  0% {
+    opacity: 0;
+    transform: translate(0, 2.5rem);
+    animation-timing-function: step-end;
+  }
+  2% {
+    opacity: 0;
+    transform: translate(0, 2.5rem);
+    animation-timing-function: cubic-bezier(0.05, 0.7, 0.1, 1);
+  }
+  33% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes frame-1618873226-bento-card {
+  0% {
+    opacity: 0;
+    transform: translate(0, 2.5rem);
+    animation-timing-function: step-end;
+  }
+  5% {
+    opacity: 0;
+    transform: translate(0, 2.5rem);
+    animation-timing-function: cubic-bezier(0.05, 0.7, 0.1, 1);
+  }
+  36% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes frame-1618873226-bento-card-2 {
+  0% {
+    opacity: 0;
+    transform: translate(0, 2.5rem);
+    animation-timing-function: step-end;
+  }
+  7% {
+    opacity: 0;
+    transform: translate(0, 2.5rem);
+    animation-timing-function: cubic-bezier(0.05, 0.7, 0.1, 1);
+  }
+  38% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes frame-1618873226-frame-1618873187 {
+  0% {
+    opacity: 0;
+    transform: rotate(4deg) scale(0.8);
+    animation-timing-function: step-end;
+  }
+  30% {
+    opacity: 0;
+    transform: rotate(4deg) scale(0.8);
+    animation-timing-function: cubic-bezier(0.05, 0.7, 0.1, 1);
+  }
+  70% {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+@keyframes frame-1618873226-bento-card-3 {
+  0% {
+    opacity: 0;
+    transform: translate(0, 2.5rem);
+    animation-timing-function: step-end;
+  }
+  9% {
+    opacity: 0;
+    transform: translate(0, 2.5rem);
+    animation-timing-function: cubic-bezier(0.05, 0.7, 0.1, 1);
+  }
+  40% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes frame-1618873226-conloca-button {
+  0% {
+    opacity: 0;
+    transform: translate(0, 2.5rem);
+    animation-timing-function: step-end;
+  }
+  11.5% {
+    opacity: 0;
+    transform: translate(0, 2.5rem);
+    animation-timing-function: cubic-bezier(0.5, 0, 0.5, 1);
+  }
+  42.5% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+.pricing-sticky--entered .pricing-intro {
+  animation: frame-1618873226-chat-title 2s cubic-bezier(0.05, 0.7, 0.1, 1) backwards;
+}
+.pricing-sticky--entered .pricing-billing {
+  animation: frame-1618873226-conloca-segmented-control 2s step-end backwards;
+}
+.pricing-cards--entered .plan-card:nth-of-type(1) {
+  animation: frame-1618873226-bento-card 2s step-end backwards;
+}
+.pricing-cards--entered .plan-card:nth-of-type(2) {
+  animation: frame-1618873226-bento-card-2 2s step-end backwards;
+}
+.pricing-cards--entered .plan-badge {
+  animation: frame-1618873226-frame-1618873187 2s step-end backwards;
+}
+.pricing-cards--entered .plan-card:nth-of-type(3) {
+  animation: frame-1618873226-bento-card-3 2s step-end backwards;
+}
+.pricing-compare--entered {
+  animation: frame-1618873226-conloca-button 2s step-end backwards;
 }
 .video-dialog {
   padding: 0;
@@ -1567,6 +1943,26 @@ p {
   .features--stuck .feature--active .feature-text h2,
   .features--stuck .feature--active .feature-text p,
   .features--stuck .feature--active .feature-actions {
+    animation: none;
+  }
+  .js .capabilities-heading:not(.capabilities-heading--entered) .capabilities-title-art,
+  .js .capabilities-heading:not(.capabilities-heading--entered) .decoration,
+  .js .bento-grid:not(.bento-grid--entered) .bento-card,
+  .js .pricing-sticky:not(.pricing-sticky--entered) .pricing-intro,
+  .js .pricing-sticky:not(.pricing-sticky--entered) .pricing-billing,
+  .js .pricing-cards:not(.pricing-cards--entered) .plan-card,
+  .js .pricing-cards:not(.pricing-cards--entered) .plan-badge,
+  .js .pricing-compare:not(.pricing-compare--entered) {
+    opacity: 1;
+  }
+  .capabilities-heading--entered .capabilities-title-art,
+  .capabilities-heading--entered .decoration,
+  .bento-grid--entered .bento-card,
+  .pricing-sticky--entered .pricing-intro,
+  .pricing-sticky--entered .pricing-billing,
+  .pricing-cards--entered .plan-card,
+  .pricing-cards--entered .plan-badge,
+  .pricing-compare--entered {
     animation: none;
   }
 }

@@ -46,13 +46,15 @@ function BlogArticleCard({ article }: { article: BlogArticle }) {
   return (
     <article className={`blog-card blog-card--${article.layout}`}>
       <a className="blog-card__link" href={article.url}>
-        <img
-          alt=""
-          className="blog-card__image"
-          height={article.image.height}
-          src={article.image.src}
-          width={article.image.width}
-        />
+        <div className="blog-card__image-wrap">
+          <img
+            alt=""
+            className="blog-card__image"
+            height={article.image.height}
+            src={article.image.src}
+            width={article.image.width}
+          />
+        </div>
         <div className="blog-card__primary">
           <ArticleMetadata article={article} />
           <h2 className="blog-card__title">{article.title}</h2>

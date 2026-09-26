@@ -93,9 +93,10 @@ browser contexts were used; these numbers do not claim faster overall loading.
 
 See `docs/astro-verification.json` for the final measured results and rollback
 revision. Those results were measured under Bun 1.3.14 on 2026-09-07; they were not
-re-baselined when the toolchain moved to Bun 1.4.2. The preserved revision, static artifact, screenshots, and logs are local
-at `/private/tmp/conloca-astro-baseline/`. Keep or archive that directory before
-system temporary-file cleanup if retaining it for deployment rollback.
+re-baselined when the toolchain moved to Bun 1.4.2. The preserved revision, static
+artifact, screenshots, and logs are local at `/private/tmp/conloca-astro-baseline/`.
+Keep or archive that directory before system temporary-file cleanup if retaining it
+for deployment rollback.
 
 The original 18 unit scenarios are retained, with content-driven rendering,
 feature-to-hero synchronization/reset, and lazy SVG client/static-rendering coverage

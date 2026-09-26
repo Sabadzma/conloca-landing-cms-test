@@ -92,7 +92,8 @@ from 1 to 13 as code is shared between islands. Identical static servers and col
 browser contexts were used; these numbers do not claim faster overall loading.
 
 See `docs/astro-verification.json` for the final measured results and rollback
-revision. The preserved revision, static artifact, screenshots, and logs are local
+revision. Those results were measured under Bun 1.3.14 on 2026-09-07; they were not
+re-baselined when the toolchain moved to Bun 1.4.2. The preserved revision, static artifact, screenshots, and logs are local
 at `/private/tmp/conloca-astro-baseline/`. Keep or archive that directory before
 system temporary-file cleanup if retaining it for deployment rollback.
 

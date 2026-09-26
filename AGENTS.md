@@ -24,7 +24,7 @@ server at runtime — `bun run build` emits a `dist/` directory of static files.
 
 Use official Vite with normal caret ranges and commit exact resolutions in `bun.lock`.
 Do not add Vite aliases or forced overrides. React and React DOM resolve together
-at 19.2.8; Storybook packages stay aligned at 10.6.0. Bun 1.3.14 runs scripts and
+at 19.2.8; Storybook packages stay aligned at 10.6.0. Bun 1.4.2 runs scripts and
 installs dependencies; use Node 22.14.0 from `.nvmrc` (minimum 22.12.0).
 Astro owns its React transform. Storybook and Vitest use separate plugin instances
 from `tooling/vite.ts`; this project does not promise an exclusively Oxc transform.

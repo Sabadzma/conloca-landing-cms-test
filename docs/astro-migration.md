@@ -37,7 +37,7 @@ SVG artwork remain unchanged.
 
 ## Tooling and verification
 
-Use Node 22.14.0 (`.nvmrc`) and Bun 1.3.14 (`packageManager`). Astro, its React
+Use Node 22.14.0 (`.nvmrc`) and Bun 1.4.2 (`packageManager`). Astro, its React
 integration, Vitest, and Storybook resolve official Vite 8.2.2; plugin-react is
 5.2.0. React and React DOM resolve to 19.2.8, and Storybook packages to 10.6.0.
 The old Vite alias and forced overrides are removed. Bun initially retained that

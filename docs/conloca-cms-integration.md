@@ -117,6 +117,14 @@ the dashboard's Git controls or ordinary Git. The editor's canvas scratch direct
 `dist/client/` and emits the node server to `dist/server/`; `bun run preview` serves
 the production build including the prerendered pages.
 
+## Deploying to Vercel
+
+Vercel cannot run the node standalone bundle, so `astro.config.ts` switches to
+`@astrojs/vercel` when `process.env.VERCEL` is set (Vercel defines `VERCEL=1`
+during builds). Prerendered pages deploy as static files; the few non-prerendered
+routes (`/404`, preview/test routes) run in a serverless function. Local builds
+and `bun run preview` are unaffected and keep using the node adapter.
+
 ## Re-seeding from scratch
 
 The one-time seed script was deleted after producing `content/`. To recreate

@@ -1,12 +1,16 @@
 import { defineConfig } from "astro/config"
 import react from "@astrojs/react"
 import node from "@astrojs/node"
+import vercel from "@astrojs/vercel"
 import { conlocaCMS } from "@conloca/astro-cms/node"
 import { aliases, createStylePlugins } from "./tooling/vite.ts"
 
 export default defineConfig({
   output: "server",
-  adapter: node({ mode: "standalone" }),
+  // Vercel sets VERCEL=1 during its builds; it cannot run the node standalone
+  // bundle, so emit its Build Output API format there instead. Everywhere else
+  // keeps the documented node standalone server in dist/server/.
+  adapter: process.env.VERCEL ? vercel() : node({ mode: "standalone" }),
   integrations: [
     react(),
     conlocaCMS({

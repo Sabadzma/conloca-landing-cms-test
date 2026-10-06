@@ -1,8 +1,29 @@
-import type {
-  BlogArticle,
-  BlogDescription,
-  BlogListingContent,
-} from "@/blog-content"
+export interface BlogDescription {
+  emphasis: string
+  emphasisFirst?: boolean
+  supporting: string
+}
+
+export interface BlogArticle {
+  compactDescription?: BlogDescription
+  date: string
+  description: BlogDescription
+  id: string
+  image: {
+    height: number
+    src: string
+    width: number
+  }
+  layout: "full" | "split"
+  readTime: string
+  title: string
+  url: string
+}
+
+export interface BlogListingContent {
+  articles: readonly BlogArticle[]
+  navigationLabel: string
+}
 
 export interface BlogListingSectionProps {
   content: BlogListingContent

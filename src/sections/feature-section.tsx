@@ -1,6 +1,6 @@
 import type { AudienceControlProps } from "./audience-controls"
 import { ConlocaSegmentedControl } from "@conloca-design-system/components/conloca-segmented-control"
-import type { FeatureContent, FeatureControls } from "@/homepage-content"
+import type { FeatureContent, FeatureControls } from "./audience-features"
 import { cn } from "@/lib/utils"
 import { SectionLink } from "./section-link"
 import { FeatureBanner5 } from "./feature-banner-5"

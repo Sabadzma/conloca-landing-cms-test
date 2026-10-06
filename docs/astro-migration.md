@@ -1,8 +1,10 @@
-# Astro migration and future Conloca CMS integration
+# Astro migration (superseded by the Conloca CMS integration)
 
-The homepage is an Astro 7 static site. Run `bun run build` and publish `dist/` to
-ordinary static hosting. No server adapter, CMS editor, authentication, content API,
-or production deployment is part of this change.
+This document records the original Astro 7 static migration. The CMS integration
+it anticipated has since landed: the site now uses `output: "server"` with the
+node adapter, content lives in `content/`, and the editor runs at `/__cms` in dev.
+See `docs/conloca-cms-integration.md` for the current architecture; the sections
+below are kept for the migration's tooling decisions and verification history.
 
 ## Structure and content
 
@@ -109,20 +111,18 @@ fails if additional findings appear. This migration does not alter Figma colors.
 The external YouTube document is stubbed in regression tests; iframe URL, attributes,
 focus containment, dismissal, and removal are tested, not third-party video delivery.
 
-## Later Conloca integration
+## Conloca integration (landed)
 
-Register these React section blocks, map their typed content to Conloca storage,
-and configure the editor's server runtime. The plain TypeScript data module is a
-preparation boundary, not Conloca content or a substitute CMS format. The current
-[Conloca installation guide](https://conloca.com/getting-started/) requires server
-support; the [custom-block guide](https://conloca.com/guides/custom-blocks/) describes
-registration. Add editor/API/authentication dependencies and choose an adapter only
-as part of that later integration.
+Completed: blocks are registered in `src/puck.config.tsx`, typed content lives in
+`content/`, and the editor's server runtime runs through the node adapter. See
+`docs/conloca-cms-integration.md`.
 
-Registry metadata for `@conloca/astro-cms@0.1.16` declares Astro `^7.1.3` but
-`@vitejs/plugin-react ^4.0.0`, which conflicts with this migration's plugin-react 5.
-Recheck and resolve that peer requirement when installing the CMS. No forced
-override has been introduced now.
+The plugin-react peer conflict noted above was resolved with a flat
+`"overrides": { "@vitejs/plugin-react": "^5.2.0" }` in `package.json`: the CMS
+declares `^4.0.0` but only uses `viteReact.preambleCode`, which plugin-react 5
+still exports. `npm ls --all` (run by `scripts/check-dependencies.ts`) passes with
+the override; Bun records it in `bun.lock` without warnings. Do not replace it
+with a nested override — Bun ignores those.
 
 Framework references: [Astro 7 changes](https://docs.astro.build/en/guides/upgrade-to/v7/),
 [React framework components](https://docs.astro.build/en/guides/framework-components/),

@@ -8,18 +8,52 @@ import {
 import userEvent from "@testing-library/user-event"
 import axe from "axe-core"
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
-import { AudienceSections } from "./sections/audience-sections"
+import { AudienceHero } from "./sections/audience-hero"
+import { AudienceFeatures } from "./sections/audience-features"
+import { resetAudience } from "./sections/audience"
 import { PricingSection } from "./sections/pricing-section"
 import { CapabilitiesSection } from "./sections/capabilities-section"
 import { ConlocaHeader } from "@conloca-design-system/components/conloca-header"
 import { ConlocaFooter } from "@conloca-design-system/components/conloca-footer"
 import {
-  audienceContent,
-  pricingContent,
-  capabilitiesContent,
-  headerContent,
-  footerContent,
-} from "./homepage-content"
+  HeroSection as HeroSectionBlock,
+  mapHeroSectionProps,
+} from "./puck/blocks/hero-section"
+import {
+  FeaturesSection as FeaturesSectionBlock,
+  mapFeaturesSectionProps,
+} from "./puck/blocks/features-section"
+import {
+  CapabilitiesSection as CapabilitiesSectionBlock,
+  mapCapabilitiesSectionProps,
+} from "./puck/blocks/capabilities-section"
+import {
+  PricingSection as PricingSectionBlock,
+  mapPricingSectionProps,
+} from "./puck/blocks/pricing-section"
+import footerEntry from "../content/data/footer/main.en.json"
+import navigationEntry from "../content/data/navigation/main.en.json"
+
+// Canonical copy lives in the Puck block defaultProps (page sections) and the
+// seeded CMS data entries (header/footer); mapper functions rebuild the
+// section content contracts from the flat editor props.
+function required<T>(value: T | undefined, name: string): T {
+  if (value === undefined) throw new Error(`${name} has no defaultProps`)
+  return value
+}
+const heroDefaults = required(HeroSectionBlock.defaultProps, "HeroSectionBlock")
+const heroContent = mapHeroSectionProps(heroDefaults)
+const featuresMapped = mapFeaturesSectionProps(
+  required(FeaturesSectionBlock.defaultProps, "FeaturesSectionBlock"),
+)
+const capabilitiesContent = mapCapabilitiesSectionProps(
+  required(CapabilitiesSectionBlock.defaultProps, "CapabilitiesSectionBlock"),
+)
+const pricingContent = mapPricingSectionProps(
+  required(PricingSectionBlock.defaultProps, "PricingSectionBlock"),
+)
+const { skipLabel: _skipLabel, ...headerContent } = navigationEntry.data
+const footerContent = footerEntry.data
 
 // lottie-web touches canvas at module scope, which jsdom cannot provide; the
 // tests do not exercise animation playback, so the player is stubbed out.
@@ -43,7 +77,12 @@ function HomepageSections() {
     <>
       <ConlocaHeader {...headerContent} />
       <main>
-        <AudienceSections content={audienceContent} />
+        <AudienceHero content={heroContent} options={heroDefaults.options} />
+        <AudienceFeatures
+          features={featuresMapped.features}
+          controls={featuresMapped.controls}
+          options={featuresMapped.options}
+        />
         <CapabilitiesSection content={capabilitiesContent} />
         <PricingSection content={pricingContent} />
       </main>
@@ -53,6 +92,7 @@ function HomepageSections() {
 }
 
 beforeEach(() => {
+  resetAudience()
   vi.stubGlobal("matchMedia", (media: string) => ({
     media,
     matches: media === "(prefers-reduced-motion: reduce)",
@@ -202,21 +242,30 @@ it("renders supplied section content and destinations without coupling to the de
   )
 })
 
-const customAudienceContent = {
-  ...audienceContent,
-  hero: {
-    ...audienceContent.hero,
-    headings: {
-      developers: "Custom developer heading",
-      editors: "Custom editor heading",
-    },
+const customHeroContent = {
+  ...heroContent,
+  headings: {
+    developers: "Custom developer heading",
+    editors: "Custom editor heading",
   },
 }
 
 it("switches audience from a feature, resets the carousel, and renders supplied hero copy", async () => {
   const user = userEvent.setup()
 
-  render(<AudienceSections content={customAudienceContent} />)
+  render(
+    <>
+      <AudienceHero
+        content={customHeroContent}
+        options={heroDefaults.options}
+      />
+      <AudienceFeatures
+        features={featuresMapped.features}
+        controls={featuresMapped.controls}
+        options={featuresMapped.options}
+      />
+    </>,
+  )
   await user.click(screen.getByRole("button", { name: "Show message 3" }))
   await user.click(
     screen.getAllByRole("button", { name: "Content editors" })[2]!,

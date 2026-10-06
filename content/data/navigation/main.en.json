@@ -1,0 +1,44 @@
+{
+	"id": "navigation",
+	"type": "json",
+	"created": "2026-10-05T00:00:00.000Z",
+	"modified": "2026-10-05T00:00:00.000Z",
+	"meta": {
+		"title": "Main navigation"
+	},
+	"data": {
+		"menuItems": [
+			{
+				"label": "How it works",
+				"url": "/how-it-works"
+			},
+			{
+				"label": "Docs",
+				"url": "https://conloca.com/getting-started/",
+				"newTab": true
+			},
+			{
+				"label": "Pricing",
+				"url": "/pricing"
+			},
+			{
+				"label": "Blog",
+				"url": "/blog"
+			}
+		],
+		"primaryButton": {
+			"label": "Get started",
+			"url": "/"
+		},
+		"secondaryButton": {
+			"label": "Try editor",
+			"url": "/"
+		},
+		"logoUrl": "/",
+		"navigationLabel": "Primary navigation",
+		"mobileNavigationLabel": "Mobile navigation",
+		"menuButtonLabel": "Open navigation menu",
+		"menuCloseButtonLabel": "Close navigation menu",
+		"skipLabel": "Skip to content"
+	}
+}

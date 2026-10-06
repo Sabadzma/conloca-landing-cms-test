@@ -1,0 +1,137 @@
+{
+	"created": "2026-10-05T00:00:00.000Z",
+	"id": "how-it-works",
+	"meta": {
+		"description": "Developers build the components, editors compose them visually, and Conloca stores the result as files in your Git repository.",
+		"title": "Conloca — How it works"
+	},
+	"modified": "2026-10-05T19:51:30.069Z",
+	"type": "puck",
+	"content": {
+		"puckData": {
+			"root": {
+				"props": {}
+			},
+			"content": [
+				{
+					"type": "HowItWorksHero",
+					"props": {
+						"eyebrow": "How it works",
+						"heading": "Your repository is the CMS",
+						"description": "Developers build the components. Editors compose them visually. Conloca stores the result as files in your Git repository, and Astro renders those same files into your website. No content database. No hosted CMS API between your site and its content.",
+						"id": "HowItWorksHero-how-it-works-0"
+					}
+				},
+				{
+					"type": "HowItWorksSteps",
+					"props": {
+						"label": "How Conloca works in four steps",
+						"items": [
+							{
+								"number": "01",
+								"title": "Developers define",
+								"description": "Schemas and components"
+							},
+							{
+								"number": "02",
+								"title": "Content editors edit",
+								"description": "Markwodn or visual editor"
+							},
+							{
+								"number": "03",
+								"title": "Team reviews",
+								"description": "Branches and pull requests"
+							},
+							{
+								"number": "04",
+								"title": "Pipeline deploys",
+								"description": "Existing CI / CD"
+							}
+						],
+						"id": "HowItWorksSteps-how-it-works-1"
+					}
+				},
+				{
+					"type": "HowItWorksLayers",
+					"props": {
+						"heading": "Three layers\nSingle foundation",
+						"description": "Developers build the components. Editors compose them visually. Conloca stores the result as files in your Git repository, and Astro renders those same files into your website. No content database. No hosted CMS API between your site and its content.",
+						"items": [
+							{
+								"label": ".MDX Blocks",
+								"description": "Reusable components with boundaries set in code",
+								"action": {
+									"label": "Read docs",
+									"url": "/"
+								}
+							},
+							{
+								"label": "VX.json pages",
+								"description": "A visual surface that maps directly to stable files",
+								"action": {
+									"label": "Read docs",
+									"url": "/"
+								}
+							},
+							{
+								"label": "Puck visual editor",
+								"description": "A visual editing interface that maps directly to stable files",
+								"action": {
+									"label": "Read docs",
+									"url": "/"
+								}
+							}
+						],
+						"id": "HowItWorksLayers-how-it-works-2"
+					}
+				},
+				{
+					"type": "HowItWorksBento",
+					"props": {
+						"label": "Content types Conloca manages",
+						"heading": "Conloca can manage more than just pages",
+						"cards": [
+							{
+								"icon": "left-indent-02",
+								"title": "Content fragments",
+								"description": "Reusable content sections shared across multiple layouts"
+							},
+							{
+								"icon": "flash-off-1",
+								"title": "Media",
+								"description": "URL-addressable site content and standalone landing pages"
+							},
+							{
+								"icon": "database-01",
+								"title": "Data",
+								"description": "Structured data such as site settings, staff, or quotes"
+							},
+							{
+								"icon": "globe-01",
+								"title": "Locales",
+								"description": "Locale variants stored side-by-side with original content"
+							}
+						],
+						"id": "HowItWorksBento-how-it-works-3"
+					}
+				},
+				{
+					"type": "HowItWorksCta",
+					"props": {
+						"heading": "Start with an Astro project",
+						"description": "Add Conloca, point it at a content directory, define your first components, and open the visual editor",
+						"packageManagerLabel": "Package manager",
+						"commands": {
+							"bun": "bun add @conloca/astro-cms",
+							"pnpm": "pnpm add @conloca/astro-cms",
+							"npm": "npm install @conloca/astro-cms"
+						},
+						"copyLabel": "Copy",
+						"id": "HowItWorksCta-how-it-works-4"
+					}
+				}
+			],
+			"zones": {}
+		}
+	}
+}

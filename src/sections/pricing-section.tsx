@@ -1,8 +1,25 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { ConlocaSegmentedControl } from "@conloca-design-system/components/conloca-segmented-control"
 import CheckIcon from "@conloca-design-system/icons/check-01.svg?react"
-import type { BillingInterval, PricingContent } from "@/homepage-content"
+import type { BillingInterval, ContentLink } from "@/lib/content"
 import { SectionLink } from "./section-link"
+export interface PricingContent {
+  heading: string
+  billingLabel: string
+  billingOptions: readonly { label: string; value: BillingInterval }[]
+  currency: string
+  intervals: Record<BillingInterval, string>
+  bestValueLabel: string
+  compareAction: ContentLink
+  plans: readonly {
+    name: string
+    featured: boolean
+    action: ContentLink
+    price: number
+    description: string
+    features: readonly string[]
+  }[]
+}
 
 export interface PricingSectionProps {
   content: PricingContent

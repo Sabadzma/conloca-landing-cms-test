@@ -5,13 +5,82 @@ import {
 } from "@conloca-design-system/components/conloca-prose"
 import { ConlocaToc } from "@conloca-design-system/components/conloca-toc"
 import { useMemo } from "react"
-import type {
-  ArticleBodyContent,
-  ArticleBodySection,
-  ArticleDescription,
-  ArticlePageContent,
-  ArticleRelatedStory,
-} from "@/article-page-content"
+export interface ArticleDescription {
+  emphasis: string
+  emphasisFirst?: boolean
+  supporting: string
+}
+
+export interface ArticleHeroContent {
+  author: string
+  authorLabel: string
+  breadcrumbs: readonly string[]
+  date: string
+  description: string
+  title: string
+}
+
+export interface ArticleCoverContent {
+  alt: string
+  height: number
+  src: string
+  width: number
+}
+
+export interface ArticleStep {
+  text: string
+}
+
+export interface ArticleBenefit {
+  description: string
+  title: string
+}
+
+export interface ArticleBodySection {
+  benefits?: readonly ArticleBenefit[]
+  id: string
+  label: string
+  paragraphs: readonly string[]
+  quote?: string
+  title: string
+  tocTitle: string
+}
+
+export interface ArticleBodyContent {
+  closing: string
+  intro: readonly string[]
+  practiceHeading: string
+  practiceIntro: string
+  sections: readonly ArticleBodySection[]
+  steps: readonly ArticleStep[]
+  tocLabel: string
+}
+
+export interface ArticleRelatedStory {
+  compactDescription: ArticleDescription
+  date: string
+  description: ArticleDescription
+  id: string
+  image: ArticleCoverContent
+  imageFirst: boolean
+  readTime: string
+  title: string
+  url: string
+}
+
+export interface ArticleRelatedContent {
+  heading: string
+  moreLabel: string
+  moreUrl: string
+  stories: readonly ArticleRelatedStory[]
+}
+
+export interface ArticlePageContent {
+  body: ArticleBodyContent
+  cover: ArticleCoverContent
+  hero: ArticleHeroContent
+  related: ArticleRelatedContent
+}
 
 export interface ArticlePageSectionsProps {
   content: ArticlePageContent

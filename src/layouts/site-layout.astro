@@ -1,22 +1,117 @@
 ---
-import type { HomepageMetadata } from "@/homepage-content"
+import { getCollection } from "astro:content"
+import { dataSchemas } from "@/schemas/data"
+import { ConlocaHeader } from "@/islands/conloca-header"
+import { ConlocaFooter } from "@/islands/conloca-footer"
 import "@/index.css"
 import "@/homepage.css"
-interface Props { metadata: HomepageMetadata }
-const { metadata } = Astro.props
+import "@/pricing-page.css"
+import "@/how-it-works-page.css"
+import "@/blog.css"
+import "@/article-page.css"
+import "@/terms-page.css"
+
+// Conloca injected routes pass LayoutProps: title/description plus slot content.
+interface Props {
+  title: string
+  description?: string
+}
+const { title, description } = Astro.props
+
+// Collection entries expose data as unknown until parsed by the data schemas.
+function readEntryData(entry: { id: string; data: unknown } | undefined): unknown {
+  if (!entry) throw new Error('CMS data entry "main" is missing')
+  const { data } = entry
+  if (typeof data !== "object" || data === null || !("data" in data)) {
+    throw new Error(`CMS data entry "${entry.id}" has no data payload`)
+  }
+  return data.data
+}
+
+// Zod optionals carry `| undefined`; the design-system contracts use exact
+// optionals (no explicit undefined), so absent newTab keys must be dropped.
+function stripAbsentNewTab<T extends { newTab?: boolean | undefined }>(
+  items: readonly T[],
+) {
+  return items.map(({ newTab, ...item }) =>
+    newTab === undefined ? item : { ...item, newTab },
+  )
+}
+
+const navigation = dataSchemas.navigation.parse(
+  readEntryData(
+    (await getCollection("navigation")).find((entry) =>
+      entry.id.startsWith("navigation/"),
+    ),
+  ),
+)
+const footer = dataSchemas.footer.parse(
+  readEntryData(
+    (await getCollection("footer")).find((entry) =>
+      entry.id.startsWith("footer/"),
+    ),
+  ),
+)
+
+const { skipLabel, ...headerData } = navigation
+const headerProps = { ...headerData, menuItems: stripAbsentNewTab(navigation.menuItems) }
+const footerProps = { ...footer, navigationItems: stripAbsentNewTab(footer.navigationItems) }
+
+
+// Chrome variants are design decisions owned by code; CMS owns the copy.
+const pathname = Astro.url.pathname.replace(/\/+$/, "") || "/"
+const isPricing = pathname === "/pricing"
+const isArticle = pathname.startsWith("/blog/")
+const chromeClass = isPricing
+  ? "pricing-page-shell"
+  : pathname === "/terms"
+    ? "terms-page"
+    : isArticle
+      ? "article-page"
+      : undefined
 ---
+
 <!doctype html>
-<html lang={metadata.language}>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{metadata.title}</title>
-    <meta name="description" content={metadata.description} />
+    <title>{title}</title>
+    {description !== undefined && <meta name="description" content={description} />}
+    <script is:inline>
+      document.documentElement.classList.add("js")
+    </script>
   </head>
   <body>
     <div class="page-wrapper">
-      <a href="#main-content" class="skip-link">{metadata.skipLabel}</a>
-      <slot />
+      <a href="#main-content" class="skip-link">{skipLabel}</a>
+      <div class={chromeClass}>
+        <ConlocaHeader
+          {...headerProps}
+          className={isPricing ? "pricing-page-header" : undefined}
+          transparent={isPricing}
+          client:load
+        />
+        <main id="main-content">
+          <slot />
+        </main>
+        {
+          isArticle ? (
+            <div class="article-footer-wrap">
+              <ConlocaFooter {...footerProps} />
+            </div>
+          ) : (
+            <ConlocaFooter {...footerProps} />
+          )
+        }
+      </div>
     </div>
+    {/* Hydratable Puck blocks emit [data-hydrate] markers; the CMS hydration
+        entry loads react-dom only when a page actually carries markers. */}
+    <script>
+      if (document.querySelector("[data-hydrate]")) {
+        import("virtual:conloca-hydration-entry")
+      }
+    </script>
   </body>
 </html>

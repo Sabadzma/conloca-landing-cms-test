@@ -31,7 +31,13 @@ test("renders the how-it-works route without asset or hydration errors", async (
 
   await page.goto("/how-it-works")
   await expect(page.locator("astro-island[ssr]")).toHaveCount(0)
-  await expect(page.locator('astro-island[client="load"]')).toHaveCount(2)
+  // Header island only; interactive blocks hydrate from CMS markers (hero,
+  // layers, and bento are static — see homepage spec for the mechanism).
+  await expect(page.locator('astro-island[client="load"]')).toHaveCount(1)
+  const ssrHtml = await (await page.request.get("/how-it-works")).text()
+  expect(
+    [...ssrHtml.matchAll(/data-hydrate="([^"]+)"/g)].map((match) => match[1]),
+  ).toEqual(["HowItWorksSteps", "HowItWorksCta"])
   await expect(
     page.getByRole("heading", {
       level: 1,
@@ -72,8 +78,6 @@ test("matches the 1440px Figma section geometry", async ({ page }) => {
     bento: document.querySelector(".hiw-bento")?.getBoundingClientRect()
       .height ?? 0,
     cta: document.querySelector(".hiw-cta")?.getBoundingClientRect().height ?? 0,
-    flow:
-      document.querySelector(".hiw-flow")?.getBoundingClientRect().height ?? 0,
     footer:
       document.querySelector("footer")?.getBoundingClientRect().height ?? 0,
     header:
@@ -83,24 +87,23 @@ test("matches the 1440px Figma section geometry", async ({ page }) => {
     layers: document.querySelector(".hiw-layers")?.getBoundingClientRect()
       .height ?? 0,
     page: document.documentElement.scrollHeight,
-    showcase:
-      document.querySelector(".hiw-showcase")?.getBoundingClientRect()
-        .height ?? 0,
     steps:
       document.querySelector(".hiw-steps")?.getBoundingClientRect().height ?? 0,
+    visual:
+      document.querySelector(".hiw-visual")?.getBoundingClientRect().height ??
+      0,
   }))
 
   const expected: Record<keyof typeof geometry, number> = {
-    bento: 780,
+    bento: 752,
     cta: 590,
-    flow: 3840,
     footer: 92,
     header: 80,
     hero: 422,
-    layers: 877,
-    page: 6681,
-    showcase: 795,
+    layers: 505,
+    page: 3120,
     steps: 165,
+    visual: 514,
   }
   for (const [section, height] of Object.entries(geometry)) {
     const target = expected[section as keyof typeof geometry]
@@ -110,8 +113,7 @@ test("matches the 1440px Figma section geometry", async ({ page }) => {
     ).toBeLessThanOrEqual(2)
   }
 })
-
-test("keeps the showcase and steps full-bleed and caps the CTA card above the 1440px content maximum", async ({
+test("keeps the visual full-bleed and caps content sections above the 1440px content maximum", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1600, height: 960 })
@@ -121,10 +123,10 @@ test("keeps the showcase and steps full-bleed and caps the CTA card above the 14
     Object.fromEntries(
       [
         ".hiw-bento",
-        ".hiw-cta__card",
+        ".hiw-cta__banner",
         ".hiw-hero",
-        ".hiw-showcase",
         ".hiw-steps",
+        ".hiw-visual",
       ].map((selector) => {
         const rect = document.querySelector(selector)?.getBoundingClientRect()
         return [
@@ -135,11 +137,11 @@ test("keeps the showcase and steps full-bleed and caps the CTA card above the 14
     ),
   )
 
-  expect(geometry[".hiw-showcase"]).toEqual({ left: 0, width: 1600 })
+  expect(geometry[".hiw-visual"]).toEqual({ left: 0, width: 1600 })
   expect(geometry[".hiw-hero"]).toEqual({ left: 80, width: 1440 })
-  expect(geometry[".hiw-steps"]).toEqual({ left: 0, width: 1600 })
+  expect(geometry[".hiw-steps"]).toEqual({ left: 112, width: 1376 })
   expect(geometry[".hiw-bento"]).toEqual({ left: 80, width: 1440 })
-  expect(geometry[".hiw-cta__card"]).toEqual({ left: 88, width: 1424 })
+  expect(geometry[".hiw-cta__banner"]).toEqual({ left: 88, width: 1424 })
 })
 
 for (const width of responsiveWidths) {

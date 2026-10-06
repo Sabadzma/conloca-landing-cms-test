@@ -1,4 +1,11 @@
-import type { BlogHeroContent } from "@/blog-content"
+export interface BlogHeroContent {
+  compactBreadcrumbs: readonly string[]
+  description: string
+  dispatchLabel: string
+  largeBreadcrumbs: readonly string[]
+  mobileHeading: string
+  heading: string
+}
 
 export interface BlogHeroSectionProps {
   content: BlogHeroContent

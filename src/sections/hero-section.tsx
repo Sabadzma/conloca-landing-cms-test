@@ -1,7 +1,7 @@
 import type { AudienceControlProps } from "./audience-controls"
 import type { MouseEventHandler } from "react"
 import { ConlocaSegmentedControl } from "@conloca-design-system/components/conloca-segmented-control"
-import type { HeroContent } from "@/homepage-content"
+import type { HeroContent } from "./audience-hero"
 import { SectionLink } from "./section-link"
 import { HeroCarousel } from "./hero-carousel"
 

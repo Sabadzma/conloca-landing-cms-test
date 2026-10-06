@@ -31,7 +31,13 @@ test("renders the pricing route without asset or hydration errors", async ({
 
   await page.goto("/pricing")
   await expect(page.locator("astro-island[ssr]")).toHaveCount(0)
-  await expect(page.locator('astro-island[client="load"]')).toHaveCount(2)
+  // Header island only; the assistant section is static, the three
+  // billing-aware blocks hydrate from CMS markers (see homepage spec).
+  await expect(page.locator('astro-island[client="load"]')).toHaveCount(1)
+  const ssrHtml = await (await page.request.get("/pricing")).text()
+  expect(
+    [...ssrHtml.matchAll(/data-hydrate="([^"]+)"/g)].map((match) => match[1]),
+  ).toEqual(["PricingPageHero", "PricingPagePlans", "PricingPageComparison"])
   await expect(
     page.getByRole("heading", {
       level: 1,

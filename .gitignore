@@ -22,3 +22,6 @@ rig.yaml.rig-bak-*
 .astro/
 playwright-report/
 test-results/
+
+# Conloca CMS editor canvas scratch directory (created on first editor save)
+conloca-canvas/

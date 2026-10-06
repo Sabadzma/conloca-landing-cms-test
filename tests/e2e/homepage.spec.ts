@@ -13,7 +13,7 @@ test.beforeEach(async ({ page }) => {
   )
 })
 
-test("hydrates four islands with no asset, page, or hydration errors", async ({
+test("hydrates the header island and CMS blocks without errors", async ({
   page,
 }) => {
   const errors: string[] = []
@@ -38,7 +38,19 @@ test("hydrates four islands with no asset, page, or hydration errors", async ({
   })
   await page.goto("/")
   await expect(page.locator("astro-island[ssr]")).toHaveCount(0)
-  await expect(page.locator('astro-island[client="load"]')).toHaveCount(4)
+  // Only the header hydrates through an Astro island. Page sections are CMS
+  // blocks hydrated from [data-hydrate] markers, whose attributes the runtime
+  // removes after hydration — assert them on the raw SSR HTML instead.
+  await expect(page.locator('astro-island[client="load"]')).toHaveCount(1)
+  const ssrHtml = await (await page.request.get("/")).text()
+  expect(
+    [...ssrHtml.matchAll(/data-hydrate="([^"]+)"/g)].map((match) => match[1]),
+  ).toEqual([
+    "HeroSection",
+    "FeaturesSection",
+    "CapabilitiesSection",
+    "PricingSection",
+  ])
   expect(
     await page
       .locator("footer")
@@ -79,7 +91,9 @@ test("keeps hero and features synchronized and resets manual carousel selection"
   await expect(page.locator("h1")).toHaveText(
     "Build and edit pages visually without touching the codebase",
   )
-  await expect(page.locator(".audience-sections")).toHaveAttribute(
+  // Hero and features each carry the audience CSS-variable wrapper; both
+  // reflect the shared selection.
+  await expect(page.locator(".audience-sections").first()).toHaveAttribute(
     "data-audience",
     "editors",
   )

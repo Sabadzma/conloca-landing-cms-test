@@ -6,15 +6,16 @@ reads the same guide.
 
 ## What this repo is
 
-The Conloca marketing landing page: a statically generated single page. There is no
-server at runtime — `bun run build` emits a `dist/` directory of static files.
+The Conloca marketing landing page, managed by the Conloca CMS. `bun run dev`
+serves the site plus the editor at `/__cms`; `bun run build` prerenders all pages
+into `dist/client/` and emits a node server bundle in `dist/server/`.
 
 ## Stack
 
 | Concern        | Choice                                                            |
 | -------------- | ----------------------------------------------------------------- |
 | Package manager| bun                                                               |
-| Framework      | Astro 7, static output, official Vite 8                         |
+| Framework      | Astro 7, server output (node adapter), official Vite 8        |
 | React plugin   | `@astrojs/react` owns the site transform; plugin-react 5 for tools |
 | Linter         | `oxlint` (Oxc). There is no ESLint.                                |
 | UI framework   | React 19                                                          |
@@ -23,7 +24,9 @@ server at runtime — `bun run build` emits a `dist/` directory of static files.
 | Types          | TypeScript, `strict` plus `exactOptionalPropertyTypes`             |
 
 Use official Vite with normal caret ranges and commit exact resolutions in `bun.lock`.
-Do not add Vite aliases or forced overrides. React and React DOM resolve together
+Do not add Vite aliases or forced overrides. One documented exception exists:
+`@vitejs/plugin-react` is pinned flat to `^5.2.0` for `@conloca/astro-cms`'s peer
+range (see `docs/astro-migration.md`). React and React DOM resolve together
 at 19.2.8; Storybook packages stay aligned at 10.6.0. Bun 1.3.14 runs scripts and
 installs dependencies; use Node 22.14.0 from `.nvmrc` (minimum 22.12.0).
 Astro owns its React transform. Storybook and Vitest use separate plugin instances
@@ -43,26 +46,34 @@ bun run test:e2e   # Playwright against the production build
 bun run build-storybook # static design-system catalog
 ```
 
-## How static generation works
+## How the CMS architecture works
 
-Astro owns the document, routes, static generation, and hydration. `src/pages/index.astro`
-composes the homepage through `src/layouts/site-layout.astro`. Import `src/index.css`
-before global `src/homepage.css` so tokens and fonts precede page rules.
+The site runs the Conloca CMS (`@conloca/astro-cms`). Content lives in `content/`
+(Git-backed); editors work in the Puck editor at `/__cms` under `bun run dev`;
+`bun run build` prerenders every page from that content into `dist/client/`.
+Astro config is `output: "server"` with the standalone node adapter. See
+`docs/conloca-cms-integration.md` for the full contract.
 
-The header, `AudienceSections`, and `PricingSection` use `client:load`; their initial
-HTML is generated at build time. Capabilities and footer are static React components
-with no hydration directive. Do not use `client:only`. Browser APIs belong in
-effects or event handlers because every section must render without a DOM.
+Pages render through one injected catch-all route (`/[...slug]`, collection
+`pages`) handled by the CMS page handler with `src/layouts/site-layout.astro`.
+The layout loads `navigation`/`footer` data entries via content collections and
+zod schemas in `src/schemas/data.ts`. Import `src/index.css` before global page
+CSS so tokens and fonts precede page rules.
+
+Page bodies are Puck blocks in `src/puck/blocks/`, registered in
+`src/puck.config.tsx`. Interactive blocks (audience, capabilities, pricing,
+pricing-page, how-it-works) wrap their render in `withHydration`; the CMS
+prerenders `[data-hydrate]` markers and the layout loads the hydration entry only
+when markers exist. Hydratable block files must be named after their block key
+(`audience-sections.tsx` → `AudienceSections`) so the scanner-derived registry key
+matches the marker. Do not use `client:only`. Browser APIs belong in effects or
+event handlers because every section must render without a DOM.
 
 Keep hero and feature audience state in `AudienceSections`, with ordinary props and
-callbacks to reusable children. Its wrapper owns audience CSS variables. Keep
-editable text, links, metadata, poster details, and prices in `src/homepage-content.ts`;
-section props are typed and content is serializable. Keep tokens, layout, icons, and
-runtime callbacks in component code. Sections must not depend on Astro or a CMS.
-
-Conloca CMS is intentionally not installed. Future integration must register the
-React blocks, map typed content to its storage, and provide the editor's required
-server runtime. See `docs/astro-migration.md` for the deferred compatibility issue.
+callbacks to reusable children. Its wrapper owns audience CSS variables. Canonical
+editable copy lives in block `defaultProps` (mirrored into `content/`); section
+props are typed and content is serializable. Keep tokens, layout, icons, and
+runtime callbacks in component code. Sections must not depend on Astro or the CMS.
 
 ## Component foundation
 

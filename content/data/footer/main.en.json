@@ -1,0 +1,41 @@
+{
+	"id": "footer",
+	"type": "json",
+	"created": "2026-10-05T00:00:00.000Z",
+	"modified": "2026-10-05T00:00:00.000Z",
+	"meta": {
+		"title": "Main footer"
+	},
+	"data": {
+		"navigationItems": [
+			{
+				"label": "How it works",
+				"url": "/how-it-works"
+			},
+			{
+				"label": "Docs",
+				"url": "https://conloca.com/getting-started/",
+				"newTab": true
+			},
+			{
+				"label": "Pricing",
+				"url": "/pricing"
+			},
+			{
+				"label": "Blog",
+				"url": "/blog"
+			},
+			{
+				"label": "Terms",
+				"url": "/terms"
+			}
+		],
+		"action": {
+			"label": "Get started",
+			"url": "/"
+		},
+		"logoUrl": "/",
+		"logoLabel": "Conloca home",
+		"navigationLabel": "Footer navigation"
+	}
+}

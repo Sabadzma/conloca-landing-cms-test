@@ -1,0 +1,153 @@
+{
+  "created": "2026-10-05T00:00:00.000Z",
+  "id": "blog",
+  "meta": {
+    "description": "Field notes, practical guides, and honest conversations about building visual editing into modern developer workflows.",
+    "title": "Conloca Blog — Notes on content, code, and the space between"
+  },
+  "modified": "2026-10-05T00:00:00.000Z",
+  "type": "puck",
+  "content": {
+    "puckData": {
+      "content": [
+        {
+          "props": {
+            "id": "BlogHeroSection-blog-0",
+            "compactBreadcrumbs": [
+              {
+                "text": "Stories"
+              },
+              {
+                "text": "Insights"
+              },
+              {
+                "text": "Updates"
+              }
+            ],
+            "description": "Field notes, practical guides, and honest conversations about building visual editing into modern developer workflows.",
+            "dispatchLabel": "Conloca dispatch",
+            "heading": "Notes on content, code, and the space between",
+            "largeBreadcrumbs": [
+              {
+                "text": "Home"
+              },
+              {
+                "text": "Stories"
+              },
+              {
+                "text": "Updates"
+              }
+            ],
+            "mobileHeading": "Notes from space between code and content"
+          },
+          "type": "BlogHeroSection"
+        },
+        {
+          "props": {
+            "id": "BlogListingSection-blog-1",
+            "articles": [
+              {
+                "compactDescription": {
+                  "emphasis": "",
+                  "emphasisFirst": "false",
+                  "supporting": ""
+                },
+                "date": "September 2026",
+                "description": {
+                  "emphasis": "And how bringing content into Git creates a faster, safer, more connected way to publish.",
+                  "emphasisFirst": "false",
+                  "supporting": "Talking about modern content workflows, why they fall apart across CMSs, docs, chats, and code. "
+                },
+                "id": "content-systems",
+                "image": {
+                  "height": 1620,
+                  "src": "/assets/blog-content-systems.jpg",
+                  "width": 2880
+                },
+                "layout": "full",
+                "readTime": "4 min read",
+                "title": "One change shouldn't get lost across three systems",
+                "url": "/blog/one-change-across-three-systems"
+              },
+              {
+                "compactDescription": {
+                  "emphasis": "And how bringing content into Git creates a faster, safer, more connected way to publish.",
+                  "emphasisFirst": "false",
+                  "supporting": "Talking about modern content workflows, why they fall apart across CMSs, docs, chats, and code. "
+                },
+                "date": "September 2026",
+                "description": {
+                  "emphasis": "Exploring how visual editing can give marketers the freedom to move faster without sacrificing developer control.",
+                  "emphasisFirst": "true",
+                  "supporting": " Keeping code, components, design systems, Git history, and Astro performance intact while giving teams a simpler path from idea to published page."
+                },
+                "id": "edit-control",
+                "image": {
+                  "height": 1620,
+                  "src": "/assets/blog-edit-control.jpg",
+                  "width": 2880
+                },
+                "layout": "split",
+                "readTime": "4 min read",
+                "title": "Edit what you see, without losing control of your code",
+                "url": "/blog/edit-what-you-see"
+              },
+              {
+                "compactDescription": {
+                  "emphasis": "",
+                  "emphasisFirst": "false",
+                  "supporting": ""
+                },
+                "date": "September 2026",
+                "description": {
+                  "emphasis": "And how bringing content into Git creates a faster, safer, more connected way to publish.",
+                  "emphasisFirst": "false",
+                  "supporting": "Talking about modern content workflows, why they fall apart across CMSs, docs, chats, and code. "
+                },
+                "id": "systems-repeat",
+                "image": {
+                  "height": 1620,
+                  "src": "/assets/blog-systems-repeat.jpg",
+                  "width": 2880
+                },
+                "layout": "full",
+                "readTime": "4 min read",
+                "title": "One change shouldn't get lost across three systems",
+                "url": "/blog/one-change-across-three-systems"
+              },
+              {
+                "compactDescription": {
+                  "emphasis": "And how bringing content into Git creates a faster, safer, more connected way to publish.",
+                  "emphasisFirst": "false",
+                  "supporting": "Talking about modern content workflows, why they fall apart across CMSs, docs, chats, and code. "
+                },
+                "date": "September 2026",
+                "description": {
+                  "emphasis": "Exploring how visual editing can give marketers the freedom to move faster without sacrificing developer control.",
+                  "emphasisFirst": "true",
+                  "supporting": " Keeping code, components, design systems, Git history, and Astro performance intact while giving teams a simpler path from idea to published page."
+                },
+                "id": "edit-repeat",
+                "image": {
+                  "height": 1620,
+                  "src": "/assets/blog-edit-repeat.jpg",
+                  "width": 2880
+                },
+                "layout": "split",
+                "readTime": "4 min read",
+                "title": "Edit what you see, without losing control of your code",
+                "url": "/blog/edit-what-you-see"
+              }
+            ],
+            "navigationLabel": "Blog articles"
+          },
+          "type": "BlogListingSection"
+        }
+      ],
+      "root": {
+        "props": {}
+      },
+      "zones": {}
+    }
+  }
+}

@@ -1,17 +1,45 @@
-import { existsSync } from "node:fs"
+import { existsSync, readFileSync } from "node:fs"
 import { cleanup, render, screen } from "@testing-library/react"
 import { afterEach, describe, expect, it } from "vitest"
-import { articlePageContent } from "@/article-page-content"
-import { blogListingContent } from "@/blog-content"
 import { ArticlePageSections } from "@/sections/article-page-sections"
-import { visualEditingArticlePageContent } from "@/visual-editing-article-content"
+import {
+  articlePageSectionsDefaultProps,
+  mapArticlePageSectionsProps,
+  type ArticlePageSectionsBlockProps,
+} from "@/puck/blocks/article-page-sections-block"
+import {
+  BlogListingSectionBlock,
+  mapBlogListingSectionProps,
+} from "@/puck/blocks/blog-listing-section-block"
+
+// Canonical copy lives in the block defaultProps and the seeded CMS content
+// files after the CMS cutover.
+const articlePageContent = mapArticlePageSectionsProps(
+  articlePageSectionsDefaultProps,
+)
+if (!BlogListingSectionBlock.defaultProps)
+  throw new Error("BlogListingSectionBlock has no defaultProps")
+const blogListingContent = mapBlogListingSectionProps(
+  BlogListingSectionBlock.defaultProps,
+)
+// The second article's canonical copy is its seeded CMS entry; the block only
+// carries defaultProps for the first article.
+const visualEditingArticlePageContent = mapArticlePageSectionsProps(
+  (JSON.parse(
+    readFileSync(
+      "content/default/pages/blog/edit-what-you-see.en.vxjson",
+      "utf8",
+    ),
+  ) as { content: { puckData: { content: { props: ArticlePageSectionsBlockProps }[] } } })
+    .content.puckData.content[0].props,
+)
 
 afterEach(() => {
   cleanup()
 })
 
 function pagePathFor(url: string) {
-  return `src/pages${url}.astro`
+  return `content/default/pages${url}.en.vxjson`
 }
 
 describe("Conloca article page", () => {
@@ -84,7 +112,7 @@ describe("Conloca article page", () => {
     ).toHaveAttribute("href", "/blog/one-change-across-three-systems")
   })
 
-  it("has an Astro page for every published article URL", () => {
+  it("has a CMS post entry for every published article URL", () => {
     const urls = new Set([
       ...blogListingContent.articles.map((article) => article.url),
       ...articlePageContent.related.stories.map((story) => story.url),

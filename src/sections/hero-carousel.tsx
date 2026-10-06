@@ -6,7 +6,7 @@ import {
   type MouseEvent,
 } from "react"
 import { ConlocaCarouselProgress } from "@conloca-design-system/components/conloca-carousel-progress"
-import type { HeroContent, HeroMessages } from "@/homepage-content"
+import type { HeroContent, HeroMessages } from "./audience-hero"
 import { useCarouselPlayback } from "@/use-carousel-playback"
 
 export function HeroCarousel({

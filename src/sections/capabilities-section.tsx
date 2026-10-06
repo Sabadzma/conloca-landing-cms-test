@@ -1,6 +1,21 @@
 import { useEffect, useRef } from "react"
 import { BentoLottie } from "@/sections/bento-lottie"
-import type { CapabilitiesContent } from "@/homepage-content"
+export interface CapabilitiesContent {
+  heading: string
+  subheading: string
+  items: readonly {
+    name:
+      | "publishing"
+      | "git"
+      | "data"
+      | "fragments"
+      | "media"
+      | "markdown"
+      | "history"
+    title: string
+    description: string
+  }[]
+}
 
 export interface CapabilitiesSectionProps {
   content: CapabilitiesContent

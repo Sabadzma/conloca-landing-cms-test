@@ -1,4 +1,4 @@
-import type { Audience, AudienceOption } from "@/homepage-content"
+import type { Audience, AudienceOption } from "./audience"
 
 export interface AudienceControlProps {
   audience: Audience

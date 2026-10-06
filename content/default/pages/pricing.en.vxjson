@@ -1,0 +1,424 @@
+{
+	"created": "2026-10-05T00:00:00.000Z",
+	"id": "pricing",
+	"meta": {
+		"description": "Compare Conloca plans, team limits, storage, governance, and support.",
+		"title": "Conloca Pricing — Plans for every team"
+	},
+	"modified": "2026-10-05T19:51:30.068Z",
+	"type": "puck",
+	"content": {
+		"puckData": {
+			"root": {
+				"props": {}
+			},
+			"content": [
+				{
+					"type": "PricingPageHero",
+					"props": {
+						"breadcrumbs": {
+							"first": "Pricing",
+							"second": "Plans"
+						},
+						"heading": "Choose a plan that fits you the best",
+						"description": "Compare Conloca plans, team limits, storage, governance, and support.",
+						"billingLabel": "Billing interval",
+						"billingOptions": [
+							{
+								"label": "Monthly",
+								"value": "monthly"
+							},
+							{
+								"label": "Annual",
+								"value": "annual"
+							}
+						],
+						"id": "PricingPageHero-pricing-0"
+					}
+				},
+				{
+					"type": "PricingPagePlans",
+					"props": {
+						"currency": "$",
+						"intervals": {
+							"monthly": "/ Month",
+							"annual": "/ Year"
+						},
+						"bestValueLabel": "Best value",
+						"plans": [
+							{
+								"name": "Simple",
+								"featured": "false",
+								"action": {
+									"label": "Choose simple",
+									"url": "/"
+								},
+								"price": 8,
+								"description": "For small teams getting their site off the ground",
+								"features": [
+									{
+										"text": "3 seats included ($5 per additional seat)"
+									},
+									{
+										"text": "5 seats max"
+									},
+									{
+										"text": "1 repository"
+									},
+									{
+										"text": "1GB repository storage"
+									},
+									{
+										"text": "1GB media storage"
+									}
+								]
+							},
+							{
+								"name": "Pro",
+								"featured": "true",
+								"action": {
+									"label": "Choose pro",
+									"url": "/"
+								},
+								"price": 15,
+								"description": "For growing teams shipping content more often",
+								"features": [
+									{
+										"text": "10 seats included ($7 per additional seat)"
+									},
+									{
+										"text": "20 seats max"
+									},
+									{
+										"text": "Unlimited repositories"
+									},
+									{
+										"text": "20GB repository storage"
+									},
+									{
+										"text": "100GB media storage"
+									},
+									{
+										"text": "Choose data residency (US/EU)"
+									},
+									{
+										"text": "Basic access control"
+									},
+									{
+										"text": "Support"
+									}
+								]
+							},
+							{
+								"name": "Business",
+								"featured": "false",
+								"action": {
+									"label": "Choose business",
+									"url": "/"
+								},
+								"price": 200,
+								"description": "For larger teams managing sites, brands & markets",
+								"features": [
+									{
+										"text": "30 seats included ($10 per additional seat)"
+									},
+									{
+										"text": "No seat limit"
+									},
+									{
+										"text": "Unlimited repositories"
+									},
+									{
+										"text": "30GB repository storage"
+									},
+									{
+										"text": "1TB media storage"
+									},
+									{
+										"text": "Choose data residency (US/EU)"
+									},
+									{
+										"text": "Advanced access control and Audit trail"
+									},
+									{
+										"text": "Priority support"
+									}
+								]
+							}
+						],
+						"id": "PricingPagePlans-pricing-1"
+					}
+				},
+				{
+					"type": "PricingPageComparison",
+					"props": {
+						"eyebrow": "Detailed comparison",
+						"heading": "Compare every limit and capability",
+						"billingLabel": "Comparison billing interval",
+						"leadColumnLabel": "What your team gets",
+						"actionLabels": [
+							{
+								"text": "Choose simple"
+							},
+							{
+								"text": "Choose pro"
+							},
+							{
+								"text": "Choose business"
+							}
+						],
+						"groups": [
+							{
+								"label": "Team",
+								"rows": [
+									{
+										"label": "Seats included",
+										"values": [
+											{
+												"text": "3 seats"
+											},
+											{
+												"text": "10 seats"
+											},
+											{
+												"text": "30 seats"
+											}
+										]
+									},
+									{
+										"label": "Additional seat",
+										"values": [
+											{
+												"text": "$5 / seat"
+											},
+											{
+												"text": "$7 / seat"
+											},
+											{
+												"text": "$10 / seat"
+											}
+										]
+									},
+									{
+										"label": "Seat limit",
+										"values": [
+											{
+												"text": "5 seats"
+											},
+											{
+												"text": "20 seats"
+											},
+											{
+												"text": "No limit"
+											}
+										]
+									}
+								]
+							},
+							{
+								"label": "Repositories",
+								"rows": [
+									{
+										"label": "Repositories",
+										"values": [
+											{
+												"text": "1"
+											},
+											{
+												"text": "Unlimited"
+											},
+											{
+												"text": "Unlimited"
+											}
+										]
+									}
+								]
+							},
+							{
+								"label": "Storage",
+								"rows": [
+									{
+										"label": "Repository storage",
+										"values": [
+											{
+												"text": "1GB"
+											},
+											{
+												"text": "20GB"
+											},
+											{
+												"text": "30GB"
+											}
+										]
+									},
+									{
+										"label": "Media storage",
+										"values": [
+											{
+												"text": "1GB"
+											},
+											{
+												"text": "100GB"
+											},
+											{
+												"text": "1TB"
+											}
+										]
+									}
+								]
+							},
+							{
+								"label": "Governance & support",
+								"rows": [
+									{
+										"label": "Choose data residency (US/EU)",
+										"values": [
+											{
+												"text": "—"
+											},
+											{
+												"text": "Included"
+											},
+											{
+												"text": "Included"
+											}
+										]
+									},
+									{
+										"label": "Access control",
+										"values": [
+											{
+												"text": "—"
+											},
+											{
+												"text": "Basic"
+											},
+											{
+												"text": "Advanced"
+											}
+										]
+									},
+									{
+										"label": "Audit trail",
+										"values": [
+											{
+												"text": "—"
+											},
+											{
+												"text": "—"
+											},
+											{
+												"text": "Included"
+											}
+										]
+									},
+									{
+										"label": "Support",
+										"values": [
+											{
+												"text": "—"
+											},
+											{
+												"text": "Included"
+											},
+											{
+												"text": "Priority"
+											}
+										]
+									}
+								]
+							}
+						],
+						"billingOptions": [
+							{
+								"label": "Monthly",
+								"value": "monthly"
+							},
+							{
+								"label": "Annual",
+								"value": "annual"
+							}
+						],
+						"currency": "$",
+						"intervals": {
+							"monthly": "/ Month",
+							"annual": "/ Year"
+						},
+						"bestValueLabel": "Best value",
+						"plans": [
+							{
+								"name": "Simple",
+								"featured": "false",
+								"action": {
+									"label": "Choose simple",
+									"url": "/"
+								},
+								"price": 8
+							},
+							{
+								"name": "Pro",
+								"featured": "true",
+								"action": {
+									"label": "Choose pro",
+									"url": "/"
+								},
+								"price": 15
+							},
+							{
+								"name": "Business",
+								"featured": "false",
+								"action": {
+									"label": "Choose business",
+									"url": "/"
+								},
+								"price": 200
+							}
+						],
+						"id": "PricingPageComparison-pricing-2"
+					}
+				},
+				{
+					"type": "PricingPageAssistant",
+					"props": {
+						"heading": "Still not sure where to start?",
+						"description": "Still not sure about how Conloca suits your team or project? Ask an AI agent about it, or leave your mail to talk to our team.",
+						"actions": [
+							{
+								"label": "Ask ChatGPT",
+								"url": "https://chatgpt.com/?prompt=Explore+https%3A%2F%2Fconloca.com%2Fgetting-started%2F+and+https%3A%2F%2Fconloca.com%2Fhow-it-works%2F.+Explain+what+Conloca+is%2C+how+it+works%2C+and+why+a+team+might+prefer+it+over+a+traditional+CMS.&utm_source=chatgpt.com",
+								"icon": "chatgpt",
+								"newTab": "true"
+							},
+							{
+								"label": "Ask Claude",
+								"url": "https://claude.ai/new?q=Explore+https%3A%2F%2Fconloca.com%2Fgetting-started%2F+and+https%3A%2F%2Fconloca.com%2Fhow-it-works%2F.+Explain+what+Conloca+is%2C+how+it+works%2C+and+why+a+team+might+prefer+it+over+a+traditional+CMS.&utm_source=chatgpt.com",
+								"icon": "claude",
+								"newTab": "true"
+							},
+							{
+								"label": "Ask Gemini",
+								"url": "https://gemini.google.com/app?text=Explore+https%3A%2F%2Fconloca.com%2Fgetting-started%2F+and+https%3A%2F%2Fconloca.com%2Fhow-it-works%2F.+Explain+what+Conloca+is%2C+how+it+works%2C+and+why+a+team+might+prefer+it+over+a+traditional+CMS.&utm_source=chatgpt.com",
+								"icon": "gemini",
+								"newTab": "true"
+							},
+							{
+								"label": "Ask Grok",
+								"url": "https://grok.com/?q=Explore+https%3A%2F%2Fconloca.com%2Fgetting-started%2F+and+https%3A%2F%2Fconloca.com%2Fhow-it-works%2F.+Explain+what+Conloca+is%2C+how+it+works%2C+and+why+a+team+might+prefer+it+over+a+traditional+CMS.&utm_source=chatgpt.com",
+								"icon": "grok",
+								"newTab": "true"
+							},
+							{
+								"label": "Leave us a mail",
+								"url": "mailto:hello@conloca.com",
+								"icon": "mail",
+								"newTab": "false"
+							}
+						],
+						"id": "PricingPageAssistant-pricing-3"
+					}
+				}
+			],
+			"zones": {}
+		}
+	}
+}

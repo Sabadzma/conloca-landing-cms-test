@@ -5,12 +5,52 @@ import {
 import { ConlocaToc } from "@conloca-design-system/components/conloca-toc"
 import { useMemo } from "react"
 
-import type {
-  TermsBlock,
-  TermsPageContent,
-  TermsSection,
-  TermsSubsection,
-} from "@/terms-content"
+export interface TermsHeroContent {
+  breadcrumbs: readonly string[]
+  effectiveDate: string
+  effectiveDateLabel: string
+  documentLabel: string
+  documentName: string
+  title: string
+  description: string
+}
+
+export interface TermsDetail {
+  term: string
+  definition: string
+}
+
+export interface TermsSubsection {
+  number: string
+  title: string
+  paragraphs: readonly string[]
+  items?: readonly string[]
+}
+
+export type TermsBlock =
+  | { type: "paragraph"; text: string }
+  | { type: "list"; items: readonly string[] }
+  | { type: "definitions"; items: readonly TermsDetail[] }
+  | { type: "subsection"; subsection: TermsSubsection }
+
+export interface TermsSection {
+  id: string
+  tocTitle: string
+  title: string
+  blocks: readonly TermsBlock[]
+}
+
+export interface TermsPageContent {
+  hero: TermsHeroContent
+  body: {
+    tocLabel: string
+    intro: {
+      paragraphs: readonly string[]
+      details: readonly TermsDetail[]
+    }
+    sections: readonly TermsSection[]
+  }
+}
 
 export interface TermsPageSectionsProps {
   content: TermsPageContent
